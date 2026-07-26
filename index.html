@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="theme-color" content="#0a0c1e" />
+  <meta name="description" content="Книжные клубы России — события, клубы, подбор по вкусу" />
+  <title>Книжная Вселенная</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/@phosphor-icons/web@2.1.1" defer></script>
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+
+  <!-- App Shell -->
+  <div id="app">
+
+    <!-- ── Header ── -->
+    <header class="m-header">
+      <div class="m-header-inner">
+        <h1 class="m-logo"><i class="ph ph-books"></i> Книжная Вселенная</h1>
+        <div id="header-badge" class="m-header-badge hidden"></div>
+      </div>
+    </header>
+
+    <!-- ── Page: Events ── -->
+    <section id="page-events" class="m-page active" data-page="events">
+      <div class="m-page-header">
+        <h2 class="m-page-title"><i class="ph ph-calendar-check"></i> Предстоящие события</h2>
+        <div class="m-filters" id="events-filters">
+          <select id="filter-city" class="m-select">
+            <option value="">Все города</option>
+          </select>
+          <select id="filter-month" class="m-select">
+            <option value="">Все месяцы</option>
+          </select>
+        </div>
+      </div>
+      <div id="events-list" class="m-events-list"></div>
+    </section>
+
+    <!-- ── Page: Clubs ── -->
+    <section id="page-clubs" class="m-page" data-page="clubs">
+      <div id="clubs-list-view">
+        <div class="m-page-header">
+          <h2 class="m-page-title"><i class="ph ph-planet"></i> Книжные клубы</h2>
+        </div>
+        <div id="clubs-list" class="m-clubs-list"></div>
+      </div>
+
+      <!-- Club Detail View (hidden by default) -->
+      <div id="club-detail-view" class="hidden">
+        <div class="m-detail-header">
+          <button id="btn-clubs-back" class="m-back-btn">
+            <i class="ph ph-arrow-left"></i> Все клубы
+          </button>
+        </div>
+        <div id="club-detail-content"></div>
+      </div>
+    </section>
+
+    <!-- ── Page: Quiz ── -->
+    <section id="page-quiz" class="m-page" data-page="quiz">
+      <div id="quiz-container" class="m-quiz-container">
+        <!-- Rendered by quiz.js -->
+      </div>
+    </section>
+
+    <!-- ── Page: Search ── -->
+    <section id="page-search" class="m-page" data-page="search">
+      <div class="m-page-header">
+        <h2 class="m-page-title"><i class="ph ph-magnifying-glass"></i> Поиск</h2>
+        <div class="m-search-wrap">
+          <input id="search-input" class="m-search-input" type="search"
+            placeholder="Название или автор книги..." autocomplete="off" />
+        </div>
+      </div>
+      <div id="search-results" class="m-search-results">
+        <div class="m-search-hint">
+          <i class="ph ph-books"></i>
+          <p>Введите название книги или имя автора</p>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /#app -->
+
+  <!-- ── Bottom Navigation ── -->
+  <nav class="m-nav" id="bottom-nav">
+    <button class="m-nav-btn active" data-page="events" id="nav-events">
+      <i class="ph ph-calendar-check"></i>
+      <span>События</span>
+      <span class="m-nav-badge hidden" id="nav-events-badge"></span>
+    </button>
+    <button class="m-nav-btn" data-page="clubs" id="nav-clubs">
+      <i class="ph ph-planet"></i>
+      <span>Клубы</span>
+    </button>
+    <button class="m-nav-btn" data-page="quiz" id="nav-quiz">
+      <i class="ph ph-magic-wand"></i>
+      <span>Подобрать</span>
+    </button>
+    <button class="m-nav-btn" data-page="search" id="nav-search">
+      <i class="ph ph-magnifying-glass"></i>
+      <span>Найти</span>
+    </button>
+  </nav>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
