@@ -11,7 +11,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export default defineConfig({
   resolve: {
     alias: {
-      '@db': path.resolve(__dirname, '../book-club-universe/src/data/db.js'),
+      '@db': path.resolve(__dirname, './src/data/db.js'),
       '@desktop': path.resolve(__dirname, '../book-club-universe/src'),
     },
   },
