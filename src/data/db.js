@@ -20,6 +20,7 @@ const SEED = {
         { id: 'c6', name: 'Онлайн', population: 53600, color: '#33ddaa', hideSun: true },
         { id: 'c7', name: 'Онлайн', population: 1000000, color: '#f3b066', hideSun: true },
         { id: 'c8', name: 'Онлайн', population: 500000, color: '#cc88ff', hideSun: true },
+        { id: 'c9', name: 'Белград', population: 1700000, color: '#7ec8a0' },
     ],
     clubs: [
         // Real clubs
@@ -59,6 +60,7 @@ const SEED = {
             }
         },
         { id: 'cl24', name: 'Лама', cityId: 'c1', members: 2390, color: '#7ba7d4', memberLabel: 'подписчиков', hasLogo: true },
+        { id: 'cl25', name: 'Bukva Book Club', cityId: 'c9', members: 0, color: '#7ec8a0', hasLogo: true },
         { id: 'cl22', name: 'Читули', cityId: 'c1', members: 200, color: '#ff8c69', hasLogo: true,
             archetype: {
                 title: '🌍 «Клуб эпических историй»',
