@@ -48,11 +48,12 @@ function getLogoSrc(club) {
         cl1:  '/sok-logo.png',
         cl6:  '/chebykina-logo.png',
         cl7:  '/sok-ekb-logo.jpg',
-        cl8:  '/m-logo.jpg',
+        cl8:  '/svk-logo.jpg',       // Школа Великих книг
         cl9:  '/vsmysle-logo.png',
         cl12: '/dumay-logo.jpg',
+        cl13: '/career-logo.png',    // Институт карьерного роста
         cl15: '/sync-logo.jpg',
-        cl16: '/photo_2024-05-23_14-56-01.jpg',
+        cl16: '/m-logo.jpg',         // Шалость удалась — карта Мародёров
         cl17: '/mgu-logo.jpg',
         cl18: '/sok-spb-logo.jpg',
         cl20: '/logo-friend-book.jpg',
