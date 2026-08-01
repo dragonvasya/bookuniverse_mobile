@@ -1077,6 +1077,14 @@ const SEED = {
             meetingTime: '19:00',
             isAnniversary: true,
         },
+        {
+            id: 'b506', title: 'Увидимся в августе', author: 'Габриэль Гарсиа Маркес',
+            clubId: 'cl20', color: '#c8860a', year: 2026,
+            coverUrl: 'https://cdn.litres.ru/pub/c/cover/69778424.jpg',
+            meetingDate: '2026-08-17',
+            meetingTime: '19:00',
+            location: 'Екатеринбург',
+        },
         // ── Читули (cl22, Москва) ────────────────────────────────
         // Прочитанные книги 2025
         { id: 'b313', title: 'Авиатор', author: 'Евгений Водолазкин', clubId: 'cl22', color: '#334466', year: 2025, coverUrl: 'https://cv0.litres.ru/pub/c/cover/18910175.jpg', rating: 7.9 },
