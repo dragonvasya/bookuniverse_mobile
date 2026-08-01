@@ -502,6 +502,13 @@ const SEED = {
             meetingDate: '2026-06-29',
             registerUrl: 'https://online.synchronize.ru/literature/literaryclub',
         },
+        {
+            id: 'b806', title: 'Имя мне — красный', author: 'Орхан Памук',
+            clubId: 'cl15', color: '#c0392b', year: 2026,
+            coverUrl: 'https://cdn.litres.ru/pub/c/cover/8673867.jpg',
+            meetingDate: '2026-12-12',
+            registerUrl: 'https://online.synchronize.ru/literature/literaryclub',
+        },
         // Шалость удалась (Москва)
         {
             id: 'b60', title: 'Собиратели ракушек', author: 'Р. Пилчер', clubId: 'cl16', color: '#5599aa', year: 2026,
