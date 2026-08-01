@@ -1201,6 +1201,44 @@ const SEED = {
             meetingDate: '2026-07-30',
             registerUrl: 'https://lamabookclub.ru/#popup:start',
         },
+        // ── Bukva Book Club (cl25, Белград) ──────────────────────────
+        // Прочитанные книги 2026
+        { id: 'b800', title: 'Любите ли Вы Брамса?', author: 'Франсуаза Саган',
+            clubId: 'cl25', color: '#7a4e8c', year: 2026,
+            coverUrl: 'https://cdn.litres.ru/pub/c/cover/121819.jpg' },
+        { id: 'b801', title: 'Сезон отравленных плодов', author: 'Вера Богданова',
+            clubId: 'cl25', color: '#6a1f3a', year: 2026,
+            coverUrl: 'https://cv0.litres.ru/pub/c/cover/67176513.jpg' },
+        { id: 'b802', title: 'Кремулятор', author: 'Саша Филипенко',
+            clubId: 'cl25', color: '#2a2a2a', year: 2026,
+            coverUrl: 'https://cdn.litres.ru/pub/c/cover/67806672.jpg' },
+        // События
+        {
+            id: 'b803', title: 'Двадцать четыре часа из жизни женщины', author: 'Стефан Цвейг',
+            clubId: 'cl25', color: '#4a3060', year: 2026,
+            coverUrl: 'https://cdn.litres.ru/pub/c/cover/69472504.jpg',
+            meetingDate: '2026-08-01',
+            meetingTime: '15:00',
+            registerUrl: 'https://t.me/bukva_registration_bot',
+        },
+        {
+            id: 'b804', title: 'Книжный своп',
+            clubId: 'cl25', color: '#7ec8a0', year: 2026,
+            coverUrl: '/bukva.jpg',
+            meetingDate: '2026-08-15',
+            meetingTime: '15:00',
+            genreRibbon: 'Спецформат',
+            isAnniversary: true,
+            registerUrl: 'https://t.me/bukva_registration_bot',
+        },
+        {
+            id: 'b805', title: 'Утешение странников', author: 'Иэн Макьюэн',
+            clubId: 'cl25', color: '#2d4a5e', year: 2026,
+            coverUrl: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1499278081i/35606237._SX600_.jpg',
+            meetingDate: '2026-08-29',
+            meetingTime: '15:00',
+            registerUrl: 'https://t.me/bukva_registration_bot',
+        },
     ],
 
 };

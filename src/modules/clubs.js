@@ -61,7 +61,7 @@ function getLogoSrc(club) {
         cl22: '/chityli-logo.png',
         cl23: '/book-events-logo.jpg',
         cl24: '/lama-logo.jpg',
-        cl25: '/bukva-logo.png',   // Bukva Book Club, Белград
+        cl25: '/bukva.jpg',          // Bukva Book Club, Белград
     };
     return logoMap[club.id] || null;
 }
