@@ -1085,6 +1085,14 @@ const SEED = {
             meetingTime: '19:00',
             location: 'Екатеринбург',
         },
+        {
+            id: 'b507', title: 'Дневники княжон Романовых', author: 'Хелен Раппапорт',
+            clubId: 'cl20', color: '#7a3b2e', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-b/wc1000/6770247779.jpg',
+            meetingDate: '2026-08-24',
+            meetingTime: '19:00',
+            location: 'Екатеринбург',
+        },
         // ── Читули (cl22, Москва) ────────────────────────────────
         // Прочитанные книги 2025
         { id: 'b313', title: 'Авиатор', author: 'Евгений Водолазкин', clubId: 'cl22', color: '#334466', year: 2025, coverUrl: 'https://cv0.litres.ru/pub/c/cover/18910175.jpg', rating: 7.9 },
