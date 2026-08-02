@@ -1110,7 +1110,7 @@ const SEED = {
             location: 'Екатеринбург',
         },
         {
-            id: 'b507', title: 'Дневники княжон Романовых', author: 'Хелен Раппапорт',
+            id: 'b508', title: 'Дневники княжон Романовых', author: 'Хелен Раппапорт',
             clubId: 'cl20', color: '#7a3b2e', year: 2026,
             coverUrl: 'https://ir.ozone.ru/s3/multimedia-b/wc1000/6770247779.jpg',
             meetingDate: '2026-08-24',
@@ -1230,7 +1230,7 @@ const SEED = {
             coverUrl: 'https://cdn.litres.ru/pub/c/cover/121819.jpg' },
         { id: 'b801', title: 'Сезон отравленных плодов', author: 'Вера Богданова',
             clubId: 'cl25', color: '#6a1f3a', year: 2026,
-            coverUrl: 'https://cv0.litres.ru/pub/c/cover/67176513.jpg' },
+            coverUrl: 'https://cdn.litres.ru/pub/c/cover/67176513.jpg' },
         { id: 'b802', title: 'Кремулятор', author: 'Саша Филипенко',
             clubId: 'cl25', color: '#2a2a2a', year: 2026,
             coverUrl: 'https://cdn.litres.ru/pub/c/cover/67806672.jpg' },
@@ -1279,7 +1279,7 @@ const SEED = {
         {
             id: 'b811', title: 'Детство. Отрочество. Юность', author: 'Лев Толстой',
             clubId: 'cl26', color: '#4a6741', year: 2026,
-            coverUrl: 'https://cdn.litres.ru/pub/c/cover/71008729.jpg',
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-t/wc1000/7000413164.jpg',
             meetingDate: '2026-10-03',
             registerUrl: 'http://bookzclub.ru/',
         },
@@ -1293,7 +1293,7 @@ const SEED = {
         {
             id: 'b813', title: 'Бильярд в половине десятого', author: 'Генрих Бёлль',
             clubId: 'cl26', color: '#1a3a5c', year: 2026,
-            coverUrl: 'https://cdn.litres.ru/pub/c/cover/68707956.jpg',
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-s/wc1000/6980802731.jpg',
             meetingDate: '2026-11-28',
             registerUrl: 'http://bookzclub.ru/',
         },

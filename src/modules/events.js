@@ -175,7 +175,7 @@ function buildCard(book, club, city) {
     const meta = document.createElement('div');
     meta.className = 'm-ev-meta';
 
-    const locationText = book.location || (club?.isCentral ? 'Онлайн' : null);
+    const locationText = book.location || (club?.isCentral ? 'Онлайн' : city?.name || null);
     if (locationText) {
         const locEl = document.createElement('div');
         locEl.className = 'm-ev-location';
