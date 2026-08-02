@@ -1260,6 +1260,13 @@ const SEED = {
             registerUrl: 'https://t.me/bukva_registration_bot',
         },
         // ── Bookz Club (cl26, Москва) ────────────────────────────────
+        // Прочитанные книги 2026
+        {
+            id: 'b814', title: 'Музей невинности', author: 'Орхан Памук',
+            clubId: 'cl26', color: '#8b2a2a', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-6/wc1000/8355778242.jpg',
+            selectedDate: '2026-07',
+        },
         {
             id: 'b809', title: 'Невыносимая легкость бытия', author: 'Милан Кундера',
             clubId: 'cl26', color: '#7a5c8a', year: 2026,
