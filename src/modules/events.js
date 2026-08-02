@@ -147,6 +147,12 @@ function buildCard(book, club, city) {
     } else {
         coverWrap.appendChild(makePlaceholder());
     }
+    if (book.genreRibbon) {
+        const ribbon = document.createElement('div');
+        ribbon.className = 'm-ev-ribbon';
+        ribbon.textContent = book.genreRibbon;
+        coverWrap.appendChild(ribbon);
+    }
     card.appendChild(coverWrap);
 
     // ── Info ──

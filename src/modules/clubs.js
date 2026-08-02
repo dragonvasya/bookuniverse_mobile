@@ -336,6 +336,12 @@ function buildClubDetail(club, db) {
             } else {
                 item.appendChild(buildFallback(book));
             }
+            if (book.genreRibbon) {
+                const ribbon = document.createElement('div');
+                ribbon.className = 'm-book-ribbon';
+                ribbon.textContent = book.genreRibbon;
+                item.appendChild(ribbon);
+            }
             booksGrid.appendChild(item);
         });
     }

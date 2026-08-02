@@ -1279,6 +1279,8 @@ const SEED = {
             clubId: 'cl26', color: '#4a6741', year: 2026,
             coverUrl: 'https://ir.ozone.ru/s3/multimedia-t/wc1000/7000413164.jpg',
             meetingDate: '2026-10-03',
+            location: 'Тула',
+            genreRibbon: 'Спецформат',
             registerUrl: 'http://bookzclub.ru/',
         },
         {

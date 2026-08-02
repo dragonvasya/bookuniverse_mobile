@@ -276,6 +276,22 @@ html, body {
   width: 62px;
   flex-shrink: 0;
   overflow: hidden;
+  position: relative;
+}
+.m-ev-ribbon {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  color: #fff;
+  font-size: 7px;
+  font-weight: 700;
+  text-align: center;
+  padding: 3px 2px;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  z-index: 2;
 }
 .m-ev-cover img {
   width: 100%;
@@ -670,6 +686,21 @@ html, body {
   height: 100%;
   object-fit: cover;
   display: block;
+}
+.m-book-ribbon {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  color: #fff;
+  font-size: 7px;
+  font-weight: 700;
+  text-align: center;
+  padding: 3px 2px;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  z-index: 2;
 }
 .m-book-fallback {
   width: 100%;
