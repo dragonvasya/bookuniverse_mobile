@@ -757,7 +757,7 @@ const SEED = {
         {
             id: 'b507', title: 'Сезон отравленных плодов', author: 'Вера Богданова',
             clubId: 'cl18', color: '#6a1f3a', year: 2026,
-            coverUrl: 'https://cv0.litres.ru/pub/c/cover/67176513.jpg',
+            coverUrl: 'https://cdn.litres.ru/pub/c/cover/67176513.jpg',
             meetingDate: '2026-07-30',
             meetingTime: '19:00',
             location: '2 этаж, 201 переговорная',
@@ -1228,9 +1228,7 @@ const SEED = {
         { id: 'b800', title: 'Любите ли Вы Брамса?', author: 'Франсуаза Саган',
             clubId: 'cl25', color: '#7a4e8c', year: 2026,
             coverUrl: 'https://cdn.litres.ru/pub/c/cover/121819.jpg' },
-        { id: 'b801', title: 'Сезон отравленных плодов', author: 'Вера Богданова',
-            clubId: 'cl25', color: '#6a1f3a', year: 2026,
-            coverUrl: 'https://cdn.litres.ru/pub/c/cover/67176513.jpg' },
+        // b801 удалён — «Сезон отравленных плодов» Богдановой относится к cl18 (SOK СПб, b507)
         { id: 'b802', title: 'Кремулятор', author: 'Саша Филипенко',
             clubId: 'cl25', color: '#2a2a2a', year: 2026,
             coverUrl: 'https://cdn.litres.ru/pub/c/cover/67806672.jpg' },
