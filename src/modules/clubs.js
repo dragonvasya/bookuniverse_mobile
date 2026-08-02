@@ -62,6 +62,7 @@ function getLogoSrc(club) {
         cl23: '/book-events-logo.jpg',
         cl24: '/lama-logo.jpg',
         cl25: '/bukva.jpg',          // Bukva Book Club, Белград
+        cl26: '/bookz.jpg',          // Bookz Club, Москва
     };
     return logoMap[club.id] || null;
 }

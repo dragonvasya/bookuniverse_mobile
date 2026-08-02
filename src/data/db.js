@@ -61,6 +61,7 @@ const SEED = {
         },
         { id: 'cl24', name: 'Лама', cityId: 'c1', members: 2390, color: '#7ba7d4', memberLabel: 'подписчиков', hasLogo: true },
         { id: 'cl25', name: 'Bukva Book Club', cityId: 'c9', members: 0, color: '#7ec8a0', hasLogo: true },
+        { id: 'cl26', name: 'Bookz Club', cityId: 'c1', members: 322, color: '#c4a99a', hasLogo: true },
         { id: 'cl22', name: 'Читули', cityId: 'c1', members: 200, color: '#ff8c69', hasLogo: true,
             archetype: {
                 title: '🌍 «Клуб эпических историй»',
@@ -1259,6 +1260,13 @@ const SEED = {
             meetingDate: '2026-08-29',
             meetingTime: '15:00',
             registerUrl: 'https://t.me/bukva_registration_bot',
+        },
+        // ── Bookz Club (cl26, Москва) ────────────────────────────────
+        {
+            id: 'b809', title: 'Невыносимая легкость бытия', author: 'Милан Кундера',
+            clubId: 'cl26', color: '#7a5c8a', year: 2026,
+            coverUrl: 'https://cdn.litres.ru/pub/c/cover/133165.jpg',
+            meetingDate: '2026-08-15',
         },
     ],
 
