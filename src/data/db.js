@@ -503,6 +503,13 @@ const SEED = {
             registerUrl: 'https://online.synchronize.ru/literature/literaryclub',
         },
         {
+            id: 'b807', title: 'Женщина в белом', author: 'Уилки Коллинз',
+            clubId: 'cl15', color: '#e8e8e8', year: 2026,
+            coverUrl: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1678279232i/84445105._SX600_.jpg',
+            meetingDate: '2026-11-12',
+            registerUrl: 'https://online.synchronize.ru/literature/literaryclub',
+        },
+        {
             id: 'b806', title: 'Имя мне — красный', author: 'Орхан Памук',
             clubId: 'cl15', color: '#c0392b', year: 2026,
             coverUrl: 'https://cdn.litres.ru/pub/c/cover/8673867.jpg',
