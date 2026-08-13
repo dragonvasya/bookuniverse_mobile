@@ -4,7 +4,7 @@
  * books can have optional coverUrl for a real image.
  */
 
-const STORAGE_KEY = 'book-club-universe-v100';
+const STORAGE_KEY = 'book-club-universe-v101';
 
 const SEED = {
     venues: [
@@ -186,6 +186,37 @@ const SEED = {
         { id: 'b490', title: 'Поток', author: 'Михай Чиксентмихайи', clubId: 'cl23', color: '#2a2a4a', year: 2025 },
         { id: 'b491', title: 'Воспоминания о прошлом земли', author: 'Лю Цысинь', clubId: 'cl23', color: '#4a1a1a', year: 2025 },
         { id: 'b492', title: 'Властелин колец', author: 'Дж.Р.Р. Толкин', clubId: 'cl23', color: '#1a3a1a', year: 2025 },
+        // Book Events — события 2026
+        {
+            id: 'b826', title: 'Литературный бранч «Я — читатель»',
+            clubId: 'cl23', color: '#f5a2b3', year: 2026,
+            meetingDate: '2026-08-05',
+            registerUrl: 'https://bookevents.ru',
+            genreRibbon: 'Спецформат',
+        },
+        {
+            id: 'b827', title: 'Плоды земли', author: 'Кнут Гамсун',
+            clubId: 'cl23', color: '#f5a2b3', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-2/wc1000/6253011854.jpg',
+            meetingDate: '2026-08-08',
+            registerUrl: 'https://bookevents.ru',
+            direction: 'Классическое направление',
+        },
+        {
+            id: 'b828', title: 'Книги перемен',
+            clubId: 'cl23', color: '#f5a2b3', year: 2026,
+            meetingDate: '2026-08-23',
+            registerUrl: 'https://bookevents.ru',
+            genreRibbon: 'Спецформат',
+        },
+        {
+            id: 'b829', title: 'Анабарская сказка', author: 'Виктор Ремизов',
+            clubId: 'cl23', color: '#f5a2b3', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-y/wc1000/9857850298.jpg',
+            meetingDate: '2026-08-29',
+            registerUrl: 'https://bookevents.ru',
+            direction: 'Современное направление',
+        },
         // SOK real books with cover images
         {
             id: 'b1', title: 'Граф Монте-Кристо. Том 1', author: 'А. Дюма', clubId: 'cl1', color: '#8B0000', year: 2025,
@@ -690,7 +721,7 @@ const SEED = {
             id: 'b120', title: 'Шантарам', author: 'Грегори Дэвид Робертс', clubId: 'cl1', color: '#cc5522', year: 2026,
             coverUrl: '/cover-shantaram.jpg',
             selectedDate: '2026-05-04',
-            meetingDate: '2026-08-01',
+            meetingDate: '2026-08-27',
             meetingTime: '19:00',
             location: 'SOK Рыбаков Тауэр, 103 переговорная',
             registerUrl: 'https://my.sok.works/uu/#/booking/coworking-events'
@@ -699,6 +730,15 @@ const SEED = {
             id: 'b501', title: 'Нетворкинг для разведчиков. Как извлечь пользу из любого знакомства', author: 'Андрей Безруков', clubId: 'cl1', color: '#bb44ff', year: 2026,
             coverUrl: 'https://cdn.litres.ru/pub/c/cover/66635352.jpg',
             meetingDate: '2026-07-30',
+            meetingTime: '19:00',
+            location: 'SOK Рыбаков Тауэр, 103 переговорная',
+            registerUrl: 'https://my.sok.works/uu/#/booking/coworking-events'
+        },
+        {
+            id: 'b830', title: 'Накопительный эффект', author: 'Даррен Харди',
+            clubId: 'cl1', color: '#bb44ff', year: 2026,
+            coverUrl: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1744194599i/231210719._SX600_.jpg',
+            meetingDate: '2026-09-25',
             meetingTime: '19:00',
             location: 'SOK Рыбаков Тауэр, 103 переговорная',
             registerUrl: 'https://my.sok.works/uu/#/booking/coworking-events'
@@ -725,7 +765,7 @@ const SEED = {
             id: 'b504', title: 'Рассечение Стоуна', author: 'Абрахам Вергезе',
             clubId: 'cl10', color: '#3a5f7a', year: 2026,
             coverUrl: 'https://cdn.litres.ru/pub/c/cover/19038244.jpg',
-            meetingDate: '2026-08-13',
+            meetingDate: '2026-08-26',
             meetingTime: '18:30',
             location: 'Технопарк «Сколково», капсула №2',
             registerUrl: 'https://bookclubsk1177.events.sk.ru/',
@@ -898,11 +938,27 @@ const SEED = {
         { id: 'b115', title: 'Эдем', author: 'Аудур Ава Олафсдоттир', clubId: 'cl21', color: '#cc88ff', year: 2026, statsOnly: true },
         { id: 'b116', title: 'Хроники пепельной весны. Магма ведьм', author: 'Анна Старобинец', clubId: 'cl21', color: '#cc88ff', year: 2026, statsOnly: true },
         { id: 'b117', title: 'Мга', author: 'Дарья Промч', clubId: 'cl21', color: '#cc88ff', year: 2026, statsOnly: true },
+        { id: 'b815', title: 'Память о наших мечтах', author: 'Кентен Шарье', clubId: 'cl21', color: '#cc88ff', year: 2026, statsOnly: true,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-x/wc1000/12261583293.jpg', meetingDate: '2026-07-26' },
+        { id: 'b816', title: 'Когда заходит солнце. Семейство Томаса Манна в Санари', author: 'Флориан Иллиес', clubId: 'cl21', color: '#cc88ff', year: 2026, statsOnly: true },
+        { id: 'b817', title: 'Dendrarium. Пять садов заключённого Дягтерева', author: '', clubId: 'cl21', color: '#cc88ff', year: 2026, statsOnly: true },
+        { id: 'b818', title: 'Луч', author: 'Даниил Туровский', clubId: 'cl21', color: '#cc88ff', year: 2026, statsOnly: true,
+            coverUrl: 'https://individuum.ru/upload/iblock/cfa/l8rmqzqqezrubdzd3wude9rlmintmzgs.png', meetingDate: '2026-06-28' },
+        { id: 'b819', title: 'Ручная кладь', author: 'Алёна Кирсанова', clubId: 'cl21', color: '#cc88ff', year: 2026, statsOnly: true,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-r/wc1000/9396842859.jpg' },
+        { id: 'b820', title: 'Гурии', author: 'Камель Дауд', clubId: 'cl21', color: '#cc88ff', year: 2026, statsOnly: true,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-4/wc1000/11676311896.jpg' },
+        { id: 'b821', title: 'Комо', author: 'Срджан Валяревич', clubId: 'cl21', color: '#cc88ff', year: 2026, statsOnly: true,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-8/wc1000/10215469952.jpg' },
+        { id: 'b822', title: 'Только дальний свет фар', author: 'Илья Мамаев-Найлз', clubId: 'cl21', color: '#cc88ff', year: 2026, statsOnly: true,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-q/wc1000/9189654830.jpg', meetingDate: '2026-05-31' },
+        { id: 'b823', title: 'Нам нужны новые имена', author: 'НоВайолет Булавайо', clubId: 'cl21', color: '#cc88ff', year: 2026, statsOnly: true,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-j/wc1000/12945260647.jpg', meetingDate: '2026-05-03' },
         { id: 'b118', title: 'Сценаристка', author: 'Светлана Павлова', clubId: 'cl21', color: '#cc88ff', year: 2025, statsOnly: true },
         { id: 'b119', title: 'Желтые обои. Женландия', author: 'Шарлотта Перкинс Гилман', clubId: 'cl21', color: '#cc88ff', year: 2025, statsOnly: true },
-        { id: 'b120', title: 'Центр принятия и адаптации', author: 'Ольга Дмитриева', clubId: 'cl21', color: '#cc88ff', year: 2025, statsOnly: true },
+        { id: 'bm120', title: 'Центр принятия и адаптации', author: 'Ольга Дмитриева', clubId: 'cl21', color: '#cc88ff', year: 2025, statsOnly: true },
         { id: 'b121', title: 'Terra nullius', author: 'Егана Джаббарова', clubId: 'cl21', color: '#cc88ff', year: 2025, statsOnly: true },
-        { id: 'b122', title: 'Плакальщица', author: 'Вэньянь Лу', clubId: 'cl21', color: '#cc88ff', year: 2025, statsOnly: true },
+        { id: 'bm122', title: 'Плакальщица', author: 'Вэньянь Лу', clubId: 'cl21', color: '#cc88ff', year: 2025, statsOnly: true },
         { id: 'b123', title: 'Археологи', author: 'Вячеслав Ставецкий', clubId: 'cl21', color: '#cc88ff', year: 2025, statsOnly: true },
         { id: 'b124', title: 'Сделаны из вины', author: 'Йоанна Элми', clubId: 'cl21', color: '#cc88ff', year: 2025, statsOnly: true },
         { id: 'b125', title: 'Лысая', author: 'Маша Константиниди', clubId: 'cl21', color: '#cc88ff', year: 2025, statsOnly: true },
@@ -1104,7 +1160,7 @@ const SEED = {
         {
             id: 'b506', title: 'Увидимся в августе', author: 'Габриэль Гарсиа Маркес',
             clubId: 'cl20', color: '#c8860a', year: 2026,
-            coverUrl: 'https://cdn.litres.ru/pub/c/cover/69778424.jpg',
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-s/wc1000/9214883920.jpg',
             meetingDate: '2026-08-17',
             meetingTime: '19:00',
             location: 'Екатеринбург',
@@ -1176,6 +1232,16 @@ const SEED = {
             genreRibbon: 'Фантастика',
         },
         {
+            id: 'b824', title: 'По ветру', author: 'Яна Миа',
+            clubId: 'cl22', color: '#7b5ea7', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-6/wc1000/8286906282.jpg',
+            meetingDate: '2026-08-13', meetingTime: '19:30',
+            location: 'м. Маяковская',
+            price: '1100₽',
+            registerUrl: 'https://chityli.ru',
+            isAuthorMeet: true,
+        },
+        {
             id: 'b500', title: 'Цитадель', author: 'Арчибальд Кронин',
             clubId: 'cl22', color: '#5c3a1a', year: 2026,
             coverUrl: 'https://cdn.litres.ru/pub/c/cover/7414340.jpg',
@@ -1189,12 +1255,24 @@ const SEED = {
             title: 'Вечер разных книг',
             clubId: 'cl22', color: '#3d2a4a', year: 2026,
             coverUrl: '/cover-chityli-sept.jpg',
-            meetingDate: '2026-09-08', meetingTime: '19:30-21:30',
+            meetingDate: '2026-09-09', meetingTime: '19:30-21:30',
             location: 'Центр Москвы',
             price: '500₽',
             registerUrl: 'https://chityli.ru',
             genreRibbon: 'Спецформат',
             eventIcon: '🧘',
+        },
+        {
+            id: 'b825',
+            title: 'Жизнь Василия Кандинского',
+            clubId: 'cl22', color: '#c45c34', year: 2026,
+            coverUrl: 'https://i.pinimg.com/736x/47/90/a5/4790a51de6e2472833298da2ae9187db.jpg',
+            meetingDate: '2026-09-25', meetingTime: '19:00',
+            location: 'м. Китай-город',
+            price: '2000₽',
+            seats: 8,
+            registerUrl: 'https://chityli.ru',
+            genreRibbon: 'Лекция',
         },
         // ── На чердаке (cl19, Москва) ─────────────────────────────
         {
@@ -1399,6 +1477,7 @@ function applyMigrations(db) {
         cl23cached.founded = '21 января 2018 года';
         cl23cached.color = '#f5a2b3';
         cl23cached.name = 'Книжный клуб Book Events';
+        cl23cached.directionNote = 'Клуб предлагает к обсуждению книги разных направлений — классического и современного — чтобы не было перекоса в одно из них.';
         const seedCl23 = SEED.clubs.find(c => c.id === 'cl23');
         if (seedCl23) {
             cl23cached.archetype = seedCl23.archetype;
@@ -1410,6 +1489,8 @@ function applyMigrations(db) {
         for (let i = 400; i <= 492; i++) {
             allowedCl23Ids.add('b' + i);
         }
+        // Also allow new 2026 Book Events
+        ['b826','b827','b828','b829'].forEach(id => allowedCl23Ids.add(id));
         db.books = db.books.filter(book => {
             if (book.clubId === 'cl23') {
                 return allowedCl23Ids.has(book.id);
