@@ -176,7 +176,7 @@ const SEED = {
         { id: 'b481', title: 'Почтальонша', author: 'Франческа Джанноне', clubId: 'cl23', color: '#5c0000', year: 2025 },
         { id: 'b482', title: 'Не отпускай меня', author: 'Кадзуо Исигуро', clubId: 'cl23', color: '#2244aa', year: 2025 },
         { id: 'b483', title: 'Храни её', author: 'Жан-Батист Андреа', clubId: 'cl23', color: '#aa5500', year: 2025 },
-        { id: 'b484', title: 'Собиратели ракушек', author: 'Розамунда Пилчер', clubId: 'cl23', color: '#2255aa', year: 2025, coverUrl: '/cover-shells.jpg' },
+        { id: 'b484', title: 'Собиратели ракушек', author: 'Розамунда Пилчер', clubId: 'cl23', color: '#2255aa', year: 2025, coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-k/wc1000/7402967480.jpg' },
         { id: 'b485', title: 'Тайная история', author: 'Донна Тартт', clubId: 'cl23', color: '#1a3a5c', year: 2025 },
         { id: 'b486', title: 'Город с львиным сердцем', author: 'Екатерина Звонцова', clubId: 'cl23', color: '#2c2c2c', year: 2025 },
         { id: 'b487', title: 'Авиатор', author: 'Евгений Водолазкин', clubId: 'cl23', color: '#333366', year: 2025, coverUrl: 'https://cv0.litres.ru/pub/c/cover/18910175.jpg' },
@@ -558,7 +558,7 @@ const SEED = {
         // Шалость удалась (Москва)
         {
             id: 'b60', title: 'Собиратели ракушек', author: 'Р. Пилчер', clubId: 'cl16', color: '#5599aa', year: 2026,
-            coverUrl: '/cover-shells.jpg',
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-k/wc1000/7402967480.jpg',
         },
 
         // Книжный клуб МГУ (Москва)
