@@ -8,6 +8,7 @@ import { initEvents } from './modules/events.js';
 import { initClubs } from './modules/clubs.js';
 import { initQuiz } from './modules/quiz.js';
 import { initSearch } from './modules/search.js';
+import { initStats } from './modules/stats.js';
 
 // ── Tab routing ───────────────────────────────────────────────────────
 
@@ -40,6 +41,7 @@ initEvents();
 initClubs();
 initQuiz();
 initSearch();
+initStats();
 
 // ── Start on Events tab ───────────────────────────────────────────────
 switchTab('events');
