@@ -1,4 +1,4 @@
-/**
+﻿/**
  * db.js — In-memory data store persisted to localStorage.
  * Schema: { cities[], clubs[], books[] }
  * books can have optional coverUrl for a real image.
@@ -862,6 +862,14 @@ const SEED = {
             registerUrl: 'https://career-university.ru/reading_club'
         },
         {
+            id: 'b831', title: 'Крестный отец', author: 'Марио Пьюзо', clubId: 'cl13', color: '#1a1a2e', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-5/wc1000/7039483529.jpg',
+            meetingDate: '2026-08-30',
+            meetingTime: '12:00-14:00',
+            location: 'Институт карьерного развития Москва',
+            registerUrl: 'https://career-university.ru/reading_club'
+        },
+        {
             id: 'b94', title: 'Читая Лолиту в Тегеране', author: 'Азар Нафиси', clubId: 'cl19', color: '#778899', year: 2026,
             isClubTop: true,
             coverUrl: 'https://cdn.litres.ru/pub/c/cover_200/68053183.jpg',
@@ -1378,7 +1386,7 @@ const SEED = {
         {
             id: 'b813', title: 'Бильярд в половине десятого', author: 'Генрих Бёлль',
             clubId: 'cl26', color: '#1a3a5c', year: 2026,
-            coverUrl: 'https://ir.ozone.ru/s3/multimedia-s/wc1000/6980802731.jpg',
+            coverUrl: 'https://cdn.litres.ru/pub/c/cover/68707956.jpg',
             meetingDate: '2026-11-28',
             registerUrl: 'http://bookzclub.ru/',
         },
@@ -1421,6 +1429,16 @@ function applyMigrations(db) {
     // Clear incorrect cover for b254 (Возвращение, Платонов)
     const b254 = db?.books?.find((book) => book.id === 'b254');
     if (b254) delete b254.coverUrl;
+    // Force correct covers — эти книги могли оказаться в кэше без coverUrl
+    // (добавлены в SEED до того как обложка была назначена)
+    const b120 = db?.books?.find((book) => book.id === 'b120');
+    if (b120) b120.coverUrl = '/cover-shantaram.jpg';
+    const b807 = db?.books?.find((book) => book.id === 'b807');
+    if (b807) b807.coverUrl = 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1678279232i/84445105._SX600_.jpg';
+    const b813 = db?.books?.find((book) => book.id === 'b813');
+    if (b813) b813.coverUrl = 'https://cdn.litres.ru/pub/c/cover/4956.jpg';
+    const b830 = db?.books?.find((book) => book.id === 'b830');
+    if (b830) b830.coverUrl = 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1744194599i/231210719._SX600_.jpg';
     // Upgrade cl13 from ticker-only to a real planet
     const cl13cached = db.clubs.find(c => c.id === 'cl13');
     if (cl13cached) {

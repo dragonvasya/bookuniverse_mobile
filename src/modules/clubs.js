@@ -83,6 +83,7 @@ function buildClubCard(club, city, hasUpcoming) {
         img.src = logoSrc;
         img.alt = club.name;
         img.loading = 'lazy';
+        img.referrerPolicy = 'no-referrer';
         img.onerror = () => { img.replaceWith(document.createTextNode('🪐')); };
         logo.appendChild(img);
     } else {
@@ -154,6 +155,7 @@ function buildClubDetail(club, db) {
         const img = document.createElement('img');
         img.src = logoSrc;
         img.alt = club.name;
+        img.referrerPolicy = 'no-referrer';
         img.onerror = () => { img.replaceWith(document.createTextNode('🪐')); };
         logoEl.appendChild(img);
     } else {
@@ -331,6 +333,7 @@ function buildClubDetail(club, db) {
                 img.src = book.coverUrl;
                 img.alt = book.title;
                 img.loading = 'lazy';
+                img.referrerPolicy = 'no-referrer';
                 img.onerror = () => { img.replaceWith(buildFallback(book)); };
                 item.appendChild(img);
             } else {

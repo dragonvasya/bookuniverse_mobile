@@ -142,6 +142,7 @@ function buildCard(book, club, city) {
         img.src = book.coverUrl;
         img.alt = book.title;
         img.loading = 'lazy';
+        img.referrerPolicy = 'no-referrer';
         img.onerror = () => { img.replaceWith(makePlaceholder()); };
         coverWrap.appendChild(img);
     } else {

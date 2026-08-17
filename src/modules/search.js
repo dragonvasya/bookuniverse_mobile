@@ -86,6 +86,7 @@ function buildResultCard(result) {
         img.src = result.coverUrl;
         img.alt = result.title;
         img.loading = 'lazy';
+        img.referrerPolicy = 'no-referrer';
         img.onerror = () => { img.replaceWith(document.createTextNode('📖')); };
         cover.appendChild(img);
     } else {
