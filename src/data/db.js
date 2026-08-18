@@ -1314,13 +1314,13 @@ const SEED = {
             clubId: 'cl24', color: '#2a3a2a', year: 2026,
             meetingDate: '2026-08-25', meetingTime: '20:00',
             registerUrl: 'https://lamabookclub.ru/08-09',
-        },
+         coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-c/wc2500/8209483032.jpg',},
         {
             id: 'b837', title: '451 градус по Фаренгейту', author: 'Рэй Брэдбери',
             clubId: 'cl24', color: '#8a3a1a', year: 2026,
             meetingDate: '2026-09-08', meetingTime: '20:00',
             registerUrl: 'https://lamabookclub.ru/08-09',
-        },
+         coverUrl: 'https://ir.ozone.ru/s3/multimedia-z/wc1000/6078471107.jpg',},
         {
             id: 'b838', title: 'Человек, который смеётся', author: 'Виктор Гюго',
             clubId: 'cl24', color: '#1a1a2a', year: 2026,
