@@ -1310,6 +1310,13 @@ const SEED = {
             registerUrl: 'https://lamabookclub.ru/#popup:start',
         },
         {
+            id: 'b839', title: 'Ваш покорный слуга кот', author: 'Нацумэ Сосэки',
+            clubId: 'cl24', color: '#3a5a3a', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-w/wc1000/7328629100.jpg',
+            meetingDate: '2026-08-06',
+            registerUrl: 'https://lamabookclub.ru/08-09',
+        },
+        {
             id: 'b836', title: 'Пикник на обочине', author: 'Братья Стругацкие',
             clubId: 'cl24', color: '#2a3a2a', year: 2026,
             meetingDate: '2026-08-25', meetingTime: '20:00',
