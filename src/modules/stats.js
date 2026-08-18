@@ -19,14 +19,14 @@ function pluralize(count, forms) {
 function calculateOverlaps(db) {
     const authorMap = {};
     db.books.forEach(book => {
+        if (book.statsOnly) return;  // exclude stats-only entries
         const author = book.author ? book.author.trim() : '';
         if (!author) return;
-        if (!authorMap[author]) authorMap[author] = { clubs: new Set(), books: new Set() };
         const club = db.clubs.find(c => c.id === book.clubId);
-        if (club) {
-            authorMap[author].clubs.add(club);
-            authorMap[author].books.add(book.title.trim());
-        }
+        if (!club || club.tickerOnly) return;  // exclude ticker-only clubs
+        if (!authorMap[author]) authorMap[author] = { clubs: new Set(), books: new Set() };
+        authorMap[author].clubs.add(club);
+        authorMap[author].books.add(book.title.trim());
     });
 
     const result = [];
@@ -43,6 +43,9 @@ function calculatePopularBooks(db) {
     const titleMap = {};
     db.books.forEach(book => {
         if (!book.title) return;
+        if (book.statsOnly) return;  // exclude stats-only entries
+        const club = db.clubs.find(c => c.id === book.clubId);
+        if (!club || club.tickerOnly) return;  // exclude ticker-only clubs
         const norm = book.title.trim().toLowerCase()
             .replace(/["""''«»\u2018\u2019\u201c\u201d\u00ab\u00bb]/g, '')
             .replace(/\s+/g, ' ').trim();
@@ -52,8 +55,6 @@ function calculatePopularBooks(db) {
             titleMap[norm].coverUrl = book.coverUrl;
         }
         if (book.year) titleMap[norm].years.add(book.year);
-        const club = db.clubs.find(c => c.id === book.clubId);
-        if (!club) return;
         const city = db.cities.find(c => c.id === club.cityId);
         if (!titleMap[norm].clubs.find(e => e.club.id === club.id)) {
             titleMap[norm].clubs.push({ club, city });
