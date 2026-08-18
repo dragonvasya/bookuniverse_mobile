@@ -21,6 +21,7 @@ const SEED = {
         { id: 'c7', name: 'Онлайн', population: 1000000, color: '#f3b066', hideSun: true },
         { id: 'c8', name: 'Онлайн', population: 500000, color: '#cc88ff', hideSun: true },
         { id: 'c9', name: 'Белград', population: 1700000, color: '#7ec8a0' },
+        { id: 'c10', name: 'Дубай' },
     ],
     clubs: [
         // Real clubs
@@ -62,6 +63,22 @@ const SEED = {
         { id: 'cl24', name: 'Лама', cityId: 'c1', members: 2390, color: '#7ba7d4', memberLabel: 'подписчиков', hasLogo: true },
         { id: 'cl25', name: 'Bukva Book Club', cityId: 'c9', members: 0, color: '#7ec8a0', hasLogo: true },
         { id: 'cl26', name: 'Bookz Club', cityId: 'c1', members: 322, color: '#c4a99a', hasLogo: true },
+        { id: 'cl27', name: 'Книжный клуб Дубай', cityId: 'c10', members: 372, color: '#d4a853', hasLogo: true, archetype: { title: 'Клуб больших человеческих историй', description: `<div class="arc-section">
+  <div class="arc-label">Характер клуба</div>
+  <div class="arc-traits">«Клуб больших человеческих историй». Здесь люди приходят понять человека через литературу — не ради интриги, а ради понимания. Их привлекают семейные саги, моральные дилеммы, культурное разнообразие и истории, где большие исторические события становятся фоном для личных судеб.</div>
+</div>
+<div class="arc-section">
+  <div class="arc-label">Читатель клуба</div>
+  <div class="arc-traits">Любит долго обсуждать мотивы героев · Интересуется психологией через литературу · Ценит эмпатию выше остроумия · Любит красивые тексты · Готов читать большие романы · Спокойно относится к открытому финалу</div>
+</div>
+<div class="arc-section">
+  <div class="arc-label">Любимые эмоции</div>
+  <div class="arc-traits">Светлая грусть · Сострадание · Ностальгия · Надежда · Принятие · Ощущение сложности жизни</div>
+</div>
+<div class="arc-section">
+  <div class="arc-label">География книг</div>
+  <div class="arc-traits">Япония · Индия · Армения · Россия · США · Мексика · Вьетнам · Африка · Италия · Испания · Великобритания — высокая открытость другим культурам</div>
+</div>` } },
         { id: 'cl22', name: 'Читули', cityId: 'c1', members: 200, color: '#ff8c69', hasLogo: true,
             archetype: {
                 title: '🌍 «Клуб эпических историй»',
@@ -1315,6 +1332,13 @@ const SEED = {
             coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-w/wc1000/7328629100.jpg',
             meetingDate: '2026-08-06',
             registerUrl: 'https://lamabookclub.ru/08-09',
+        },
+        {
+            id: 'b840', title: 'Женщина в песках', author: 'Кобо Абэ',
+            clubId: 'cl27', color: '#c9a84c', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-f/wc1000/8112992307.jpg',
+            meetingDate: '2026-08-28',
+            location: 'Дубай',
         },
         {
             id: 'b836', title: 'Пикник на обочине', author: 'Братья Стругацкие',
