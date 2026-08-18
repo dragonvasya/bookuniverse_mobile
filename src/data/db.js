@@ -1309,6 +1309,25 @@ const SEED = {
             meetingDate: '2026-07-30',
             registerUrl: 'https://lamabookclub.ru/#popup:start',
         },
+        {
+            id: 'b836', title: 'Пикник на обочине', author: 'Братья Стругацкие',
+            clubId: 'cl24', color: '#2a3a2a', year: 2026,
+            meetingDate: '2026-08-25', meetingTime: '20:00',
+            registerUrl: 'https://lamabookclub.ru/08-09',
+        },
+        {
+            id: 'b837', title: '451 градус по Фаренгейту', author: 'Рэй Брэдбери',
+            clubId: 'cl24', color: '#8a3a1a', year: 2026,
+            meetingDate: '2026-09-08', meetingTime: '20:00',
+            registerUrl: 'https://lamabookclub.ru/08-09',
+        },
+        {
+            id: 'b838', title: 'Человек, который смеётся', author: 'Виктор Гюго',
+            clubId: 'cl24', color: '#1a1a2a', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-6/wc1000/9095651790.jpg',
+            meetingDate: '2026-09-24',
+            registerUrl: 'https://lamabookclub.ru/08-09',
+        },
         // ── Bukva Book Club (cl25, Белград) ──────────────────────────
         // Прочитанные книги 2026
         { id: 'b800', title: 'Любите ли Вы Брамса?', author: 'Франсуаза Саган',
