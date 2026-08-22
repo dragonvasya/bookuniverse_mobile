@@ -11,6 +11,14 @@ const SEED = {
         { id: 'v1', name: 'Chère Maman', address: 'Трубная 26, корп.1' },
         { id: 'v2', name: 'Nostalgia', address: '2-я Песчаная, 4' },
         { id: 'v3', name: 'Études Café', address: 'Покровка, 38А' }
+        {
+            id: 'b945', title: 'Лавр', author: 'Евгений Водолазкин',
+            clubId: 'cl9', color: '#55aaff',
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-7/wc500/8243423359.jpg',
+            meetingDate: '2026-09-08 19:00', meetingTime: '19:00',
+            registerUrl: 'https://vsmysle.spb.ru/services/knizhnyy-klub-vsmysle-lavr-evgeniy-vodolazkin/',
+            price: '1500 ₽',
+        },
     ],
     cities: [
         { id: 'c1', name: 'Москва', population: 12500, color: '#ff9944' },
