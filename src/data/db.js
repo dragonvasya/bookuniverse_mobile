@@ -1581,7 +1581,434 @@ function applyMigrations(db) {
             allowedCl23Ids.add('b' + i);
         }
         // Also allow new 2026 Book Events
-        ['b826','b827','b828','b829'].forEach(id => allowedCl23Ids.add(id));
+        ['b826','b827','b828','b829'        {
+            id: 'b841', title: 'Чума', author: 'Камю',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b842', title: 'Идиот', author: 'Достоевский',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b843', title: 'Мартин Иден', author: 'Джек Лондон',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b844', title: 'Географ глобус пропил', author: 'Иванов',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b845', title: 'Калигула', author: 'Камю',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b846', title: 'Финансист', author: 'Драйзер',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b847', title: 'Зона', author: 'Довлатов',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b848', title: 'Шантарам', author: 'Дэвид Робинсон',
+            clubId: 'cl17', color: '#aa33ff',
+            coverUrl: '/cover-shantaram.jpg',
+        },
+        {
+            id: 'b849', title: 'Лолита', author: 'Набоков',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b850', title: 'Солярис', author: 'Лем',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b851', title: 'Белая гвардия', author: 'Булгаков',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b852', title: 'Братья Карамазовы', author: 'Достоевский',
+            clubId: 'cl17', color: '#aa33ff',
+            coverUrl: '/cover-karamazov.jpg',
+        },
+        {
+            id: 'b853', title: 'Клара и Солнце', author: 'Исигуро',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b854', title: 'Центр тяжести', author: 'Поляринов',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b855', title: '«Голос греха»', author: '',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b856', title: 'Демиан', author: 'Гессе',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b857', title: 'Сто лет одиночества', author: 'Маркес',
+            clubId: 'cl17', color: '#aa33ff',
+            coverUrl: '/cover-100-years.jpg',
+        },
+        {
+            id: 'b858', title: 'Кинг – обсуждение творчества', author: 'Стивен',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b859', title: 'Трудно быть богом', author: 'Стругацкие',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b860', title: 'Макбет', author: 'Шекспир',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b861', title: 'Темные аллеи', author: 'Бунин',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b862', title: 'Библия', author: '',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b863', title: 'Казаков рассказы', author: 'Юрий',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b864', title: 'Норвежский лес', author: 'Мураками',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b865', title: 'Поправка-22', author: 'Хеллер',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b866', title: 'Маус: рассказы выжившего', author: 'Шпигельман',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b867', title: 'Мухи', author: 'Сартр',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b868', title: 'Триумфальная арка', author: 'Ремарк',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b869', title: 'Процесс', author: 'Кафка',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b870', title: 'Transhumanism Inc.', author: 'Пелевин',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b871', title: 'Маскарад', author: 'Лермонтов',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b872', title: 'Над пропастью во ржи', author: 'Сэлинджер',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b873', title: 'Звук и ярость', author: 'Фолкнер',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b874', title: 'Нечего бояться', author: 'Барнс',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b875', title: 'Бесы', author: 'Достоевский',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b876', title: 'Рассказы', author: 'Чехов',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b877', title: 'Последнее желание', author: 'Сапковский',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b878', title: 'Синяя борода', author: 'Воннегут',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b879', title: 'Что делать?', author: 'Чернышевский',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b880', title: 'принц, Вредные советы, Чучело', author: 'Маленький',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b881', title: 'народов мира', author: 'Сказки',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b882', title: 'Краткая история человечества', author: 'Харари',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b883', title: 'Сердце тьмы', author: 'Конрад',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b884', title: 'Автостопом по галактике', author: 'Адамс',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b885', title: 'Второй пол', author: 'Симона де Бовуар',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b886', title: 'Орландо', author: 'Вирджиния Вулф',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b887', title: 'Гордость и предубеждение', author: 'Джейн Остин',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b888', title: 'О вселенной в двух словах', author: 'Хокинг',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b889', title: 'Невыносимая легкость бытия', author: 'Кундер',
+            clubId: 'cl17', color: '#aa33ff',
+            coverUrl: 'https://cdn.litres.ru/pub/c/cover/133165.jpg',
+        },
+        {
+            id: 'b890', title: 'Бегство от свободы', author: 'Фромм',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b891', title: 'Будденброки', author: 'Манн',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b892', title: 'Одноэтажная Америка', author: 'Ильф и Петров',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b893', title: 'Семь грехов памяти', author: 'Шектер Дэниел',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b894', title: 'Обрыв', author: 'Гончаров',
+            clubId: 'cl17', color: '#aa33ff',
+            coverUrl: 'https://ir.ozone.ru/multimedia/1005808702.jpg',
+        },
+        {
+            id: 'b895', title: 'Доктор Живаго', author: 'Пастернак',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b896', title: 'Заводной апельсин', author: 'Берджесс',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b897', title: 'Плаха', author: 'Айтматов',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b898', title: 'Чайка по имени Джонатан Ливингстон', author: 'Бах',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b899', title: 'Андреев Рассказы', author: 'Леонид',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b900', title: 'Ребенок Розмари', author: 'Айра Левин',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b901', title: 'Сон смешного человека', author: 'Достоевский',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b902', title: 'Государь', author: 'Макиавелли',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b903', title: 'Убить пересмешника', author: 'Харпер Ли',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b904', title: 'Человек, который принял жену за шляпу', author: 'Оливер Сакс',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b905', title: 'Москва-Петушки', author: 'Ерофеев',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b906', title: 'Хрупкое равновесие', author: 'Мистри',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b907', title: 'Мастер и Маргарита', author: 'Булгаков',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b908', title: 'Цветы для Элджернона', author: 'Киз',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b909', title: 'И грянул гром', author: 'Брэдбери',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b910', title: 'Школа для дураков', author: 'Соколов',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b911', title: 'Анна Каренина', author: 'Толстой',
+            clubId: 'cl17', color: '#aa33ff',
+            coverUrl: 'https://cdn.litres.ru/pub/c/cover/172100.jpg',
+        },
+        {
+            id: 'b912', title: 'Понедельник начинается в субботу', author: 'Стругацкие',
+            clubId: 'cl17', color: '#aa33ff',
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-n/wc1000/7303189847.jpg',
+        },
+        {
+            id: 'b913', title: 'Жареные зеленые помидоры в кафе «Полустанок', author: 'Фэнни Флэгг',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b914', title: 'В дороге', author: 'Дж. Керуак',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b915', title: 'Роман с кокаином', author: 'М. Агеев',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b916', title: 'Лягушки', author: 'Мо Янь',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b917', title: 'Атлант расправил плечи', author: 'Айн Рэнд',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b918', title: 'Унесенные ветром', author: 'Маргарет Митчелл',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b919', title: 'Убийство на улице Морг', author: 'Эдгар Аллан По',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b920', title: 'Золотой храм', author: 'Юкио Мисима',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b921', title: 'Тысячеликий герой', author: 'Джозеф Кэмпбелл',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b922', title: 'Праздник, который всегда с тобой', author: 'Эрнест Хемингуэй',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b923', title: 'Мечтают ли андроиды об электроовцах?', author: 'Филипп К. Дик',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b924', title: 'О дивный новый мир', author: 'Олдос Хаксли',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b925', title: 'Милый друг', author: 'Ги де Мопассан',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b926', title: 'Раковый корпус', author: 'А. И. Солженицын',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b927', title: 'Пять четвертинок апельсина', author: 'Джоанн Харрис',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b928', title: 'Из пушки на Луну', author: 'Жюль Верн',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b929', title: 'Сказать жизни «Да!', author: 'Виктор Франкл',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b930', title: 'Дар', author: 'В. В. Набоков',
+            clubId: 'cl17', color: '#aa33ff',
+            coverUrl: 'https://cdn.litres.ru/pub/c/cover/151371.jpg',
+        },
+        {
+            id: 'b931', title: 'Сиддхартха', author: 'Герман Гессе',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b932', title: 'Женщина в песках', author: 'Кобо Абэ',
+            clubId: 'cl17', color: '#aa33ff',
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-f/wc1000/8112992307.jpg',
+        },
+        {
+            id: 'b933', title: 'Иуда Искариот', author: 'Л. Андреев',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b934', title: 'Имя розы', author: 'Умберто Эко',
+            clubId: 'cl17', color: '#aa33ff',
+            coverUrl: 'https://avatars.mds.yandex.net/get-goods_pic/11298693/hat5cb5543457833329f6872ce012748dfa/orig',
+        },
+        {
+            id: 'b935', title: 'Снежный цветок и заветный веер', author: 'Лиза Си',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b936', title: 'Дракула', author: 'Брэм Стокер',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b937', title: 'Опасные связи', author: 'Шодерло де Лакло',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b938', title: 'Мелкий бес', author: 'Федор Сологуб',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b939', title: 'Петровы в гриппе и вокруг него', author: 'Алексей Сальников',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b940', title: 'Все решено: жизнь без свободы воли', author: 'Роберт Сапольски',
+            clubId: 'cl17', color: '#aa33ff',
+            coverUrl: '/cover-sapolsky.jpg',
+        },
+        {
+            id: 'b941', title: 'Тень', author: 'Евгений Шварц',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b942', title: 'Задача трех тел', author: 'Лю Цысинь',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b943', title: 'Три сестры', author: 'Антон Чехов',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+        {
+            id: 'b944', title: 'Чапаев и пустота', author: 'Виктор Пелевин',
+            clubId: 'cl17', color: '#aa33ff',
+        },
+].forEach(id => allowedCl23Ids.add(id));
         db.books = db.books.filter(book => {
             if (book.clubId === 'cl23') {
                 return allowedCl23Ids.has(book.id);
