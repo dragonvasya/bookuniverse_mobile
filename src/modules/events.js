@@ -236,7 +236,7 @@ export function initEvents() {
     const db = getDB();
     const listEl = document.getElementById('events-list');
     const citySelect = document.getElementById('filter-city');
-    const monthSelect = document.getElementById('filter-month');
+    const dateRangeInput = document.getElementById('filter-date-range');
 
     // All upcoming events sorted by date
     const allEvents = db.books
@@ -270,27 +270,37 @@ export function initEvents() {
         citySelect.appendChild(opt);
     });
 
-    // Populate month filter
-    const months = new Set(allEvents.map(b => getMonthKey(b.meetingDate)).filter(Boolean));
-    months.forEach(key => {
-        const opt = document.createElement('option');
-        opt.value = key;
-        opt.textContent = formatMonthOption(key);
-        monthSelect.appendChild(opt);
-    });
+    let selectedDateRange = [];
+    if (dateRangeInput) {
+        flatpickr(dateRangeInput, {
+            mode: 'range',
+            locale: Russian,
+            dateFormat: 'd.m.Y',
+            disableMobile: true, // forces custom flatpickr UI on mobile instead of native
+            onChange: function(selectedDates) {
+                selectedDateRange = selectedDates;
+                render();
+            }
+        });
+    }
 
     // Render function
     function render() {
         const selCity = citySelect.value;
-        const selMonth = monthSelect.value;
 
         const filtered = allEvents.filter(book => {
             const club = db.clubs.find(c => c.id === book.clubId);
             if (selCity) {
                 if (!club || club.cityId !== selCity) return false;
             }
-            if (selMonth) {
-                if (getMonthKey(book.meetingDate) !== selMonth) return false;
+            if (selectedDateRange.length > 0) {
+                const bookDate = parseDate(book.meetingDate);
+                if (!bookDate) return false;
+                const start = selectedDateRange[0];
+                const end = selectedDateRange.length === 2 ? selectedDateRange[1] : selectedDateRange[0];
+                const endOfDay = new Date(end);
+                endOfDay.setHours(23, 59, 59, 999);
+                if (bookDate < start || bookDate > endOfDay) return false;
             }
             return true;
         });
@@ -313,7 +323,6 @@ export function initEvents() {
     }
 
     citySelect.addEventListener('change', render);
-    monthSelect.addEventListener('change', render);
 
     render();
 }
