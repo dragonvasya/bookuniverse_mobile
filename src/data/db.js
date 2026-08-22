@@ -1341,247 +1341,6 @@ const SEED = {
             location: 'Дубай',
         },
         {
-            id: 'b836', title: 'Пикник на обочине', author: 'Братья Стругацкие',
-            clubId: 'cl24', color: '#2a3a2a', year: 2026,
-            meetingDate: '2026-08-25', meetingTime: '20:00',
-            registerUrl: 'https://lamabookclub.ru/08-09',
-         coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-c/wc2500/8209483032.jpg',},
-        {
-            id: 'b837', title: '451 градус по Фаренгейту', author: 'Рэй Брэдбери',
-            clubId: 'cl24', color: '#8a3a1a', year: 2026,
-            meetingDate: '2026-09-08', meetingTime: '20:00',
-            registerUrl: 'https://lamabookclub.ru/08-09',
-         coverUrl: 'https://ir.ozone.ru/s3/multimedia-z/wc1000/6078471107.jpg',},
-        {
-            id: 'b838', title: 'Человек, который смеётся', author: 'Виктор Гюго',
-            clubId: 'cl24', color: '#1a1a2a', year: 2026,
-            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-6/wc1000/9095651790.jpg',
-            meetingDate: '2026-09-24',
-            registerUrl: 'https://lamabookclub.ru/08-09',
-        },
-        // ── Bukva Book Club (cl25, Белград) ──────────────────────────
-        // Прочитанные книги 2026
-        { id: 'b800', title: 'Любите ли Вы Брамса?', author: 'Франсуаза Саган',
-            clubId: 'cl25', color: '#7a4e8c', year: 2026,
-            coverUrl: 'https://cdn.litres.ru/pub/c/cover/121819.jpg' },
-        // b801 удалён — «Сезон отравленных плодов» Богдановой относится к cl18 (SOK СПб, b507)
-        { id: 'b802', title: 'Кремулятор', author: 'Саша Филипенко',
-            clubId: 'cl25', color: '#2a2a2a', year: 2026,
-            coverUrl: 'https://cdn.litres.ru/pub/c/cover/67806672.jpg' },
-        // События
-        {
-            id: 'b803', title: 'Двадцать четыре часа из жизни женщины', author: 'Стефан Цвейг',
-            clubId: 'cl25', color: '#4a3060', year: 2026,
-            coverUrl: 'https://cdn.litres.ru/pub/c/cover/69472504.jpg',
-            meetingDate: '2026-08-01',
-            meetingTime: '15:00',
-            registerUrl: 'https://t.me/bukva_registration_bot',
-        },
-        {
-            id: 'b832', title: 'Жареные зелёные помидоры в кафе «Полустанок»', author: 'Флэгг Фэнни',
-            clubId: 'cl25', color: '#3d6b2e', year: 2026,
-            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-l/wc1000/9446859921.jpg',
-            meetingDate: '2026-09-05',
-            meetingTime: '15:00',
-            registerUrl: 'https://t.me/bukva_registration_bot',
-        },
-        {
-            id: 'b833', title: 'Ночь в Лиссабоне', author: 'Эрих Мария Ремарк',
-            clubId: 'cl25', color: '#1a2a4a', year: 2026,
-            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-z/wc1000/7155788147.jpg',
-            meetingDate: '2026-09-12',
-            meetingTime: '15:00',
-            registerUrl: 'https://t.me/bukva_registration_bot',
-        },
-        {
-            id: 'b834', title: 'Мастер страшного суда', author: 'Лео Перуц',
-            clubId: 'cl25', color: '#2a1a3a', year: 2026,
-            coverUrl: 'https://ir.ozone.ru/s3/multimedia-4/wc1000/6326999776.jpg',
-            meetingDate: '2026-09-19',
-            meetingTime: '15:00',
-            registerUrl: 'https://t.me/bukva_registration_bot',
-        },
-        {
-            id: 'b835', title: 'Сеансы одновременного чтения', author: 'Горан Петрович',
-            clubId: 'cl25', color: '#3a2a1a', year: 2026,
-            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-1/wc1000/7440918985.jpg',
-            meetingDate: '2026-09-26',
-            meetingTime: '12:00',
-            registerUrl: 'https://t.me/bukva_registration_bot',  },
-        {
-            id: 'b804', title: 'Книжный своп',
-            clubId: 'cl25', color: '#7ec8a0', year: 2026,
-            coverUrl: '/bukva.jpg',
-            meetingDate: '2026-08-15',
-            meetingTime: '15:00',
-            genreRibbon: 'Спецформат',
-            isAnniversary: true,
-            registerUrl: 'https://t.me/bukva_registration_bot',
-        },
-        // ── Bookz Club (cl26, Москва) ────────────────────────────────
-        // Прочитанные книги 2026
-        {
-            id: 'b814', title: 'Музей невинности', author: 'Орхан Памук',
-            clubId: 'cl26', color: '#8b2a2a', year: 2026,
-            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-6/wc1000/8355778242.jpg',
-            selectedDate: '2026-07',
-        },
-        {
-            id: 'b809', title: 'Невыносимая легкость бытия', author: 'Милан Кундера',
-            clubId: 'cl26', color: '#7a5c8a', year: 2026,
-            coverUrl: 'https://cdn.litres.ru/pub/c/cover/133165.jpg',
-            meetingDate: '2026-08-15',
-            registerUrl: 'http://bookzclub.ru/',
-        },
-        {
-            id: 'b810', title: 'Федр', author: 'Платон',
-            clubId: 'cl26', color: '#b5a642', year: 2026,
-            coverUrl: 'https://cdn.litres.ru/pub/c/cover/37110815.jpg',
-            meetingDate: '2026-08-29',
-            registerUrl: 'http://bookzclub.ru/',
-        },
-        {
-            id: 'b811', title: 'Детство. Отрочество. Юность', author: 'Лев Толстой',
-            clubId: 'cl26', color: '#4a6741', year: 2026,
-            coverUrl: 'https://ir.ozone.ru/s3/multimedia-t/wc1000/7000413164.jpg',
-            meetingDate: '2026-10-03',
-            location: 'Тула',
-            genreRibbon: 'Спецформат',
-            registerUrl: 'http://bookzclub.ru/',
-        },
-        {
-            id: 'b812', title: 'Ставок больше нет', author: 'Жан-Поль Сартр',
-            clubId: 'cl26', color: '#2a2a3a', year: 2026,
-            coverUrl: 'https://cdn.litres.ru/pub/c/cover/155290.jpg',
-            meetingDate: '2026-10-31',
-            registerUrl: 'http://bookzclub.ru/',
-        },
-        {
-            id: 'b813', title: 'Бильярд в половине десятого', author: 'Генрих Бёлль',
-            clubId: 'cl26', color: '#1a3a5c', year: 2026,
-            coverUrl: 'https://cdn.litres.ru/pub/c/cover/68707956.jpg',
-            meetingDate: '2026-11-28',
-            registerUrl: 'http://bookzclub.ru/',
-        },
-    ],
-
-};
-
-let _db = null;
-
-function applyMigrations(db) {
-    const goldfinch = db?.books?.find((book) => book.id === 'b72');
-    if (goldfinch && goldfinch.coverUrl !== '/cover-goldfinch.jpg') {
-        goldfinch.coverUrl = '/cover-goldfinch.jpg';
-    }
-    // Fix b501 (Нетворкинг для разведчиков) — restore correct cover after ID collision
-    const b501 = db?.books?.find((book) => book.id === 'b501');
-    if (b501) {
-        b501.coverUrl = 'https://cdn.litres.ru/pub/c/cover/66635352.jpg';
-        delete b501.genreRibbon;
-        delete b501.price;
-    }
-    // Fix b502 (Завет воды) — restore correct cover after ID collision
-    const b502 = db?.books?.find((book) => book.id === 'b502');
-    if (b502) {
-        b502.coverUrl = 'https://cdn.litres.ru/pub/c/cover/70795744.jpg';
-        delete b502.genreRibbon;
-        delete b502.price;
-    }
-    // Force auto-cover and remove registerUrl for b97
-    const b97 = db?.books?.find((book) => book.id === 'b97');
-    if (b97) {
-        b97.coverUrl = 'data:image/svg+xml;utf8,<svg width="400" height="600" xmlns="http://www.w3.org/2000/svg" style="background:%23aaaaff"><text x="30" y="80" font-family="Inter,sans-serif" font-weight="900" font-size="46" fill="%23fff">Двести</text><text x="30" y="135" font-family="Inter,sans-serif" font-weight="900" font-size="46" fill="%23fff">франков</text><text x="30" y="190" font-family="Inter,sans-serif" font-weight="900" font-size="46" fill="%23fff">с процентами</text><text x="30" y="250" font-family="Inter,sans-serif" font-size="28" fill="%23ffffffaa">С. Довлатов</text></svg>';
-        delete b97.registerUrl;
-    }
-    // Sync coverUrl for b98 (Вера Богданова)
-    const b98 = db?.books?.find((book) => book.id === 'b98');
-    if (b98 && !b98.coverUrl) {
-        b98.coverUrl = 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1774780508i/250379090._SX600_.jpg';
-    }
-    // Clear incorrect cover for b254 (Возвращение, Платонов)
-    const b254 = db?.books?.find((book) => book.id === 'b254');
-    if (b254) delete b254.coverUrl;
-    // Force correct covers — эти книги могли оказаться в кэше без coverUrl
-    // (добавлены в SEED до того как обложка была назначена)
-    const b120 = db?.books?.find((book) => book.id === 'b120');
-    if (b120) b120.coverUrl = '/cover-shantaram.jpg';
-    const b807 = db?.books?.find((book) => book.id === 'b807');
-    if (b807) b807.coverUrl = 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1678279232i/84445105._SX600_.jpg';
-    const b813 = db?.books?.find((book) => book.id === 'b813');
-    if (b813) b813.coverUrl = 'https://cdn.litres.ru/pub/c/cover/4956.jpg';
-    const b830 = db?.books?.find((book) => book.id === 'b830');
-    if (b830) b830.coverUrl = 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1744194599i/231210719._SX600_.jpg';
-    // Upgrade cl13 from ticker-only to a real planet
-    const cl13cached = db.clubs.find(c => c.id === 'cl13');
-    if (cl13cached) {
-        cl13cached.name = 'Институт карьерного роста';
-        cl13cached.members = 150;
-        delete cl13cached.tickerOnly;
-    }
-    // Ensure new city c8 exists
-    if (!db.venues) db.venues = [];
-    if (!db.cities.find(c => c.id === 'c8')) {
-        db.cities.push({ id: 'c8', name: 'Онлайн', population: 500000, color: '#cc88ff', hideSun: true });
-    }
-    // Ensure new club cl21 exists, sync members count and archetype
-    const cl21cached = db.clubs.find(c => c.id === 'cl21');
-    if (!cl21cached) {
-        const seedCl21 = SEED.clubs.find(c => c.id === 'cl21');
-        if (seedCl21) {
-            db.clubs.push(JSON.parse(JSON.stringify(seedCl21)));
-        }
-    } else {
-        cl21cached.members = 3250;
-        cl21cached.hasLogo = true;
-        const seedCl21 = SEED.clubs.find(c => c.id === 'cl21');
-        if (seedCl21) {
-            cl21cached.archetype = seedCl21.archetype;
-        }
-    }
-    // Ensure cl22 (Читули) archetype is updated from SEED
-    const cl22cached = db.clubs.find(c => c.id === 'cl22');
-    if (cl22cached) {
-        const seedCl22 = SEED.clubs.find(c => c.id === 'cl22');
-        if (seedCl22) {
-            cl22cached.archetype = seedCl22.archetype;
-        }
-    }
-    // Ensure cl1 (SOK Москва) archetype is updated from SEED
-    const cl1cached = db.clubs.find(c => c.id === 'cl1');
-    if (cl1cached) {
-        const seedCl1 = SEED.clubs.find(c => c.id === 'cl1');
-        if (seedCl1) {
-            cl1cached.archetype = seedCl1.archetype;
-        }
-    }
-    // Ensure new club cl23 (Book Events) exists, sync members count and info
-    const cl23cached = db.clubs.find(c => c.id === 'cl23');
-    if (!cl23cached) {
-        const seedCl23 = SEED.clubs.find(c => c.id === 'cl23');
-        if (seedCl23) {
-            db.clubs.push(JSON.parse(JSON.stringify(seedCl23)));
-        }
-    } else {
-        cl23cached.members = 120;
-        cl23cached.hasLogo = true;
-        cl23cached.founded = '21 января 2018 года';
-        cl23cached.color = '#f5a2b3';
-        cl23cached.name = 'Книжный клуб Book Events';
-        cl23cached.directionNote = 'Клуб предлагает к обсуждению книги разных направлений — классического и современного — чтобы не было перекоса в одно из них.';
-        const seedCl23 = SEED.clubs.find(c => c.id === 'cl23');
-        if (seedCl23) {
-            cl23cached.archetype = seedCl23.archetype;
-        }
-    }
-    // Filter cl23 books in local cache to only keep the first 50
-    if (db.books) {
-        const allowedCl23Ids = new Set();
-        for (let i = 400; i <= 492; i++) {
-            allowedCl23Ids.add('b' + i);
-        }
-        // Also allow new 2026 Book Events
-        ['b826','b827','b828','b829'        {
             id: 'b841', title: 'Чума', author: 'Камю',
             clubId: 'cl17', color: '#aa33ff',
         },
@@ -2008,7 +1767,248 @@ function applyMigrations(db) {
             id: 'b944', title: 'Чапаев и пустота', author: 'Виктор Пелевин',
             clubId: 'cl17', color: '#aa33ff',
         },
-].forEach(id => allowedCl23Ids.add(id));
+        {
+            id: 'b836', title: 'Пикник на обочине', author: 'Братья Стругацкие',
+            clubId: 'cl24', color: '#2a3a2a', year: 2026,
+            meetingDate: '2026-08-25', meetingTime: '20:00',
+            registerUrl: 'https://lamabookclub.ru/08-09',
+         coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-c/wc2500/8209483032.jpg',},
+        {
+            id: 'b837', title: '451 градус по Фаренгейту', author: 'Рэй Брэдбери',
+            clubId: 'cl24', color: '#8a3a1a', year: 2026,
+            meetingDate: '2026-09-08', meetingTime: '20:00',
+            registerUrl: 'https://lamabookclub.ru/08-09',
+         coverUrl: 'https://ir.ozone.ru/s3/multimedia-z/wc1000/6078471107.jpg',},
+        {
+            id: 'b838', title: 'Человек, который смеётся', author: 'Виктор Гюго',
+            clubId: 'cl24', color: '#1a1a2a', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-6/wc1000/9095651790.jpg',
+            meetingDate: '2026-09-24',
+            registerUrl: 'https://lamabookclub.ru/08-09',
+        },
+        // ── Bukva Book Club (cl25, Белград) ──────────────────────────
+        // Прочитанные книги 2026
+        { id: 'b800', title: 'Любите ли Вы Брамса?', author: 'Франсуаза Саган',
+            clubId: 'cl25', color: '#7a4e8c', year: 2026,
+            coverUrl: 'https://cdn.litres.ru/pub/c/cover/121819.jpg' },
+        // b801 удалён — «Сезон отравленных плодов» Богдановой относится к cl18 (SOK СПб, b507)
+        { id: 'b802', title: 'Кремулятор', author: 'Саша Филипенко',
+            clubId: 'cl25', color: '#2a2a2a', year: 2026,
+            coverUrl: 'https://cdn.litres.ru/pub/c/cover/67806672.jpg' },
+        // События
+        {
+            id: 'b803', title: 'Двадцать четыре часа из жизни женщины', author: 'Стефан Цвейг',
+            clubId: 'cl25', color: '#4a3060', year: 2026,
+            coverUrl: 'https://cdn.litres.ru/pub/c/cover/69472504.jpg',
+            meetingDate: '2026-08-01',
+            meetingTime: '15:00',
+            registerUrl: 'https://t.me/bukva_registration_bot',
+        },
+        {
+            id: 'b832', title: 'Жареные зелёные помидоры в кафе «Полустанок»', author: 'Флэгг Фэнни',
+            clubId: 'cl25', color: '#3d6b2e', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-l/wc1000/9446859921.jpg',
+            meetingDate: '2026-09-05',
+            meetingTime: '15:00',
+            registerUrl: 'https://t.me/bukva_registration_bot',
+        },
+        {
+            id: 'b833', title: 'Ночь в Лиссабоне', author: 'Эрих Мария Ремарк',
+            clubId: 'cl25', color: '#1a2a4a', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-z/wc1000/7155788147.jpg',
+            meetingDate: '2026-09-12',
+            meetingTime: '15:00',
+            registerUrl: 'https://t.me/bukva_registration_bot',
+        },
+        {
+            id: 'b834', title: 'Мастер страшного суда', author: 'Лео Перуц',
+            clubId: 'cl25', color: '#2a1a3a', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-4/wc1000/6326999776.jpg',
+            meetingDate: '2026-09-19',
+            meetingTime: '15:00',
+            registerUrl: 'https://t.me/bukva_registration_bot',
+        },
+        {
+            id: 'b835', title: 'Сеансы одновременного чтения', author: 'Горан Петрович',
+            clubId: 'cl25', color: '#3a2a1a', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-1/wc1000/7440918985.jpg',
+            meetingDate: '2026-09-26',
+            meetingTime: '12:00',
+            registerUrl: 'https://t.me/bukva_registration_bot',  },
+        {
+            id: 'b804', title: 'Книжный своп',
+            clubId: 'cl25', color: '#7ec8a0', year: 2026,
+            coverUrl: '/bukva.jpg',
+            meetingDate: '2026-08-15',
+            meetingTime: '15:00',
+            genreRibbon: 'Спецформат',
+            isAnniversary: true,
+            registerUrl: 'https://t.me/bukva_registration_bot',
+        },
+        // ── Bookz Club (cl26, Москва) ────────────────────────────────
+        // Прочитанные книги 2026
+        {
+            id: 'b814', title: 'Музей невинности', author: 'Орхан Памук',
+            clubId: 'cl26', color: '#8b2a2a', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-6/wc1000/8355778242.jpg',
+            selectedDate: '2026-07',
+        },
+        {
+            id: 'b809', title: 'Невыносимая легкость бытия', author: 'Милан Кундера',
+            clubId: 'cl26', color: '#7a5c8a', year: 2026,
+            coverUrl: 'https://cdn.litres.ru/pub/c/cover/133165.jpg',
+            meetingDate: '2026-08-15',
+            registerUrl: 'http://bookzclub.ru/',
+        },
+        {
+            id: 'b810', title: 'Федр', author: 'Платон',
+            clubId: 'cl26', color: '#b5a642', year: 2026,
+            coverUrl: 'https://cdn.litres.ru/pub/c/cover/37110815.jpg',
+            meetingDate: '2026-08-29',
+            registerUrl: 'http://bookzclub.ru/',
+        },
+        {
+            id: 'b811', title: 'Детство. Отрочество. Юность', author: 'Лев Толстой',
+            clubId: 'cl26', color: '#4a6741', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-t/wc1000/7000413164.jpg',
+            meetingDate: '2026-10-03',
+            location: 'Тула',
+            genreRibbon: 'Спецформат',
+            registerUrl: 'http://bookzclub.ru/',
+        },
+        {
+            id: 'b812', title: 'Ставок больше нет', author: 'Жан-Поль Сартр',
+            clubId: 'cl26', color: '#2a2a3a', year: 2026,
+            coverUrl: 'https://cdn.litres.ru/pub/c/cover/155290.jpg',
+            meetingDate: '2026-10-31',
+            registerUrl: 'http://bookzclub.ru/',
+        },
+        {
+            id: 'b813', title: 'Бильярд в половине десятого', author: 'Генрих Бёлль',
+            clubId: 'cl26', color: '#1a3a5c', year: 2026,
+            coverUrl: 'https://cdn.litres.ru/pub/c/cover/68707956.jpg',
+            meetingDate: '2026-11-28',
+            registerUrl: 'http://bookzclub.ru/',
+        },
+    ],
+
+};
+
+let _db = null;
+
+function applyMigrations(db) {
+    const goldfinch = db?.books?.find((book) => book.id === 'b72');
+    if (goldfinch && goldfinch.coverUrl !== '/cover-goldfinch.jpg') {
+        goldfinch.coverUrl = '/cover-goldfinch.jpg';
+    }
+    // Fix b501 (Нетворкинг для разведчиков) — restore correct cover after ID collision
+    const b501 = db?.books?.find((book) => book.id === 'b501');
+    if (b501) {
+        b501.coverUrl = 'https://cdn.litres.ru/pub/c/cover/66635352.jpg';
+        delete b501.genreRibbon;
+        delete b501.price;
+    }
+    // Fix b502 (Завет воды) — restore correct cover after ID collision
+    const b502 = db?.books?.find((book) => book.id === 'b502');
+    if (b502) {
+        b502.coverUrl = 'https://cdn.litres.ru/pub/c/cover/70795744.jpg';
+        delete b502.genreRibbon;
+        delete b502.price;
+    }
+    // Force auto-cover and remove registerUrl for b97
+    const b97 = db?.books?.find((book) => book.id === 'b97');
+    if (b97) {
+        b97.coverUrl = 'data:image/svg+xml;utf8,<svg width="400" height="600" xmlns="http://www.w3.org/2000/svg" style="background:%23aaaaff"><text x="30" y="80" font-family="Inter,sans-serif" font-weight="900" font-size="46" fill="%23fff">Двести</text><text x="30" y="135" font-family="Inter,sans-serif" font-weight="900" font-size="46" fill="%23fff">франков</text><text x="30" y="190" font-family="Inter,sans-serif" font-weight="900" font-size="46" fill="%23fff">с процентами</text><text x="30" y="250" font-family="Inter,sans-serif" font-size="28" fill="%23ffffffaa">С. Довлатов</text></svg>';
+        delete b97.registerUrl;
+    }
+    // Sync coverUrl for b98 (Вера Богданова)
+    const b98 = db?.books?.find((book) => book.id === 'b98');
+    if (b98 && !b98.coverUrl) {
+        b98.coverUrl = 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1774780508i/250379090._SX600_.jpg';
+    }
+    // Clear incorrect cover for b254 (Возвращение, Платонов)
+    const b254 = db?.books?.find((book) => book.id === 'b254');
+    if (b254) delete b254.coverUrl;
+    // Force correct covers — эти книги могли оказаться в кэше без coverUrl
+    // (добавлены в SEED до того как обложка была назначена)
+    const b120 = db?.books?.find((book) => book.id === 'b120');
+    if (b120) b120.coverUrl = '/cover-shantaram.jpg';
+    const b807 = db?.books?.find((book) => book.id === 'b807');
+    if (b807) b807.coverUrl = 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1678279232i/84445105._SX600_.jpg';
+    const b813 = db?.books?.find((book) => book.id === 'b813');
+    if (b813) b813.coverUrl = 'https://cdn.litres.ru/pub/c/cover/4956.jpg';
+    const b830 = db?.books?.find((book) => book.id === 'b830');
+    if (b830) b830.coverUrl = 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1744194599i/231210719._SX600_.jpg';
+    // Upgrade cl13 from ticker-only to a real planet
+    const cl13cached = db.clubs.find(c => c.id === 'cl13');
+    if (cl13cached) {
+        cl13cached.name = 'Институт карьерного роста';
+        cl13cached.members = 150;
+        delete cl13cached.tickerOnly;
+    }
+    // Ensure new city c8 exists
+    if (!db.venues) db.venues = [];
+    if (!db.cities.find(c => c.id === 'c8')) {
+        db.cities.push({ id: 'c8', name: 'Онлайн', population: 500000, color: '#cc88ff', hideSun: true });
+    }
+    // Ensure new club cl21 exists, sync members count and archetype
+    const cl21cached = db.clubs.find(c => c.id === 'cl21');
+    if (!cl21cached) {
+        const seedCl21 = SEED.clubs.find(c => c.id === 'cl21');
+        if (seedCl21) {
+            db.clubs.push(JSON.parse(JSON.stringify(seedCl21)));
+        }
+    } else {
+        cl21cached.members = 3250;
+        cl21cached.hasLogo = true;
+        const seedCl21 = SEED.clubs.find(c => c.id === 'cl21');
+        if (seedCl21) {
+            cl21cached.archetype = seedCl21.archetype;
+        }
+    }
+    // Ensure cl22 (Читули) archetype is updated from SEED
+    const cl22cached = db.clubs.find(c => c.id === 'cl22');
+    if (cl22cached) {
+        const seedCl22 = SEED.clubs.find(c => c.id === 'cl22');
+        if (seedCl22) {
+            cl22cached.archetype = seedCl22.archetype;
+        }
+    }
+    // Ensure cl1 (SOK Москва) archetype is updated from SEED
+    const cl1cached = db.clubs.find(c => c.id === 'cl1');
+    if (cl1cached) {
+        const seedCl1 = SEED.clubs.find(c => c.id === 'cl1');
+        if (seedCl1) {
+            cl1cached.archetype = seedCl1.archetype;
+        }
+    }
+    // Ensure new club cl23 (Book Events) exists, sync members count and info
+    const cl23cached = db.clubs.find(c => c.id === 'cl23');
+    if (!cl23cached) {
+        const seedCl23 = SEED.clubs.find(c => c.id === 'cl23');
+        if (seedCl23) {
+            db.clubs.push(JSON.parse(JSON.stringify(seedCl23)));
+        }
+    } else {
+        cl23cached.members = 120;
+        cl23cached.hasLogo = true;
+        cl23cached.founded = '21 января 2018 года';
+        cl23cached.color = '#f5a2b3';
+        cl23cached.name = 'Книжный клуб Book Events';
+        cl23cached.directionNote = 'Клуб предлагает к обсуждению книги разных направлений — классического и современного — чтобы не было перекоса в одно из них.';
+        const seedCl23 = SEED.clubs.find(c => c.id === 'cl23');
+        if (seedCl23) {
+            cl23cached.archetype = seedCl23.archetype;
+        }
+    }
+    // Filter cl23 books in local cache to only keep the first 50
+    if (db.books) {
+        const allowedCl23Ids = new Set();
+        for (let i = 400; i <= 492; i++) {
+            allowedCl23Ids.add('b' + i);
+        }
+        // Also allow new 2026 Book Events
+        ['b826','b827','b828','b829'].forEach(id => allowedCl23Ids.add(id));
         db.books = db.books.filter(book => {
             if (book.clubId === 'cl23') {
                 return allowedCl23Ids.has(book.id);
@@ -2086,4 +2086,4 @@ export function addBook({ title, author, clubId, color, coverUrl }) {
     db.books.push(book);
     save();
     return book;
-}}
+}
