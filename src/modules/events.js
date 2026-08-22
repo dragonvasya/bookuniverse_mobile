@@ -272,9 +272,9 @@ export function initEvents() {
 
     let selectedDateRange = [];
     if (dateRangeInput) {
-        flatpickr(dateRangeInput, {
+        window.flatpickr(dateRangeInput, {
             mode: 'range',
-            locale: Russian,
+            locale: window.flatpickr.l10ns.ru,
             dateFormat: 'd.m.Y',
             disableMobile: true, // forces custom flatpickr UI on mobile instead of native
             onChange: function(selectedDates) {
