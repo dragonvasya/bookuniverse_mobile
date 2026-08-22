@@ -1769,7 +1769,7 @@ const SEED = {
             coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-0/wc500/8450969580.jpg',
             meetingDate: '2026-08-30 15:00', meetingTime: '15:00',
             location: 'Сад расходящихся Петек',
-            registerUrl: 'https://t.me/bukva_registration_bot',
+            registerUrl: 'https://t.me/bookclub_msu',
         },
         {
             id: 'b836', title: 'Пикник на обочине', author: 'Братья Стругацкие',
