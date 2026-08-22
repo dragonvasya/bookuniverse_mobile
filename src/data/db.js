@@ -1766,6 +1766,10 @@ const SEED = {
         {
             id: 'b944', title: 'Чапаев и пустота', author: 'Виктор Пелевин',
             clubId: 'cl17', color: '#aa33ff',
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-0/wc500/8450969580.jpg',
+            meetingDate: '2026-08-30 15:00', meetingTime: '15:00',
+            location: 'Сад расходящихся Петек',
+            registerUrl: 'https://t.me/bukva_registration_bot',
         },
         {
             id: 'b836', title: 'Пикник на обочине', author: 'Братья Стругацкие',
