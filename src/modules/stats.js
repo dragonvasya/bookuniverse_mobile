@@ -19,11 +19,10 @@ function pluralize(count, forms) {
 function calculateOverlaps(db) {
     const authorMap = {};
     db.books.forEach(book => {
-        if (book.statsOnly) return;  // exclude stats-only entries
         const author = book.author ? book.author.trim() : '';
         if (!author) return;
         const club = db.clubs.find(c => c.id === book.clubId);
-        if (!club || club.tickerOnly) return;  // exclude ticker-only clubs
+        if (!club) return;
         if (!authorMap[author]) authorMap[author] = { clubs: new Set(), books: new Set() };
         authorMap[author].clubs.add(club);
         authorMap[author].books.add(book.title.trim());
@@ -43,9 +42,8 @@ function calculatePopularBooks(db) {
     const titleMap = {};
     db.books.forEach(book => {
         if (!book.title) return;
-        if (book.statsOnly) return;  // exclude stats-only entries
         const club = db.clubs.find(c => c.id === book.clubId);
-        if (!club || club.tickerOnly) return;  // exclude ticker-only clubs
+        if (!club) return;
         const norm = book.title.trim().toLowerCase()
             .replace(/["""''«»\u2018\u2019\u201c\u201d\u00ab\u00bb]/g, '')
             .replace(/\s+/g, ' ').trim();
@@ -70,10 +68,10 @@ function calculatePopularBooks(db) {
 // ── Counters ─────────────────────────────────────────────────────────
 
 function calculateCounters(db) {
-    const totalBooks = db.books.filter(b => !b.statsOnly).length;
-    const totalClubs = db.clubs.filter(c => !c.tickerOnly).length;
-    const totalCities = new Set(db.clubs.filter(c => !c.tickerOnly).map(c => c.cityId)).size;
-    const totalAuthors = new Set(db.books.filter(b => !b.statsOnly).map(b => b.author).filter(Boolean)).size;
+    const totalBooks = db.books.length;
+    const totalClubs = db.clubs.length;
+    const totalCities = new Set(db.clubs.map(c => c.cityId)).size;
+    const totalAuthors = new Set(db.books.map(b => b.author).filter(Boolean)).size;
     return { totalBooks, totalClubs, totalCities, totalAuthors };
 }
 
