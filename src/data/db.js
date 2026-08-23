@@ -4,7 +4,7 @@
  * books can have optional coverUrl for a real image.
  */
 
-const STORAGE_KEY = 'book-club-universe-v101';
+const STORAGE_KEY = 'book-club-universe-v102';
 
 const SEED = {
     venues: [
@@ -1901,6 +1901,159 @@ const SEED = {
             meetingDate: '2026-09-08 19:00', meetingTime: '19:00',
             registerUrl: 'https://vsmysle.spb.ru/services/knizhnyy-klub-vsmysle-lavr-evgeniy-vodolazkin/',
             price: '1500 ₽',
+        },
+
+        {
+            id: 'b901', title: 'Йеллоуфейс', author: 'Ребекка Куанг',
+            clubId: 'cl27', color: '#d4a853', year: 2026,
+        },
+        {
+            id: 'b902', title: 'Всё рушится', author: 'Чинуа Ачебе',
+            clubId: 'cl27', color: '#d4a853', year: 2026,
+        },
+        {
+            id: 'b903', title: 'Дом духов', author: 'Исабель Альенде',
+            clubId: 'cl27', color: '#d4a853', year: 2026,
+        },
+        {
+            id: 'b904', title: 'Зима в Лиссабоне', author: 'Антонио Муньос Молина',
+            clubId: 'cl27', color: '#d4a853', year: 2026,
+            coverUrl: 'https://avatars.mds.yandex.net/get-goods_pic/15427954/hat545fee11d5723eda2c75d9b0176302f7/orig',
+        },
+        {
+            id: 'b905', title: 'Доктор Живаго', author: 'Борис Пастернак',
+            clubId: 'cl27', color: '#d4a853', year: 2026,
+        },
+        {
+            id: 'b906', title: 'Тайная история', author: 'Донна Тартт',
+            clubId: 'cl27', color: '#d4a853', year: 2026,
+        },
+        {
+            id: 'b907', title: 'Павел Чжан и прочие лесные твари', author: 'Вера Богданова',
+            clubId: 'cl27', color: '#d4a853', year: 2026,
+        },
+        {
+            id: 'b908', title: 'Жена башмачника', author: 'Адриана Трижиани',
+            clubId: 'cl27', color: '#d4a853', year: 2026,
+        },
+        {
+            id: 'b909', title: 'Клуб любителей книг и пирогов из картофельных очистков', author: 'Шаффер и Бэрроуз',
+            clubId: 'cl27', color: '#d4a853', year: 2026,
+        },
+        {
+            id: 'b910', title: 'Полночная библиотека', author: 'Мэтт Хейг',
+            clubId: 'cl27', color: '#d4a853', year: 2026,
+        },
+        {
+            id: 'b911', title: 'С неба упали три яблока', author: 'Наринэ Абгарян',
+            clubId: 'cl27', color: '#d4a853', year: 2026,
+        },
+        {
+            id: 'b912', title: 'Кадавры', author: 'Алексей Поляринов',
+            clubId: 'cl27', color: '#d4a853', year: 2026,
+            coverUrl: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1731612460i/221524743._SX600_.jpg',
+        },
+        {
+            id: 'b913', title: 'Клара и Солнце', author: 'Кадзуо Исигуро',
+            clubId: 'cl27', color: '#d4a853', year: 2026,
+        },
+        {
+            id: 'b914', title: 'Фигуры света', author: 'Сара Мосс',
+            clubId: 'cl27', color: '#d4a853', year: 2026,
+            coverUrl: '/cover-moss.jpg',
+        },
+        {
+            id: 'b915', title: 'К востоку от Эдема', author: 'Джон Стейнбек',
+            clubId: 'cl27', color: '#d4a853', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-8/6666103664.jpg',
+        },
+        {
+            id: 'b916', title: 'Искупление', author: 'Элис Макдермотт',
+            clubId: 'cl27', color: '#d4a853', year: 2026,
+        },
+        {
+            id: 'b917', title: 'Пой, даже если не знаешь слов', author: 'Бьянка Мараис',
+            clubId: 'cl27', color: '#d4a853', year: 2026,
+        },
+        {
+            id: 'b918', title: 'Финансист', author: 'Теодор Драйзер',
+            clubId: 'cl27', color: '#d4a853', year: 2026,
+        },
+        {
+            id: 'b919', title: 'Оливер Твист', author: 'Чарльз Диккенс',
+            clubId: 'cl27', color: '#d4a853', year: 2026,
+        },
+        {
+            id: 'b920', title: 'Поменяй воду цветам', author: 'Валери Перрен',
+            clubId: 'cl27', color: '#d4a853', year: 2026,
+        },
+        {
+            id: 'b921', title: 'Зимний солдат', author: 'Дэниэл Мейсон',
+            clubId: 'cl27', color: '#d4a853', year: 2026,
+        },
+        {
+            id: 'b922', title: 'Медвежий угол', author: 'Фредрик Бакман',
+            clubId: 'cl27', color: '#d4a853', year: 2026,
+        },
+        {
+            id: 'b923', title: 'Город женщин', author: 'Элизабет Гилберт',
+            clubId: 'cl27', color: '#d4a853', year: 2026,
+        },
+        {
+            id: 'b924', title: 'Американская грязь', author: 'Джанин Камминс',
+            clubId: 'cl27', color: '#d4a853', year: 2026,
+        },
+        {
+            id: 'b925', title: 'Перл', author: 'Шан Хьюз',
+            clubId: 'cl27', color: '#d4a853', year: 2026,
+        },
+        {
+            id: 'b926', title: 'Уроки химии', author: 'Бонни Гармус',
+            clubId: 'cl27', color: '#d4a853', year: 2026,
+        },
+        {
+            id: 'b927', title: 'Завет воды', author: 'Абрахам Вергезе',
+            clubId: 'cl27', color: '#d4a853', year: 2026,
+            coverUrl: 'https://cdn.litres.ru/pub/c/cover/70795744.jpg',
+        },
+        {
+            id: 'b928', title: 'Клуб неисправимых оптимистов', author: 'Жан-Мишель Генассия',
+            clubId: 'cl27', color: '#d4a853', year: 2026,
+            coverUrl: '/cover-optimists.jpg',
+        },
+        {
+            id: 'b929', title: 'Piccola Сицилия', author: 'Даниэль Шпек',
+            clubId: 'cl27', color: '#d4a853', year: 2026,
+        },
+        {
+            id: 'b930', title: 'Сочувствующий', author: 'Вьет Тхань Нгуен',
+            clubId: 'cl27', color: '#d4a853', year: 2026,
+        },
+        {
+            id: 'b931', title: 'Мир глазами Гарпа', author: 'Джон Ирвинг',
+            clubId: 'cl27', color: '#d4a853', year: 2026,
+        },
+        {
+            id: 'b932', title: 'Хранительница историй', author: 'Салли Пейдж',
+            clubId: 'cl27', color: '#d4a853', year: 2026,
+        },
+        {
+            id: 'b933', title: 'Женщина в белом', author: 'Уилки Коллинз',
+            clubId: 'cl27', color: '#d4a853', year: 2026,
+            coverUrl: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1678279232i/84445105._SX600_.jpg',
+        },
+        {
+            id: 'b934', title: 'Оккульттрегер', author: 'Алексей Сальников',
+            clubId: 'cl27', color: '#d4a853', year: 2026,
+        },
+        {
+            id: 'b935', title: 'Возлюбленная', author: 'Тони Морисон',
+            clubId: 'cl27', color: '#d4a853', year: 2026,
+        },
+        {
+            id: 'b936', title: 'Щегол', author: 'Донна Тартт',
+            clubId: 'cl27', color: '#d4a853', year: 2026,
+            coverUrl: '/cover-goldfinch.jpg',
         },
     ],
 
