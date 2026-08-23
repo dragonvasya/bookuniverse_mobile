@@ -70,10 +70,10 @@ function calculatePopularBooks(db) {
 // ── Counters ─────────────────────────────────────────────────────────
 
 function calculateCounters(db) {
-    const totalBooks = db.books.length;
+    const totalBooks = db.books.filter(b => !b.statsOnly).length;
     const totalClubs = db.clubs.filter(c => !c.tickerOnly).length;
     const totalCities = new Set(db.clubs.filter(c => !c.tickerOnly).map(c => c.cityId)).size;
-    const totalAuthors = new Set(db.books.map(b => b.author).filter(Boolean)).size;
+    const totalAuthors = new Set(db.books.filter(b => !b.statsOnly).map(b => b.author).filter(Boolean)).size;
     return { totalBooks, totalClubs, totalCities, totalAuthors };
 }
 
