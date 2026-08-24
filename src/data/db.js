@@ -1,10 +1,10 @@
-﻿/**
+/**
  * db.js — In-memory data store persisted to localStorage.
  * Schema: { cities[], clubs[], books[] }
  * books can have optional coverUrl for a real image.
  */
 
-const STORAGE_KEY = 'book-club-universe-v102';
+const STORAGE_KEY = 'book-club-universe-v103';
 
 const SEED = {
     venues: [
@@ -1297,6 +1297,22 @@ const SEED = {
             seats: 8,
             registerUrl: 'https://chityli.ru',
             genreRibbon: 'Лекция',
+        },
+        {
+            id: 'b950',
+            title: 'Копия веры', author: 'Катя Качур',
+            clubId: 'cl22', color: '#8b4513', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-x/wc2500/11013990981.jpg',
+            meetingDate: '2026-10-15', meetingTime: '19:30',
+            registerUrl: 'https://t.me/chityli',
+        },
+        {
+            id: 'b951',
+            title: 'Скорбь Сатаны', author: 'Мария Корелли',
+            clubId: 'cl22', color: '#2a0a3a', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-w/wc1000/9191141420.jpg',
+            meetingDate: '2026-10-29', meetingTime: '19:30',
+            registerUrl: 'https://t.me/chityli',
         },
         // ── На чердаке (cl19, Москва) ─────────────────────────────
         {
