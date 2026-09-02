@@ -516,6 +516,14 @@ const SEED = {
             location: 'БЦ «Tower A», аудитория 807',
             registerUrl: 'mailto:kudryavtceva_n@magnit.ru',
         },
+        {
+            id: 'b952', title: 'Инноваторы', author: 'У. Айзексон', clubId: 'cl14', color: '#dd6644', year: 2026,
+            coverUrl: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1707681940i/26666661._SX600_.jpg',
+            meetingDate: '2026-09-10',
+            meetingTime: '17:00',
+            location: 'БЦ «Tower A», аудитория 911',
+            registerUrl: 'mailto:kudryavtceva_n@magnit.ru',
+        },
         // Литературный клуб Синхронизации (Онлайн, central planet)
         {
             id: 'b57', title: 'Алиса в стране Чудес', author: 'Л. Кэрролл', clubId: 'cl15', color: '#ff33aa', year: 2026,
