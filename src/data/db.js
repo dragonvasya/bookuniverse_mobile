@@ -1205,6 +1205,21 @@ const SEED = {
             meetingTime: '19:00',
             location: 'Екатеринбург',
         },
+        {
+            id: 'b953', title: 'Бесчестье', author: 'Дж. М. Кутзее', clubId: 'cl20', color: '#cc2222', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-b/wc1000/12387414359.jpg',
+            meetingDate: '2026-09-14',
+            meetingTime: '19:00',
+            location: 'Екатеринбург',
+            registerUrl: 'https://ekb.qtickets.events/256021-140926-vstrecha-knizhnogo-kluba-ty-tvoy-drug-i-kniga-po-knige-dzhmkutzee-bescheste',
+        },
+        {
+            id: 'b954', title: 'Мужчины называли её сумасшедшей', author: 'Тендлер', clubId: 'cl20', color: '#cc2222', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-2/wc1000/10093682774.jpg',
+            meetingDate: '2026-09-21',
+            meetingTime: '19:00',
+            location: 'Екатеринбург',
+        },
         // ── Читули (cl22, Москва) ────────────────────────────────
         // Прочитанные книги 2025
         { id: 'b313', title: 'Авиатор', author: 'Евгений Водолазкин', clubId: 'cl22', color: '#334466', year: 2025, coverUrl: 'https://cv0.litres.ru/pub/c/cover/18910175.jpg', rating: 7.9 },
