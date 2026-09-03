@@ -4,7 +4,7 @@
  * books can have optional coverUrl for a real image.
  */
 
-const STORAGE_KEY = 'book-club-universe-v103';
+const STORAGE_KEY = 'book-club-universe-v104';
 
 const SEED = {
     venues: [
@@ -98,10 +98,45 @@ const SEED = {
                 description: '<div class="arc-section"><div class="arc-label">🏛️ Суть архетипа</div><div class="arc-traits">Это сообщество читает не “сюжеты”, а предельные режимы человеческого существования: любовь, вина, распад идентичности, насилие истории, одиночество, моральный выбор, память, травма, надежда. Клуб про человека в условиях, где простые ответы перестают работать.</div></div><div class="arc-section"><div class="arc-label">🧠 Психологический профиль</div><div class="arc-traits"><b>1. Фокус на внутренней реальности:</b> сознание переживает мир (Исигуро, Сарамаго, Фоер, Франзен, Водолазкин, Улицкая, Памук, Тартт).<br><br><b>2. Травма и историческая тень:</b> давление истории на психику человека (Оруэлл, Стейнбек, Астафьев, Шолохов, Булгаков, Гюго, Драйзер, Достоевский).<br><br><b>3. Моральная неоднозначность:</b> нет простых героев, есть выбор и цена выбора (Тайная история, Имя розы, Коллекционер, Граф Монте-Кристо, Анна Каренина, Братья Карамазовы).<br><br><b>4. Эмоциональная эмпатия + тёмные зоны:</b> попытка держать тяжелое в поле зрения рядом с теплом (Флэгг, Бакман, Абгарян, Богданова, Сарамаго, Симмонс, Кронин).<br><br><b>5. Интерес к идентичности:</b> постоянный вопрос: «что делает меня мной?» (Цветы для Элджернона, Не отпускай меня, Степной волк, Франкл, Чиксентмихайи, Бернс).</div></div><div class="arc-section"><div class="arc-label">🧬 ДНК книжного клуба</div><div class="arc-dna-row"><span class="arc-pct">28%</span><span class="arc-cat">Психологическая глубина и исследование личности</span></div><div class="arc-dna-row"><span class="arc-pct">18%</span><span class="arc-cat">История, общество и давление эпохи</span></div><div class="arc-dna-row"><span class="arc-pct">17%</span><span class="arc-cat">Моральные выборы и этическая неоднозначность</span></div><div class="arc-dna-row"><span class="arc-pct">12%</span><span class="arc-cat">Эмоциональная эмпатия и человеческое тепло</span></div><div class="arc-dna-row"><span class="arc-pct">10%</span><span class="arc-cat">Экзистенциальная философия и смысл жизни</span></div><div class="arc-dna-row"><span class="arc-pct">9%</span><span class="arc-cat">Тёмная проза, психологическая напряжённость и тревога</span></div><div class="arc-dna-row"><span class="arc-pct">6%</span><span class="arc-cat">Классическая литература как “скелет системы”</span></div><div class="arc-profile-block"><b>Итоговый профиль:</b><ul class="arc-formats-list"><li><b>≈ 60% — психология личности и смысл</b></li><li><b>≈ 25% — общество, история и мораль</b></li><li><b>≈ 15% — эмоциональная и классическая “опора”</b></li></ul></div></div><div class="arc-section"><div class="arc-label">🎓 Интеллектуальный стиль</div><div class="arc-traits"><ul class="arc-formats-list"><li>синтез высокой классики и современной прозы</li><li>отсутствие границы между “школьной программой” и актуальной литературой</li><li>интерес к философии, психологии и культурной памяти</li><li>чтение как способ самонаблюдения</li><li>клуб про человека в условиях, где простые ответы перестают работать.</li></ul></div></div><div class="arc-section"><div class="arc-label">🎯 Уровень сложности</div><div class="arc-complexity"><span>Интеллектуальная сложность</span><div class="arc-bar-wrap"><div class="arc-bar" style="width:80%"></div></div><span class="arc-val">8/10</span></div><div class="arc-complexity"><span>Эмоциональная глубина</span><div class="arc-bar-wrap"><div class="arc-bar arc-bar-em" style="width:85%"></div></div><span class="arc-val">8.5/10</span></div></div>'
             }
         },
+        { id: 'cl28', name: 'Громко сказано', cityId: 'c1', members: 1100, color: '#f5a820', memberLabel: 'подписчиков', hasLogo: true },
 ],
     books: [
                 { id: 'bq1', title: 'Маленький принц', author: 'Антуан де Сент-Экзюпери', color: '#1a2a5e' },
         { id: 'bq2', title: 'Алхимик',         author: 'Пауло Коэльо',             color: '#5e3a0a' },
+        // Громко сказано — события 2026
+        {
+            id: 'b840', title: 'Роза Парацельса', author: 'Хорхе Луис Борхес',
+            clubId: 'cl28', color: '#f5a820', year: 2026,
+            meetingDate: '2026-09-05', meetingTime: '16:30',
+            location: 'Главное здание библиотеки им. Н.А. Некрасова, 5 этаж, конференц-зал',
+            registerUrl: 'https://nekrasovka.ru/afisha/05-09-2026/8849',
+            genreRibbon: 'Спецформат',
+        },
+        // Book Events — события 2026 (Азимов)
+        {
+            id: 'b961', title: 'Академия', author: 'Айзек Азимов',
+            clubId: 'cl23', color: '#f5a2b3', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-r/wc1000/6355546107.jpg',
+            meetingDate: '2026-09-17', meetingTime: '19:00',
+            location: 'Библиотека 16 (Новоспасский пер. 5)',
+            registerUrl: 'https://booksevents.ru/#schedule',
+        },
+        {
+            id: 'b962', title: 'Академия и Империя', author: 'Айзек Азимов',
+            clubId: 'cl23', color: '#f5a2b3', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-a/wc1000/6324639154.jpg',
+            meetingDate: '2026-10-15',
+            location: 'Библиотека 16 (Новоспасский пер. 5)',
+            registerUrl: 'https://booksevents.ru/#schedule',
+        },
+        {
+            id: 'b963', title: 'Вторая академия', author: 'Айзек Азимов',
+            clubId: 'cl23', color: '#f5a2b3', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-m/wc1000/7156664482.jpg',
+            meetingDate: '2026-11-15',
+            location: 'Библиотека 16 (Новоспасский пер. 5)',
+            registerUrl: 'https://booksevents.ru/#schedule',
+        },
         { id: 'b400', title: 'Люди, которые всегда со мной', author: 'Наринэ Абгарян', clubId: 'cl23', color: '#8B0000', year: 2019 },
         { id: 'b401', title: 'Глиняный мост', author: 'Маркус Зусак', clubId: 'cl23', color: '#5c0000', year: 2018 },
         { id: 'b402', title: 'С жизнью наедине', author: 'Кристин Ханна', clubId: 'cl23', color: '#2244aa', year: 2022 },
@@ -1372,7 +1407,7 @@ const SEED = {
             registerUrl: 'https://lamabookclub.ru/08-09',
         },
         {
-            id: 'b840', title: 'Женщина в песках', author: 'Кобо Абэ',
+            id: 'b960', title: 'Женщина в песках', author: 'Кобо Абэ',
             clubId: 'cl27', color: '#c9a84c', year: 2026,
             coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-f/wc1000/8112992307.jpg',
             meetingDate: '2026-08-28',
@@ -2211,13 +2246,18 @@ function applyMigrations(db) {
             allowedCl23Ids.add('b' + i);
         }
         // Also allow new 2026 Book Events
-        ['b826','b827','b828','b829'].forEach(id => allowedCl23Ids.add(id));
+        ['b826','b827','b828','b829','b830','b831','b832','b961','b962','b963'].forEach(id => allowedCl23Ids.add(id));
         db.books = db.books.filter(book => {
             if (book.clubId === 'cl23') {
                 return allowedCl23Ids.has(book.id);
             }
             return true;
         });
+    }
+    // Ensure cl28 (Громко сказано) exists
+    if (!db.clubs.find(c => c.id === 'cl28')) {
+        const seedCl28 = SEED.clubs.find(c => c.id === 'cl28');
+        if (seedCl28) db.clubs.push(JSON.parse(JSON.stringify(seedCl28)));
     }
     // Sync any new books from SEED that are missing from cached DB
     SEED.books.forEach(seedBook => {

@@ -64,6 +64,7 @@ function getLogoSrc(club) {
         cl25: '/bukva.jpg',          // Bukva Book Club, Белград
         cl26: '/bookz.jpg',          // Bookz Club, Москва
         cl27: '/dubai.jpg',          // Книжный клуб Дубай
+        cl28: '/gromko-logo.jpg',    // Громко сказано, Москва
     };
     return logoMap[club.id] || null;
 }
