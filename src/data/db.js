@@ -2128,6 +2128,14 @@ const SEED = {
             clubId: 'cl27', color: '#d4a853', year: 2026,
             coverUrl: '/cover-goldfinch.jpg',
         },
+        {
+            id: 'b964', title: 'Привет, красавица', author: 'Энн Наполитано',
+            clubId: 'cl27', color: '#d4a853', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-9/wc1000/9337473945.jpg',
+            meetingDate: '2026-10-03',
+            registerUrl: 'http://t.me/bookchecklistbot/hub',
+            genreRibbon: '🎂 3 года клубу',
+        },
     ],
 
 };
