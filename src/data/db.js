@@ -929,6 +929,15 @@ const SEED = {
             registerUrl: 'https://career-university.ru/reading_club'
         },
         {
+            id: 'b965', title: 'Богач, бедняк', author: 'Ирвин Шоу', clubId: 'cl13', color: '#aa4466', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-8/wc1000/7787403188.jpg',
+            meetingDate: '2026-09-12',
+            meetingTime: '12:00–14:00',
+            location: 'ресторан в центре Москвы',
+            price: '700 ₽',
+            registerUrl: 'https://career-university.ru/reading_club',
+        },
+        {
             id: 'b94', title: 'Читая Лолиту в Тегеране', author: 'Азар Нафиси', clubId: 'cl19', color: '#778899', year: 2026,
             isClubTop: true,
             coverUrl: 'https://cdn.litres.ru/pub/c/cover_200/68053183.jpg',
