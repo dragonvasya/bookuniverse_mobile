@@ -101,7 +101,16 @@ function renderCounters(db) {
 }
 
 function renderTopAuthors(db) {
-    const list = calculateOverlaps(db).slice(0, 10);
+    const sorted = calculateOverlaps(db);
+    let cutoff = 10;
+    if (sorted.length > 10) {
+        const thresholdClubs = sorted[9].totalClubs;
+        const thresholdBooks = sorted[9].totalBooks;
+        while (cutoff < sorted.length && sorted[cutoff].totalClubs === thresholdClubs && sorted[cutoff].totalBooks === thresholdBooks) {
+            cutoff++;
+        }
+    }
+    const list = sorted.slice(0, cutoff);
     if (list.length === 0) return '';
 
     const items = list.map((item, i) => {

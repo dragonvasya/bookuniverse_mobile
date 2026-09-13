@@ -120,7 +120,7 @@ const SEED = {
         {
             id: 'b_shrift_zavet', title: 'Завет воды', author: 'Абрахам Вергезе',
             clubId: 'cl30', color: '#ffffff', year: 2026,
-            coverUrl: 'https://cdn.litres.ru/pub/c/cover/70795744.jpg',
+            coverUrl: '/cover-zavet.jpg',
             meetingDate: '2026-09-19', meetingTime: '11:00',
             registerUrl: 'https://t.me/shrift_kzn',
         },
@@ -203,7 +203,7 @@ const SEED = {
         { id: 'b409', title: 'Цитадель', author: 'Арчибальд Кронин', clubId: 'cl23', color: '#1a4a1a', year: 2024 },
         { id: 'b410', title: 'Слепота', author: 'Жозе Сарамаго', clubId: 'cl23', color: '#2a2a4a', year: 2018 },
         { id: 'b411', title: 'Серебряная дорога', author: 'Стина Джексон', clubId: 'cl23', color: '#4a1a1a', year: 2018 },
-        { id: 'b412', title: 'Клара и солнце', author: 'Кадзуо Исигуро', clubId: 'cl23', color: '#1a3a1a', year: 2019 },
+        { id: 'b412', title: 'Клара и солнце', author: 'Кадзуо Исигуро', clubId: 'cl23', coverUrl: '/cover-klara.jpg', color: '#1a3a1a', year: 2019 },
         { id: 'b413', title: 'Жутко громко и запредельно близко', author: 'Джонатан Сафран Фоер', clubId: 'cl23', color: '#3a1a4a', year: 2021 },
         { id: 'b414', title: 'Четыре ветра', author: 'Кристин Ханна', clubId: 'cl23', color: '#1a1a4a', year: 2021 },
         { id: 'b415', title: 'Художница из Джайпура', author: 'Алка Джоши', clubId: 'cl23', color: '#334466', year: 2026 },
@@ -788,7 +788,7 @@ const SEED = {
         {
             id: 'b502', title: 'Завет воды', author: 'Абрахам Вергезе',
             clubId: 'cl16', color: '#2a6655', year: 2026,
-            coverUrl: 'https://cdn.litres.ru/pub/c/cover/70795744.jpg',
+            coverUrl: '/cover-zavet.jpg',
             meetingDate: '2026-07-18',
             location: 'Онлайн',
         },
@@ -1528,7 +1528,7 @@ const SEED = {
         },
         {
             id: 'b853', title: 'Клара и Солнце', author: 'Исигуро',
-            clubId: 'cl17', color: '#aa33ff',
+            clubId: 'cl17', coverUrl: '/cover-klara.jpg', color: '#aa33ff',
         },
         {
             id: 'b854', title: 'Центр тяжести', author: 'Поляринов',
@@ -2091,7 +2091,7 @@ const SEED = {
         },
         {
             id: 'b913', title: 'Клара и Солнце', author: 'Кадзуо Исигуро',
-            clubId: 'cl27', color: '#d4a853', year: 2026,
+            clubId: 'cl27', coverUrl: '/cover-klara.jpg', color: '#d4a853', year: 2026,
         },
         {
             id: 'b914', title: 'Фигуры света', author: 'Сара Мосс',
@@ -2150,7 +2150,7 @@ const SEED = {
         {
             id: 'b927', title: 'Завет воды', author: 'Абрахам Вергезе',
             clubId: 'cl27', color: '#d4a853', year: 2026,
-            coverUrl: 'https://cdn.litres.ru/pub/c/cover/70795744.jpg',
+            coverUrl: '/cover-zavet.jpg',
         },
         {
             id: 'b928', title: 'Клуб неисправимых оптимистов', author: 'Жан-Мишель Генассия',
