@@ -22,6 +22,7 @@ const SEED = {
         { id: 'c8', name: 'Онлайн', population: 500000, color: '#cc88ff', hideSun: true },
         { id: 'c9', name: 'Белград', population: 1700000, color: '#7ec8a0' },
         { id: 'c10', name: 'Дубай' },
+        { id: 'c11', name: 'Казань', population: 1300000, color: '#90d494' },
     ],
     clubs: [
         // Real clubs
@@ -60,7 +61,7 @@ const SEED = {
                 description: '<div class="arc-section"><div class="arc-label">🏛️ Профиль клуба</div><div class="arc-traits"><b>Очень много:</b><ul class="arc-formats-list"><li>современной прозы;</li><li>новых авторов;</li><li>женских голосов;</li><li>социальной проблематики;</li><li>тем идентичности;</li><li>памяти;</li><li>травмы;</li><li>семьи;</li><li>войны;</li><li>эмиграции;</li><li>одиночества.</li></ul></div></div><div class="arc-section"><div class="arc-label">📊 ДНК клуба</div><div class="arc-dna-row"><span class="arc-pct">45%</span><span class="arc-cat">Современная литературная проза</span></div><div class="arc-desc">Основное ядро.</div><div class="arc-dna-row"><span class="arc-pct">20%</span><span class="arc-cat">Социальная чувствительность</span></div><div class="arc-dna-row"><span class="arc-pct">20%</span><span class="arc-cat">Память, семья, идентичность</span></div><div class="arc-dna-row"><span class="arc-pct">10%</span><span class="arc-cat">Пограничная и экспериментальная литература</span></div><div class="arc-dna-row"><span class="arc-pct">5%</span><span class="arc-cat">Фантастика и жанр</span></div><div class="arc-desc">Появляется редко и только если книга несёт сильный социальный или литературный слой.</div></div><div class="arc-section"><div class="arc-label">🎯 Уровень сложности</div><div class="arc-traits">Интересный момент: этот клуб не читает сложные книги в академическом смысле, но читает сложные книги эмоционально.</div><br><div class="arc-complexity"><span>Интеллектуальная сложность</span><div class="arc-bar-wrap"><div class="arc-bar" style="width:60%"></div></div><span class="arc-val">6/10</span></div><div class="arc-complexity"><span>Эмоциональная сложность</span><div class="arc-bar-wrap"><div class="arc-bar arc-bar-em" style="width:90%"></div></div><span class="arc-val">9/10</span></div></div><div class="arc-section"><div class="arc-label">👥 Кто типичный участник</div><div class="arc-traits"><b>С высокой вероятностью:</b><ul class="arc-formats-list"><li>интересуется современной культурой;</li><li>следит за новыми издательствами;</li><li>любит литературные премии;</li><li>читает не ради сюжета;</li><li>любит обсуждать общество через личные истории.</li></ul></div></div>'
             }
         },
-        { id: 'cl24', name: 'Лама', cityId: 'c1', members: 2390, color: '#7ba7d4', memberLabel: 'подписчиков', hasLogo: true },
+        { id: 'cl24', name: 'Лама', cityId: 'c1', members: 2500, color: '#7ba7d4', memberLabel: 'подписчиков', hasLogo: true },
         { id: 'cl25', name: 'Bukva Book Club', cityId: 'c9', members: 0, color: '#7ec8a0', hasLogo: true },
         { id: 'cl26', name: 'Bookz Club', cityId: 'c1', members: 322, color: '#c4a99a', hasLogo: true },
         { id: 'cl27', name: 'Книжный клуб Дубай', cityId: 'c10', members: 372, color: '#d4a853', hasLogo: true, archetype: { title: 'Клуб больших человеческих историй', description: `<div class="arc-section">
@@ -99,9 +100,62 @@ const SEED = {
             }
         },
         { id: 'cl28', name: 'Громко сказано', cityId: 'c1', members: 1100, color: '#f5a820', memberLabel: 'подписчиков', hasLogo: true },
-],
+        { id: 'cl29', name: 'Гоголь Моголь', cityId: 'c1', members: 500, color: '#e63946', hasLogo: true },
+            { id: 'cl30', name: 'Шрифт', cityId: 'c11', members: 300, color: '#ffffff', founded: 2023, hasLogo: true },
+    ],
     books: [
-                { id: 'bq1', title: 'Маленький принц', author: 'Антуан де Сент-Экзюпери', color: '#1a2a5e' },
+                
+        
+        
+        
+        
+        {
+            id: 'b_shrift_wellness', title: 'Велнесс', author: 'Нейтан Хилл',
+            clubId: 'cl30', color: '#ffffff', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-o/wc2500/8883940740.jpg',
+            meetingDate: '2026-10-03', meetingTime: '13:00',
+            price: '2800',
+            registerUrl: 'https://t.me/shrift_kzn',
+        },
+        {
+            id: 'b_shrift_zavet', title: 'Завет воды', author: 'Абрахам Вергезе',
+            clubId: 'cl30', color: '#ffffff', year: 2026,
+            coverUrl: 'https://cdn.litres.ru/pub/c/cover/70795744.jpg',
+            meetingDate: '2026-09-19', meetingTime: '11:00',
+            registerUrl: 'https://t.me/shrift_kzn',
+        },
+{
+            id: 'b_gromko_london', title: 'Любовь к жизни', author: 'Джек Лондон',
+            clubId: 'cl28', color: '#f5a820', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-k/wc1000/9396841592.jpg',
+            meetingDate: '2026-09-26', meetingTime: '16:30',
+            location: 'Главное здание библиотеки им. Н.А. Некрасова, 5 этаж, конференц-зал',
+            registerUrl: 'https://nekrasovka.ru/afisha/26-09-2026/8994',
+            genreRibbon: 'Спецформат',
+        },
+{
+            id: 'b_lama_quest', title: 'У меня к вам несколько вопросов', author: 'Реббека Маклайн',
+            clubId: 'cl24', color: '#7ba7d4', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-6/wc1000/10066684074.jpg',
+            meetingDate: '2026-10-06',
+            registerUrl: 'https://lamabookclub.ru/',
+        },
+{
+            id: 'b_sok_spb_sad', title: 'Сад', author: 'Марина Степнова',
+            clubId: 'cl18', color: '#bb44ff', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-r/wc2500/8209556631.jpg',
+            meetingDate: '2026-09-23', meetingTime: '19:00',
+            location: '2 этаж, 201 переговорная',
+            registerUrl: 'https://t.me/bookclubsok_spb',
+        },
+{
+            id: 'b_gogol1', title: 'Снега', author: 'Джон Бэнвилл',
+            clubId: 'cl29', color: '#e63946', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-q/wc1000/7212022406.jpg',
+            meetingDate: '2026-09-20',
+            registerUrl: '',
+        },
+{ id: 'bq1', title: 'Маленький принц', author: 'Антуан де Сент-Экзюпери', color: '#1a2a5e' },
         { id: 'bq2', title: 'Алхимик',         author: 'Пауло Коэльо',             color: '#5e3a0a' },
         // Громко сказано — события 2026
         {
