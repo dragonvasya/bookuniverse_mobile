@@ -67,6 +67,7 @@ function getLogoSrc(club) {
         cl28: '/gromko-logo.jpg',    // Громко сказано, Москва
         cl30: '/shrift-logo.jpg',    // Шрифт, Казань
         cl31: '/alla-logo.jpg',      // Алла читает, Ереван
+        cl32: '/chekhov-logo.jpg',   // Чехов и компания, Москва
     };
     return logoMap[club.id] || null;
 }

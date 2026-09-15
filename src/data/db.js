@@ -104,6 +104,7 @@ const SEED = {
         { id: 'cl29', name: 'Гоголь Моголь', cityId: 'c1', members: 500, color: '#e63946', hasLogo: true },
             { id: 'cl30', name: 'Шрифт', cityId: 'c11', members: 300, color: '#ffffff', founded: 2023, hasLogo: true },
             { id: 'cl31', name: 'Алла читает', cityId: 'c12', members: 185, color: '#d8b98b', founded: 2026, hasLogo: true },
+            { id: 'cl32', name: 'Чехов и компания', cityId: 'c1', members: 6000, color: '#888888', year: 2026, hasLogo: true },
     ],
     books: [
                 
@@ -112,7 +113,21 @@ const SEED = {
         
         
         
+        
         {
+            id: 'b_chekhov_1', title: 'Одиссея', author: 'Гомер',
+            clubId: 'cl32', color: '#888888', year: 2026,
+            meetingDate: '2026-09-12',
+        },
+        {
+            id: 'b_chekhov_2', title: 'Истина', author: 'Джон Остин',
+            clubId: 'cl32', color: '#888888', year: 2026,
+            meetingDate: '2026-09-26', meetingTime: '18:00',
+            location: 'Москва, ГОНЧАРНАЯ УЛ, 26/1, 4/1',
+            price: '900 рублей',
+            registerUrl: 'https://chekhov-and-company.timepad.ru/event/4180907/',
+        },
+{
             id: 'b_alla_1', title: 'Люблю, мама', author: 'Илиана Ксандер',
             clubId: 'cl31', color: '#d8b98b', year: 2026,
             coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-t/wc1000/9586781741.jpg',
