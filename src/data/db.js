@@ -116,7 +116,14 @@ const SEED = {
         
         
         
+        
         {
+            id: 'b_mgu_2', title: 'На маяк', author: 'Вирджиния Вулф',
+            clubId: 'cl17', color: '#aa33ff', year: 2026,
+            coverUrl: '/cover-lighthouse.jpg',
+            meetingDate: '2026-09-13',
+        },
+{
             id: 'b_mezhdu_1', title: 'Гойя, или Тернистый путь познания', author: 'Лион Фейхтвангер',
             clubId: 'cl10', color: '#33ddaa', year: 2026,
             coverUrl: '/cover-goya.jpg',
