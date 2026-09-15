@@ -166,7 +166,7 @@ const SEED = {
             registerUrl: 'https://t.me/bookclubsok_spb',
         },
 {
-            id: 'b_gogol1', title: 'Снега', author: 'Джон Бэнвилл',
+            id: 'b_gogol1', title: 'Снег', author: 'Джон Бэнвилл',
             clubId: 'cl29', color: '#e63946', year: 2026,
             coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-q/wc1000/7212022406.jpg',
             meetingDate: '2026-09-20',
