@@ -115,7 +115,16 @@ const SEED = {
         
         
         
+        
         {
+            id: 'b_mezhdu_1', title: 'Гойя, или Тернистый путь познания', author: 'Лион Фейхтвангер',
+            clubId: 'cl10', color: '#33ddaa', year: 2026,
+            coverUrl: '/cover-goya.jpg',
+            meetingDate: '2026-10-14', meetingTime: '18:30',
+            location: 'Капсула №2',
+            registerUrl: 'https://bookclubsk1410.events.sk.ru/',
+        },
+{
             id: 'b_career_1', title: 'Письма незнакомке', author: 'Андре Моруа',
             clubId: 'cl13', color: '#aa4466', year: 2026,
             coverUrl: '/cover-morois.jpg',
