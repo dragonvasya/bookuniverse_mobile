@@ -114,7 +114,32 @@ const SEED = {
         
         
         
+        
         {
+            id: 'b_career_1', title: 'Письма незнакомке', author: 'Андре Моруа',
+            clubId: 'cl13', color: '#aa4466', year: 2026,
+            coverUrl: '/cover-morois.jpg',
+            meetingDate: '2026-09-27', meetingTime: '12:00–14:00',
+            price: '700 рублей',
+            registerUrl: 'https://career-university.ru/reading_club#accord',
+        },
+        {
+            id: 'b_career_2', title: 'Американская трагедия', author: 'Теодор Драйзер',
+            clubId: 'cl13', color: '#aa4466', year: 2026,
+            coverUrl: '/cover-dreiser.jpg',
+            meetingDate: '2026-10-11', meetingTime: '12:00',
+            price: '700 рублей',
+            registerUrl: 'https://career-university.ru/reading_club#accord',
+        },
+        {
+            id: 'b_career_3', title: 'Невыносимая легкость бытия', author: 'Милан Кундера',
+            clubId: 'cl13', color: '#aa4466', year: 2026,
+            coverUrl: '/cover-kundera.jpg',
+            meetingDate: '2026-10-25', meetingTime: '12:00',
+            price: '700 рублей',
+            registerUrl: 'https://career-university.ru/reading_club#accord',
+        },
+{
             id: 'b_chekhov_1', title: 'Одиссея', author: 'Гомер',
             clubId: 'cl32', color: '#888888', year: 2026,
             meetingDate: '2026-09-12',
