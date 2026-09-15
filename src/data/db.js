@@ -23,6 +23,7 @@ const SEED = {
         { id: 'c9', name: 'Белград', population: 1700000, color: '#7ec8a0' },
         { id: 'c10', name: 'Дубай' },
         { id: 'c11', name: 'Казань', population: 1300000, color: '#90d494' },
+        { id: 'c12', name: 'Ереван', population: 1000000, color: '#d8b98b' },
     ],
     clubs: [
         // Real clubs
@@ -102,6 +103,7 @@ const SEED = {
         { id: 'cl28', name: 'Громко сказано', cityId: 'c1', members: 1100, color: '#f5a820', memberLabel: 'подписчиков', hasLogo: true },
         { id: 'cl29', name: 'Гоголь Моголь', cityId: 'c1', members: 500, color: '#e63946', hasLogo: true },
             { id: 'cl30', name: 'Шрифт', cityId: 'c11', members: 300, color: '#ffffff', founded: 2023, hasLogo: true },
+            { id: 'cl31', name: 'Алла читает', cityId: 'c12', members: 185, color: '#d8b98b', founded: 2026, hasLogo: true },
     ],
     books: [
                 
@@ -109,7 +111,22 @@ const SEED = {
         
         
         
+        
         {
+            id: 'b_alla_1', title: 'Люблю, мама', author: 'Илиана Ксандер',
+            clubId: 'cl31', color: '#d8b98b', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-t/wc1000/9586781741.jpg',
+            meetingDate: '2026-10-04',
+            registerUrl: 'https://t.me/alla_chitaet',
+        },
+        {
+            id: 'b_alla_2', title: 'Саспыга', author: 'Карина Шаинян',
+            clubId: 'cl31', color: '#d8b98b', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-k/wc1000/14673390464.jpg',
+            meetingDate: '2026-10-11',
+            registerUrl: 'https://t.me/alla_chitaet',
+        },
+{
             id: 'b_shrift_wellness', title: 'Велнесс', author: 'Нейтан Хилл',
             clubId: 'cl30', color: '#ffffff', year: 2026,
             coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-o/wc2500/8883940740.jpg',

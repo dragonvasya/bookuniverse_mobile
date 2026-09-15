@@ -66,6 +66,7 @@ function getLogoSrc(club) {
         cl27: '/dubai.jpg',          // Книжный клуб Дубай
         cl28: '/gromko-logo.jpg',    // Громко сказано, Москва
         cl30: '/shrift-logo.jpg',    // Шрифт, Казань
+        cl31: '/alla-logo.jpg',      // Алла читает, Ереван
     };
     return logoMap[club.id] || null;
 }
