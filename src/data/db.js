@@ -4,7 +4,7 @@
  * books can have optional coverUrl for a real image.
  */
 
-const STORAGE_KEY = 'book-club-universe-v104';
+const STORAGE_KEY = 'book-club-universe-v105';
 
 const SEED = {
     venues: [
@@ -53,7 +53,7 @@ const SEED = {
         // Ticker-only clubs (no planet)
         { id: 'cl11', name: 'Книжный клуб Skolkovo Alumni', cityId: 'c1', members: 0, color: '#888888', tickerOnly: true },
         { id: 'cl13', name: 'Институт карьерного роста', cityId: 'c1', members: 150, color: '#aa4466' },
-        { id: 'cl19', name: 'Книжный клуб "На чердаке"', cityId: 'c1', members: 0, color: '#778899', tickerOnly: true },
+        { id: 'cl19', name: 'Книжный клуб "На чердаке"', cityId: 'c1', members: 1800, color: '#f3b6c2' },
         // Sun-sized central club
         { id: 'cl15', name: 'Литературный клуб Синхронизации', cityId: 'c6', members: 53600, color: '#33ffaa', memberLabel: 'подписчиков', organizer: 'Синхронизация', isCentral: true, hasLogo: true },
         { id: 'cl21', name: 'Книжный клуб Евгении Власенко', cityId: 'c8', members: 3250, color: '#cc88ff', isCentral: true, hasLogo: true,
@@ -364,6 +364,21 @@ const SEED = {
         { id: 'b490', title: 'Поток', author: 'Михай Чиксентмихайи', clubId: 'cl23', color: '#2a2a4a', year: 2025 },
         { id: 'b491', title: 'Воспоминания о прошлом земли', author: 'Лю Цысинь', clubId: 'cl23', color: '#4a1a1a', year: 2025 },
         { id: 'b492', title: 'Властелин колец', author: 'Дж.Р.Р. Толкин', clubId: 'cl23', color: '#1a3a1a', year: 2025 },
+        { id: 'b1005', title: 'Бесы', author: 'Фёдор Достоевский', clubId: 'cl23', color: '#4a1a1a', year: 2026, coverUrl: '/cover-besy.jpg' },
+        { 
+            id: 'b1006', title: 'Сестра Керри', author: 'Теодор Драйзер', 
+            clubId: 'cl23', color: '#5e4b3c', year: 2026, 
+            meetingDate: '2026-10-06', meetingTime: '19:00', 
+            location: 'Библиотека 16, ул. Новоспассский переулок, 5, Читальный зал', 
+            registerUrl: 'https://booksevents.ru/' 
+        },
+        { 
+            id: 'b1007', title: 'Процесс', author: 'Франц Кафка', 
+            clubId: 'cl23', color: '#2a2d34', year: 2026, coverUrl: '/cover-kafka.jpg',
+            meetingDate: '2026-10-11', meetingTime: '12:00', 
+            location: 'Библиотека 16, ул. Новоспассский переулок, 5, Читальный зал', 
+            registerUrl: 'https://booksevents.ru/' 
+        },
         // Book Events — события 2026
         {
             id: 'b826', title: 'Литературный бранч «Я — читатель»',
@@ -990,6 +1005,11 @@ const SEED = {
             registerUrl: 'https://t.me/bookclubsok_spb',
         },
         {
+            id: 'b1004', title: 'Все слишком далеко зашло', author: 'Уолтер Джесс',
+            clubId: 'cl18', color: '#4422bb', year: 2026,
+            coverUrl: '/cover-daleko.jpg'
+        },
+        {
             id: 'b92', title: 'К востоку от Эдема', author: 'Джон Стейнбек', clubId: 'cl13', color: '#aa4466', year: 2026,
             coverUrl: 'https://ir.ozone.ru/s3/multimedia-8/6666103664.jpg',
             meetingDate: '2026-04-12',
@@ -1067,7 +1087,7 @@ const SEED = {
         {
             id: 'b94', title: 'Читая Лолиту в Тегеране', author: 'Азар Нафиси', clubId: 'cl19', color: '#778899', year: 2026,
             isClubTop: true,
-            coverUrl: 'https://cdn.litres.ru/pub/c/cover_200/68053183.jpg',
+            coverUrl: '/cover-lolita.jpg',
             meetingDate: '2026-04-26',
             location: 'уточняется',
             registerUrl: 'https://t.me/ariadna_by'
@@ -1328,7 +1348,7 @@ const SEED = {
         },
         {
             id: 'b257', title: 'Проект «Аве мария»', author: 'Энди Вейер', clubId: 'cl19', color: '#778899', year: 2026,
-            coverUrl: 'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1635554081i/59483154._SX600_.jpg',
+            coverUrl: '/cover-avemaria.jpg',
             meetingDate: '2026-05-24',
             selectedDate: '2026-04-28',
             location: 'Кафе «Скворец», Малая Бронная, 4',
@@ -1517,6 +1537,15 @@ const SEED = {
             meetingDate: '2026-07-19',
             location: 'Сад Эрмитаж, Москва',
         },
+        {
+            id: 'b1002',
+            title: 'Гамлет', author: 'Уильям Шекспир',
+            clubId: 'cl19', color: '#778899', year: 2026,
+            coverUrl: '/cover-hamlet.jpg',
+            meetingDate: '2026-09-20',
+            meetingTime: '14:00',
+            location: '2-я Тверская-ямская, 6 Паб "Tweed&Stout"',
+        },
         // ── SOK Екатеринбург (cl7) ────────────────────────────────
         {
             id: 'b602',
@@ -1526,7 +1555,26 @@ const SEED = {
             meetingDate: '2026-07-22',
             isAnniversary: true,
         },
+        {
+            id: 'b1001',
+            title: 'Заслуженный собеседник', author: 'Андрей Курпатов',
+            clubId: 'cl7', color: '#cc2200', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-v/wc1000/10993761931.jpg',
+            meetingDate: '2026-09-22',
+            location: '1 этаж | конференц-зал',
+            registerUrl: 'https://my.sok.works/uu/#/booking/coworking-events'
+        },
         // ── Лама (cl24, Москва) ───────────────────────────────────
+        {
+            id: 'b1003',
+            title: 'Чайка по имени Джонатан Ливингстон', author: 'Ричард Бах',
+            clubId: 'cl24', color: '#5ebbe6', year: 2026,
+            coverUrl: '/cover-chaika-lama.jpg',
+            meetingDate: '2026-10-10',
+            meetingTime: '13:00',
+            genreRibbon: 'Спецформат',
+            registerUrl: 'https://lamabookclub.ru/10-10'
+        },
         {
             id: 'b700',
             title: 'Камера обскура', author: 'Владимир Набоков',
@@ -2049,6 +2097,41 @@ const SEED = {
             meetingTime: '12:00',
             registerUrl: 'https://t.me/bukva_registration_bot',  },
         {
+            id: 'b1008', title: 'Вегетарианка', author: 'Хан Ган',
+            clubId: 'cl25', color: '#3a6b5e', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-j/wc1000/11914889275.jpg',
+            meetingDate: '2026-11-07',
+            meetingTime: '15:00',
+            price: '1000 динар',
+            registerUrl: 'https://t.me/bukva_registration_bot',
+        },
+        {
+            id: 'b1009', title: 'Книжный вор', author: 'Маркус Зусак',
+            clubId: 'cl25', color: '#2b2b2b', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-u/wc1000/7605313842.jpg',
+            meetingDate: '2026-11-14',
+            meetingTime: '12:00',
+            price: '1000 динар',
+            registerUrl: 'https://t.me/bukva_registration_bot',
+        },
+        {
+            id: 'b1010', title: 'Двести третий день зимы', author: 'Ольга Птицева',
+            clubId: 'cl25', color: '#4d6978', year: 2026,
+            meetingDate: '2026-11-21',
+            meetingTime: '12:00',
+            price: '1000 динар',
+            registerUrl: 'https://t.me/bukva_registration_bot',
+        },
+        {
+            id: 'b1011', title: 'Стена', author: 'Марлен Хаусхофер',
+            clubId: 'cl25', color: '#526649', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-m/wc1000/7573658062.jpg',
+            meetingDate: '2026-11-28',
+            meetingTime: '15:00',
+            price: '1000 динар',
+            registerUrl: 'https://t.me/bukva_registration_bot',
+        },
+        {
             id: 'b804', title: 'Книжный своп',
             clubId: 'cl25', color: '#7ec8a0', year: 2026,
             coverUrl: '/bukva.jpg',
@@ -2390,7 +2473,7 @@ function applyMigrations(db) {
             allowedCl23Ids.add('b' + i);
         }
         // Also allow new 2026 Book Events
-        ['b826','b827','b828','b829','b830','b831','b832','b961','b962','b963'].forEach(id => allowedCl23Ids.add(id));
+        ['b826','b827','b828','b829','b830','b831','b832','b961','b962','b963','b1005','b1006','b1007'].forEach(id => allowedCl23Ids.add(id));
         db.books = db.books.filter(book => {
             if (book.clubId === 'cl23') {
                 return allowedCl23Ids.has(book.id);
