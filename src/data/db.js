@@ -1418,6 +1418,13 @@ const SEED = {
             meetingTime: '19:00',
             location: 'Екатеринбург',
         },
+        {
+            id: 'b955', title: 'Тысяча сияющих солнц', author: 'Халед Хоссейни', clubId: 'cl20', color: '#cc2222', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-z/wc1000/7643065751.jpg',
+            meetingDate: '2026-10-26',
+            meetingTime: '19:00',
+            location: 'Екатеринбург',
+        },
         // ── Читули (cl22, Москва) ────────────────────────────────
         // Прочитанные книги 2025
         { id: 'b313', title: 'Авиатор', author: 'Евгений Водолазкин', clubId: 'cl22', color: '#334466', year: 2025, coverUrl: 'https://cv0.litres.ru/pub/c/cover/18910175.jpg', rating: 7.9 },
