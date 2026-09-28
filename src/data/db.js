@@ -651,6 +651,11 @@ const SEED = {
             location: 'Кластер "Ломоносов", Раменский бульвар, 1 (м. Раменки, м. Университет)',
             registerUrl: 'https://migel-agency.timepad.ru/event/3851905/',
         },
+        {
+            id: 'b1014', title: 'Принципы устойчивости', author: 'Рэй Далио', clubId: 'cl11', color: '#666666', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-m/wc1000/13384267150.jpg',
+            meetingDate: '2026-10-08', meetingTime: '19:00',
+        },
         // Университет карьерного роста (ticker-only, hidden name)
         {
             id: 'b53', title: 'Клуб неисправимых оптимистов', author: 'Ж.-М. Генассия', clubId: 'cl13', color: '#556688', year: 2026,
