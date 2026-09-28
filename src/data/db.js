@@ -182,6 +182,13 @@ const SEED = {
             meetingDate: '2026-10-11',
             registerUrl: 'https://t.me/alla_chitaet',
         },
+        {
+            id: 'b_alla_3', title: 'Убить пересмешника', author: 'Харпер Ли',
+            clubId: 'cl31', color: '#d8b98b', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-2/wc1000/7090475474.jpg',
+            meetingDate: '2026-11-08',
+            registerUrl: 'https://t.me/alla_chitaet',
+        },
 {
             id: 'b_shrift_wellness', title: 'Велнесс', author: 'Нейтан Хилл',
             clubId: 'cl30', color: '#ffffff', year: 2026,
