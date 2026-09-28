@@ -2061,6 +2061,12 @@ const SEED = {
             meetingDate: '2026-09-24',
             registerUrl: 'https://lamabookclub.ru/08-09',
         },
+        {
+            id: 'b1012', title: 'Хребты безумия', author: 'Говард Филлипс Лавкрафт',
+            clubId: 'cl24', color: '#1a3a3a', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-z/wc1000/6008814563.jpg',
+            meetingDate: '2026-10-29', meetingTime: '20:00',
+        },
         // ── Bukva Book Club (cl25, Белград) ──────────────────────────
         // Прочитанные книги 2026
         { id: 'b800', title: 'Любите ли Вы Брамса?', author: 'Франсуаза Саган',
