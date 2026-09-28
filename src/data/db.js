@@ -417,6 +417,14 @@ const SEED = {
             registerUrl: 'https://bookevents.ru',
             direction: 'Современное направление',
         },
+        {
+            id: 'b1015', title: 'Позже', author: 'Стивен Кинг',
+            clubId: 'cl23', color: '#1a1a2e', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-2/wc1000/8471693414.jpg',
+            meetingDate: '2026-10-25', meetingTime: '17:00',
+            location: 'Библиотека 16, Новоспасский пер., 5',
+            registerUrl: 'https://booksevents.ru/#schedule',
+        },
         // SOK real books with cover images
         {
             id: 'b1', title: 'Граф Монте-Кристо. Том 1', author: 'А. Дюма', clubId: 'cl1', color: '#8B0000', year: 2025,
