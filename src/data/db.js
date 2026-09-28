@@ -1578,6 +1578,14 @@ const SEED = {
             location: '1 этаж | конференц-зал',
             registerUrl: 'https://my.sok.works/uu/#/booking/coworking-events'
         },
+        {
+            id: 'b1013', title: 'Цветы для Элджернона', author: 'Дэниэл Киз',
+            clubId: 'cl7', color: '#cc2200', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-8/wc1000/14914754720.jpg',
+            meetingDate: '2026-10-21', meetingTime: '18:30',
+            location: 'SOK, Декабристов 69',
+            registerUrl: 'https://my.sok.works/uu/#/booking/coworking-events'
+        },
         // ── Лама (cl24, Москва) ───────────────────────────────────
         {
             id: 'b1003',
