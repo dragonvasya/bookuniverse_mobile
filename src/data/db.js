@@ -965,6 +965,14 @@ const SEED = {
             registerUrl: 'https://my.sok.works/uu/#/booking/coworking-events'
         },
         {
+            id: 'b1016', title: 'Мы справились, парень', author: 'Энтони Хопкинс',
+            clubId: 'cl1', color: '#bb44ff', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-6/wc1000/14788246938.jpg',
+            meetingDate: '2026-11-20', meetingTime: '19:00',
+            location: 'SOK Рыбаков Тауэр, 103 переговорная',
+            registerUrl: 'https://my.sok.works/uu/#/booking/coworking-events'
+        },
+        {
             id: 'b90', title: 'Креативные засранцы. Творческий майндсет...', author: 'Дмитрий Николаев', clubId: 'cl10', color: '#ffcc00', year: 2026,
             coverUrl: '',
             meetingDate: '2026-04-24',
