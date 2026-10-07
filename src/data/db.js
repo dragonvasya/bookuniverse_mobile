@@ -663,6 +663,7 @@ const SEED = {
             id: 'b1014', title: 'Принципы устойчивости', author: 'Рэй Далио', clubId: 'cl11', color: '#666666', year: 2026,
             coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-m/wc1000/13384267150.jpg',
             meetingDate: '2026-10-08', meetingTime: '19:00',
+            location: 'Investoro, Новинский бульвар, 31',
         },
         // Университет карьерного роста (ticker-only, hidden name)
         {

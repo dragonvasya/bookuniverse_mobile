@@ -86,6 +86,22 @@ const VENUES = [
         clubIds: ['cl24'],
     },
     {
+        id: 'investoro',
+        name: 'Investoro (Skolkovo Alumni)',
+        address: 'Москва, Новинский бульвар, 31',
+        lat: 55.7578,
+        lng: 37.5826,
+        clubIds: ['cl11'],
+    },
+    {
+        id: 'chekhov',
+        name: 'Чехов и компания',
+        address: 'Москва, Гончарная ул., 26, к. 1',
+        lat: 55.7429,
+        lng: 37.6492,
+        clubIds: ['cl32'],
+    },
+    {
         id: 'noda',
         name: 'Noda Space',
         address: 'Kralja Milana 4, Beograd',
@@ -314,7 +330,7 @@ function initCityFilter(map, clubs) {
 
             // Найти первый venue в нужном городе и центрировать
             const target = VENUES.find(v => {
-                if (city === 'msk') return v.id === 'sok_msk' || v.id === 'tower_a' || v.id === 'lib172' || v.id === 'lib16' || v.id === 'skolkovo' || v.id === 'lama';
+                if (city === 'msk') return v.id === 'sok_msk' || v.id === 'tower_a' || v.id === 'lib172' || v.id === 'lib16' || v.id === 'skolkovo' || v.id === 'lama' || v.id === 'investoro' || v.id === 'chekhov';
                 if (city === 'spb') return v.id === 'sok_spb' || v.id === 'seno';
                 if (city === 'ekb') return v.id === 'ekb';
                 if (city === 'bel') return v.id === 'noda';
