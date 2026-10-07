@@ -98,6 +98,21 @@
       <div id="stats-content" class="m-stats-content"></div>
     </section>
 
+    <!-- ── Page: Map ── -->
+    <section id="page-map" class="m-page" data-page="map">
+      <div class="m-page-header">
+        <h2 class="m-page-title"><i class="ph ph-map-trifold"></i> Карта клубов</h2>
+        <div class="m-map-city-filter">
+          <button class="m-map-city-btn active" data-city="">Все</button>
+          <button class="m-map-city-btn" data-city="msk">Москва</button>
+          <button class="m-map-city-btn" data-city="spb">СПб</button>
+          <button class="m-map-city-btn" data-city="ekb">Екб</button>
+          <button class="m-map-city-btn" data-city="bel">Белград</button>
+        </div>
+      </div>
+      <div id="map-container"></div>
+    </section>
+
   </div><!-- /#app -->
 
   <!-- ── Bottom Navigation ── -->
@@ -122,6 +137,10 @@
     <button class="m-nav-btn" data-page="stats" id="nav-stats">
       <i class="ph ph-chart-bar"></i>
       <span>Топ</span>
+    </button>
+    <button class="m-nav-btn" data-page="map" id="nav-map">
+      <i class="ph ph-map-trifold"></i>
+      <span>Карта</span>
     </button>
   </nav>
 
