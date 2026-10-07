@@ -123,12 +123,12 @@ const SEED = {
             coverUrl: '/cover-lighthouse.jpg',
             meetingDate: '2026-09-13',
         },
-{
+        {
             id: 'b_mezhdu_1', title: 'Гойя, или Тернистый путь познания', author: 'Лион Фейхтвангер',
             clubId: 'cl10', color: '#33ddaa', year: 2026,
             coverUrl: '/cover-goya.jpg',
             meetingDate: '2026-10-14', meetingTime: '18:30',
-            location: 'Капсула №2',
+            location: 'Технопарк «Сколково», Большой бульвар, 42, стр. 1 (Капсула №2)',
             registerUrl: 'https://bookclubsk1410.events.sk.ru/',
         },
 {
@@ -1619,7 +1619,7 @@ const SEED = {
             clubId: 'cl7', color: '#cc2200', year: 2026,
             coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-8/wc1000/14914754720.jpg',
             meetingDate: '2026-10-21', meetingTime: '18:30',
-            location: 'SOK, Декабристов 69',
+            location: 'Екатеринбург, Декабристов, 69',
             registerUrl: 'https://my.sok.works/uu/#/booking/coworking-events'
         },
         // ── Лама (cl24, Москва) ───────────────────────────────────
