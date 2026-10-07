@@ -2080,6 +2080,14 @@ const SEED = {
             registerUrl: 'https://t.me/bookclub_msu',
         },
         {
+            id: 'b1021', title: 'Футбол 1860 года', author: 'Кэндзабуро Оэ',
+            clubId: 'cl17', color: '#aa33ff', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-0/wc500/7542160956.jpg',
+            meetingDate: '2026-10-11 15:00', meetingTime: '15:00',
+            location: 'г. Москва, ул. Новаторов, д. 14, корп. 1 (лекторий Библиотеки №172)',
+            registerUrl: 'https://t.me/bookclub_msu',
+        },
+        {
             id: 'b836', title: 'Пикник на обочине', author: 'Братья Стругацкие',
             clubId: 'cl24', color: '#2a3a2a', year: 2026,
             meetingDate: '2026-08-25', meetingTime: '20:00',

@@ -173,11 +173,45 @@ function buildPopup(venue, clubs, db) {
       </div>`;
 }
 
+function getLogoSrc(club) {
+    const logoMap = {
+        cl1:  '/sok-logo.png',
+        cl6:  '/chebykina-logo.png',
+        cl7:  '/sok-ekb-logo.jpg',
+        cl8:  '/svk-logo.jpg',
+        cl9:  '/vsmysle-logo.png',
+        cl12: '/dumay-logo.jpg',
+        cl13: '/career-logo.png',
+        cl15: '/sync-logo.jpg',
+        cl16: '/m-logo.jpg',
+        cl17: '/mgu-logo.jpg',
+        cl18: '/sok-spb-logo.jpg',
+        cl20: '/logo-friend-book.jpg',
+        cl21: '/vlasenko-logo.jpg',
+        cl22: '/chityli-logo.png',
+        cl23: '/book-events-logo.jpg',
+        cl24: '/lama-logo.jpg',
+        cl25: '/bukva.jpg',
+        cl26: '/bookz.jpg',
+        cl27: '/dubai.jpg',
+        cl28: '/gromko-logo.jpg',
+        cl30: '/shrift-logo.jpg',
+        cl31: '/alla-logo.jpg',
+        cl32: '/chekhov-logo.jpg',
+    };
+    return logoMap[club.id] || null;
+}
+
 // ── Custom placemark layout ───────────────────────────────────────────
 
 function buildPlacemarkHtml(club) {
-    return `<div class="m-map-pin" style="background:${club.color};box-shadow:0 2px 8px ${club.color}66">
-               <i class="ph ph-book-open"></i>
+    const logoUrl = getLogoSrc(club);
+    const content = logoUrl
+        ? `<img class="m-map-pin-logo" src="${logoUrl}" alt="${club.name}" />`
+        : `<i class="ph ph-book-open"></i>`;
+
+    return `<div class="m-map-pin" style="background:${club.color};border-color:${club.color};box-shadow:0 3px 10px rgba(0,0,0,0.45)">
+               ${content}
              </div>`;
 }
 
@@ -232,7 +266,8 @@ export async function initMap() {
             },
             {
                 iconLayout: PinLayout,
-                iconShape: { type: 'Circle', coordinates: [18, 18], radius: 18 },
+                iconShape: { type: 'Circle', coordinates: [19, 19], radius: 19 },
+                iconOffset: [-19, -19],
                 balloonPanelMaxMapArea: 0,
             }
         );
