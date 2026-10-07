@@ -240,6 +240,7 @@ function getLogoSrc(club) {
         cl30: '/shrift-logo.jpg',
         cl31: '/alla-logo.jpg',
         cl32: '/chekhov-logo.jpg',
+        cl33: '/almaty-logo.jpg',
     };
     return logoMap[club.id] || null;
 }

@@ -24,6 +24,7 @@ const SEED = {
         { id: 'c10', name: 'Дубай' },
         { id: 'c11', name: 'Казань', population: 1300000, color: '#90d494' },
         { id: 'c12', name: 'Ереван', population: 1000000, color: '#d8b98b' },
+        { id: 'c13', name: 'Алматы', population: 2200000, color: '#e63946' },
     ],
     clubs: [
         // Real clubs
@@ -105,6 +106,7 @@ const SEED = {
             { id: 'cl30', name: 'Шрифт', cityId: 'c11', members: 300, color: '#ffffff', founded: 2023, hasLogo: true },
             { id: 'cl31', name: 'Алла читает', cityId: 'c12', members: 185, color: '#d8b98b', founded: 2026, hasLogo: true },
             { id: 'cl32', name: 'Чехов и компания', cityId: 'c1', members: 6000, color: '#888888', year: 2026, hasLogo: true },
+            { id: 'cl33', name: 'Book club Алматы', cityId: 'c13', members: 1122, color: '#e63946', memberLabel: 'подписчиков', year: 2026, hasLogo: true },
     ],
     books: [
                 
@@ -235,7 +237,18 @@ const SEED = {
             meetingDate: '2026-09-20',
             registerUrl: '',
         },
-{ id: 'bq1', title: 'Маленький принц', author: 'Антуан де Сент-Экзюпери', color: '#1a2a5e' },
+        {
+            id: 'b_almaty_thorns',
+            title: 'Поющие в терновнике',
+            author: 'Колин Маккалоу',
+            clubId: 'cl33',
+            color: '#e63946',
+            year: 2026,
+            coverUrl: '/cover-thorns.jpg',
+            meetingDate: '2026-10-25',
+            location: 'Алматы',
+        },
+        { id: 'bq1', title: 'Маленький принц', author: 'Антуан де Сент-Экзюпери', color: '#1a2a5e' },
         { id: 'bq2', title: 'Алхимик',         author: 'Пауло Коэльо',             color: '#5e3a0a' },
         // Громко сказано — события 2026
         {
