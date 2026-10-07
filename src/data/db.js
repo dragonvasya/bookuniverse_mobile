@@ -2420,6 +2420,15 @@ const SEED = {
             registerUrl: 'http://t.me/bookchecklistbot/hub',
             genreRibbon: '🎂 3 года клубу',
         },
+        {
+            id: 'b1019', title: 'Пиранези', author: 'Сюзанна Кларк',
+            clubId: 'cl27', color: '#1a3a5c', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-4/wc1000/13917011476.jpg',
+            meetingDate: '2026-10-31',
+            location: 'Дубай',
+            registerUrl: 'http://t.me/bookchecklistbot/hub',
+            genreRibbon: 'Фантастика',
+        },
     ],
 
 };
