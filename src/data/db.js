@@ -2256,7 +2256,17 @@ const SEED = {
             clubId: 'cl9', color: '#55aaff',
             coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-7/wc500/8243423359.jpg',
             meetingDate: '2026-09-08 19:00', meetingTime: '19:00',
+            location: 'Пространство SENO, Гороховая, 49',
             registerUrl: 'https://vsmysle.spb.ru/services/knizhnyy-klub-vsmysle-lavr-evgeniy-vodolazkin/',
+            price: '1500 ₽',
+        },
+        {
+            id: 'b1020', title: 'Источник', author: 'Айн Рэнд',
+            clubId: 'cl9', color: '#55aaff', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-s/wc1000/14487101740.jpg',
+            meetingDate: '2026-10-13 19:00', meetingTime: '19:00',
+            location: 'Пространство SENO, Гороховая, 49',
+            registerUrl: 'https://vsmysle.spb.ru/services/',
             price: '1500 ₽',
         },
 
