@@ -2154,6 +2154,14 @@ const SEED = {
             meetingTime: '12:00',
             registerUrl: 'https://t.me/bukva_registration_bot',  },
         {
+            id: 'b1018', title: 'Горький вкус соли', author: 'Елена Гранева', clubId: 'cl25', color: '#6b3a2a', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-5/wc1000/11122831949.jpg',
+            meetingDate: '2026-10-25',
+            meetingTime: '15:00',
+            location: 'Noda Space',
+            registerUrl: 'https://t.me/bukva_registration_bot',
+        },
+        {
             id: 'b1008', title: 'Вегетарианка', author: 'Хан Ган',
             clubId: 'cl25', color: '#3a6b5e', year: 2026,
             coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-j/wc1000/11914889275.jpg',
