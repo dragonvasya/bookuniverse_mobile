@@ -721,6 +721,14 @@ const SEED = {
             location: 'БЦ «Tower A», аудитория 911',
             registerUrl: 'mailto:kudryavtceva_n@magnit.ru',
         },
+        {
+            id: 'b1017', title: 'Легко не будет', author: 'Бен Хоровиц', clubId: 'cl14', color: '#3a5f8a', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-w/wc1000/7423035368.jpg',
+            meetingDate: '2026-10-22',
+            meetingTime: '17:00',
+            location: 'БЦ «Tower A», аудитория 807',
+            registerUrl: 'mailto:kudryavtceva_n@magnit.ru',
+        },
         // Литературный клуб Синхронизации (Онлайн, central planet)
         {
             id: 'b57', title: 'Алиса в стране Чудес', author: 'Л. Кэрролл', clubId: 'cl15', color: '#ff33aa', year: 2026,
