@@ -909,6 +909,13 @@ const SEED = {
             location: 'Онлайн',
         },
         {
+            id: 'b1022', title: 'К востоку от Эдема', author: 'Джон Стейнбек',
+            clubId: 'cl16', color: '#d8bc98', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-m/wc500/9141107602.jpg',
+            meetingDate: '2026-10-25',
+            location: 'Москва',
+        },
+        {
             id: 'b87', title: 'Герой нашего времени', author: 'М.Ю. Лермонтов', clubId: 'cl7', color: '#998877', year: 2026,
             coverUrl: 'https://cdn.litres.ru/pub/c/cover/172009.jpg',
             meetingDate: '2026-04-16',
