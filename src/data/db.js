@@ -206,6 +206,14 @@ const SEED = {
             meetingDate: '2026-09-19', meetingTime: '11:00',
             registerUrl: 'https://t.me/shrift_kzn',
         },
+        {
+            id: 'b_shrift_ferrante', title: 'Моя гениальная подруга', author: 'Элена Ферранте',
+            clubId: 'cl30', color: '#ffffff', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-4/wc1000/7854545704.jpg',
+            meetingDate: '2026-10-17',
+            location: 'Алматы, студия Mors Space',
+            registerUrl: 'https://t.me/shrift_admin',
+        },
 {
             id: 'b_gromko_london', title: 'Любовь к жизни', author: 'Джек Лондон',
             clubId: 'cl28', color: '#f5a820', year: 2026,
