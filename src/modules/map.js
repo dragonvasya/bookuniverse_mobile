@@ -11,12 +11,30 @@ const YANDEX_API_KEY = 'd101f5c4-678b-423e-aee2-54dd8b6250c3';
 const VENUES = [
     {
         id: 'sok_msk',
-        name: 'SOK Рыбаков Тауэр',
-        address: 'Москва, Новорязанская ул., 26с1',
+        name: 'SOK Rybakov Tower',
+        address: 'Москва, Ленинградский проспект, 36с11',
         room: '103 переговорная',
-        lat: 55.7614,
-        lng: 37.6740,
+        lat: 55.7883,
+        lng: 37.5679,
         clubIds: ['cl1'],
+    },
+    {
+        id: 'tower_a',
+        name: 'БЦ Tower A',
+        address: 'Москва, Бумажный проезд, 19с1',
+        room: 'ауд. 807 / 911',
+        lat: 55.7895,
+        lng: 37.5856,
+        clubIds: ['cl14'],
+    },
+    {
+        id: 'sok_spb',
+        name: 'SOK Достоевский',
+        address: 'Санкт-Петербург, Щербаков пер., 17/3с2',
+        room: '2 этаж, 201 переговорная',
+        lat: 59.9288,
+        lng: 30.3413,
+        clubIds: ['cl18'],
     },
     {
         id: 'seno',
@@ -244,8 +262,8 @@ function initCityFilter(map, clubs) {
 
             // Найти первый venue в нужном городе и центрировать
             const target = VENUES.find(v => {
-                if (city === 'msk') return v.id === 'sok_msk' || v.id === 'lib172' || v.id === 'lib16';
-                if (city === 'spb') return v.id === 'seno';
+                if (city === 'msk') return v.id === 'sok_msk' || v.id === 'tower_a' || v.id === 'lib172' || v.id === 'lib16';
+                if (city === 'spb') return v.id === 'sok_spb' || v.id === 'seno';
                 if (city === 'ekb') return v.id === 'ekb';
                 if (city === 'bel') return v.id === 'noda';
                 return false;
