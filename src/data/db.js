@@ -4,7 +4,7 @@
  * books can have optional coverUrl for a real image.
  */
 
-const STORAGE_KEY = 'book-club-universe-v107';
+const STORAGE_KEY = 'book-club-universe-v108';
 
 const SEED = {
     venues: [
@@ -2155,6 +2155,13 @@ const SEED = {
             clubId: 'cl24', color: '#1a3a3a', year: 2026,
             coverUrl: 'https://ir.ozone.ru/s3/multimedia-z/wc1000/6008814563.jpg',
             meetingDate: '2026-10-29', meetingTime: '20:00',
+        },
+        {
+            id: 'b1026', title: 'Сто лет одиночества', author: 'Габриэль Гарсиа Маркес',
+            clubId: 'cl24', color: '#7ba7d4', year: 2026,
+            coverUrl: '/cover-100-years.jpg',
+            meetingDate: '2026-11-10',
+            registerUrl: 'https://lamabookclub.ru/',
         },
         // ── Bukva Book Club (cl25, Белград) ──────────────────────────
         // Прочитанные книги 2026
