@@ -341,7 +341,6 @@ export function renderProfile() {
 
     const totalRead = readBooks.length;
     const totalWant = wantBooks.length;
-    const matchedClubsCount = clubMatches.length;
 
     // Header & User Info
     const heroHtml = `
@@ -373,10 +372,6 @@ export function renderProfile() {
             <div class="m-profile-stat-val">${totalWant}</div>
             <div class="m-profile-stat-lbl">${pluralize(totalWant, ['в планах', 'в планах', 'в планах'])}</div>
         </div>
-        <div class="m-profile-stat-box ${activeProfileTab === 'clubs' ? 'active' : ''}" data-tab="clubs">
-            <div class="m-profile-stat-val">${matchedClubsCount}</div>
-            <div class="m-profile-stat-lbl">${pluralize(matchedClubsCount, ['совпадение', 'совпадения', 'совпадений'])}</div>
-        </div>
     </div>
 
     <!-- Tabs switcher -->
@@ -386,9 +381,6 @@ export function renderProfile() {
         </button>
         <button type="button" class="m-profile-tab ${activeProfileTab === 'want' ? 'active' : ''}" data-tab="want">
             <i class="ph-fill ph-bookmark-simple"></i> В планах (${totalWant})
-        </button>
-        <button type="button" class="m-profile-tab ${activeProfileTab === 'clubs' ? 'active' : ''}" data-tab="clubs">
-            <i class="ph-fill ph-planet"></i> Мои клубы (${matchedClubsCount})
         </button>
     </div>`;
 
@@ -456,42 +448,6 @@ export function renderProfile() {
                 </div>`;
             }).join('');
             tabContentHtml = `<div class="m-shelf-grid">${items}</div>`;
-        }
-    } else if (activeProfileTab === 'clubs') {
-        if (matchedClubsCount === 0) {
-            tabContentHtml = `
-            <div class="m-profile-empty">
-                <div class="m-profile-empty-icon">🪐</div>
-                <div class="m-profile-empty-title">Пока нет совпадений</div>
-                <div class="m-profile-empty-desc">
-                    Отметьте хотя бы 1–2 прочитанные книги, и мы покажем клубы, где читают тех же авторов и те же произведения!
-                </div>
-            </div>`;
-        } else {
-            const items = clubMatches.map(item => {
-                const club = item.club;
-                const color = club.color || 'var(--accent)';
-                const cityText = item.city ? ` · ${escapeHtml(item.city.name)}` : '';
-                const bookPill = pluralize(item.matchCount, ['книга', 'книги', 'книг']);
-
-                const bookListHtml = item.matchedBooks.map(b => `
-                    <span class="m-match-book-tag">${escapeHtml(b.title)}</span>
-                `).join('');
-
-                return `
-                <div class="m-club-match-card" style="border-left: 4px solid ${color};">
-                    <div class="m-club-match-head">
-                        <div class="m-club-match-title">${escapeHtml(club.name)}${cityText}</div>
-                        <span class="m-club-match-badge" style="background:${color}22; color:${color}">
-                            ${item.matchCount} общих ${bookPill}
-                        </span>
-                    </div>
-                    <div class="m-club-match-books">
-                        ${bookListHtml}
-                    </div>
-                </div>`;
-            }).join('');
-            tabContentHtml = `<div class="m-club-matches-list">${items}</div>`;
         }
     }
 
