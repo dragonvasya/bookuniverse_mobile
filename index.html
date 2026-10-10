@@ -40,7 +40,10 @@
           <select id="filter-city" class="m-select">
             <option value="">Все города</option>
           </select>
-          <input type="text" id="filter-date-range" class="m-select m-date-input" placeholder="Любые даты" readonly>
+          <div class="m-date-input-wrap">
+            <input type="text" id="filter-date-range" class="m-select m-date-input" placeholder="Любые даты" readonly>
+            <button id="btn-clear-date" class="m-date-clear-btn hidden" type="button" aria-label="Сбросить даты"><i class="ph ph-x"></i></button>
+          </div>
         </div>
       </div>
       <div id="events-list" class="m-events-list"></div>

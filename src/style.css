@@ -211,6 +211,169 @@ html, body {
 .m-select:focus { border-color: var(--accent); }
 .m-select option { background: var(--bg2); }
 
+.m-date-input-wrap {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+}
+
+.m-date-input-wrap .m-date-input {
+  width: 100%;
+  padding-right: 28px;
+}
+
+.m-date-clear-btn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.14);
+  border: none;
+  color: var(--text2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.15s ease;
+}
+
+.m-date-clear-btn:hover,
+.m-date-clear-btn:active {
+  background: rgba(255, 255, 255, 0.28);
+  color: #fff;
+}
+
+/* ── Flatpickr Calendar & Event Markers ────────────────────── */
+.flatpickr-calendar {
+  background: var(--bg2) !important;
+  border: 1px solid var(--border2) !important;
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.7) !important;
+  border-radius: var(--radius) !important;
+  font-family: var(--font) !important;
+  overflow: hidden !important;
+}
+
+.flatpickr-calendar .flatpickr-months {
+  background: transparent !important;
+  padding: 6px 0 !important;
+}
+
+.flatpickr-calendar .flatpickr-month {
+  color: var(--text) !important;
+  fill: var(--text) !important;
+}
+
+.flatpickr-current-month .flatpickr-monthDropdown-months,
+.flatpickr-current-month input.cur-year {
+  font-weight: 700 !important;
+  color: var(--text) !important;
+}
+
+.flatpickr-calendar .flatpickr-weekday {
+  color: var(--text3) !important;
+  font-weight: 600 !important;
+  font-size: 11px !important;
+}
+
+.flatpickr-day {
+  color: var(--text) !important;
+  border-radius: 8px !important;
+  position: relative !important;
+  transition: all 0.15s ease !important;
+}
+
+.flatpickr-day.prevMonthDay,
+.flatpickr-day.nextMonthDay {
+  color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Дни с обсуждениями: акцентная подсветка и маркер */
+.flatpickr-day.has-event {
+  font-weight: 700 !important;
+  color: #ffffff !important;
+}
+
+.flatpickr-day.has-event:not(.selected):not(.startRange):not(.endRange):not(.inRange) {
+  background: rgba(167, 139, 250, 0.16) !important;
+  border: 1px solid rgba(167, 139, 250, 0.4) !important;
+}
+
+.flatpickr-day.has-event:not(.selected):not(.startRange):not(.endRange):not(.inRange):hover {
+  background: rgba(167, 139, 250, 0.3) !important;
+  border-color: rgba(167, 139, 250, 0.7) !important;
+}
+
+/* Маркер-точка под числом */
+.flatpickr-day .m-fp-event-dot {
+  position: absolute;
+  bottom: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 6px var(--accent);
+  pointer-events: none;
+}
+
+/* Точка на выбранном диапазоне дат */
+.flatpickr-day.selected .m-fp-event-dot,
+.flatpickr-day.startRange .m-fp-event-dot,
+.flatpickr-day.endRange .m-fp-event-dot {
+  background: #ffffff !important;
+  box-shadow: 0 0 4px #ffffff !important;
+}
+
+.flatpickr-day.inRange .m-fp-event-dot {
+  background: #ffffff !important;
+}
+
+/* Выделение выбранного диапазона дат */
+.flatpickr-day.selected,
+.flatpickr-day.startRange,
+.flatpickr-day.endRange {
+  background: var(--accent2) !important;
+  border-color: var(--accent2) !important;
+  color: #fff !important;
+}
+
+.flatpickr-day.inRange {
+  background: rgba(124, 58, 237, 0.25) !important;
+  border-color: transparent !important;
+  box-shadow: -5px 0 0 rgba(124, 58, 237, 0.25), 5px 0 0 rgba(124, 58, 237, 0.25) !important;
+}
+
+/* Легенда внизу календаря */
+.m-fp-legend {
+  padding: 8px 12px 10px;
+  border-top: 1px solid var(--border);
+  font-size: 11px;
+  color: var(--text2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.m-fp-legend-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 6px var(--accent);
+  display: inline-block;
+  flex-shrink: 0;
+}
+
 /* ── Events List ─────────────────────────────────────────────── */
 .m-events-list {
   padding: 12px 16px 24px;

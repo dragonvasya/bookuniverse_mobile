@@ -270,17 +270,76 @@ export function initEvents() {
         citySelect.appendChild(opt);
     });
 
+    function toDateKey(date) {
+        if (!date) return '';
+        const y = date.getFullYear();
+        const m = String(date.getMonth() + 1).padStart(2, '0');
+        const d = String(date.getDate()).padStart(2, '0');
+        return `${y}-${m}-${d}`;
+    }
+
+    function getEventDates(cityId) {
+        const map = new Map();
+        allEvents.forEach(book => {
+            const club = db.clubs.find(c => c.id === book.clubId);
+            if (cityId && (!club || club.cityId !== cityId)) return;
+            const dateStr = (book.meetingDate || '').trim().split(' ')[0];
+            if (!dateStr) return;
+            if (!map.has(dateStr)) map.set(dateStr, []);
+            map.get(dateStr).push({ book, club });
+        });
+        return map;
+    }
+
     let selectedDateRange = [];
-    if (dateRangeInput) {
-        window.flatpickr(dateRangeInput, {
+    const clearDateBtn = document.getElementById('btn-clear-date');
+    let fp = null;
+
+    if (dateRangeInput && window.flatpickr) {
+        fp = window.flatpickr(dateRangeInput, {
             mode: 'range',
             locale: window.flatpickr.l10ns.ru,
             dateFormat: 'd.m.Y',
             disableMobile: true, // forces custom flatpickr UI on mobile instead of native
+            onReady: function(selectedDates, dateStr, instance) {
+                if (instance.calendarContainer && !instance.calendarContainer.querySelector('.m-fp-legend')) {
+                    const legend = document.createElement('div');
+                    legend.className = 'm-fp-legend';
+                    legend.innerHTML = '<span class="m-fp-legend-dot"></span><span>Даты со встречами клубов</span>';
+                    instance.calendarContainer.appendChild(legend);
+                }
+            },
+            onDayCreate: function(dObj, dStr, instance, dayElem) {
+                if (!dayElem.dateObj) return;
+                const key = toDateKey(dayElem.dateObj);
+                const currentEvents = getEventDates(citySelect.value).get(key);
+                if (currentEvents && currentEvents.length > 0) {
+                    dayElem.classList.add('has-event');
+                    const dot = document.createElement('span');
+                    dot.className = 'm-fp-event-dot';
+                    dayElem.appendChild(dot);
+
+                    const titles = currentEvents.map(e => `• ${e.book.title} (${e.club?.name || ''})`).join('\n');
+                    dayElem.setAttribute('title', `События (${currentEvents.length}):\n${titles}`);
+                }
+            },
             onChange: function(selectedDates) {
                 selectedDateRange = selectedDates;
+                if (clearDateBtn) {
+                    clearDateBtn.classList.toggle('hidden', selectedDates.length === 0);
+                }
                 render();
             }
+        });
+    }
+
+    if (clearDateBtn) {
+        clearDateBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (fp) fp.clear();
+            selectedDateRange = [];
+            clearDateBtn.classList.add('hidden');
+            render();
         });
     }
 
@@ -322,7 +381,10 @@ export function initEvents() {
         });
     }
 
-    citySelect.addEventListener('change', render);
+    citySelect.addEventListener('change', () => {
+        render();
+        if (fp) fp.redraw();
+    });
 
     render();
 }
