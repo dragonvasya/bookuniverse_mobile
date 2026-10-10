@@ -170,6 +170,15 @@ const SEED = {
             price: '900 рублей',
             registerUrl: 'https://chekhov-and-company.timepad.ru/event/4180907/',
         },
+        {
+            id: 'b_chekhov_3', title: 'Град обреченный', author: 'Аркадий и Борис Стругацкие',
+            clubId: 'cl32', color: '#888888', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1/wc1000/6589692973.jpg',
+            meetingDate: '2026-10-17', meetingTime: '18:00',
+            location: 'Москва, ГОНЧАРНАЯ УЛ, 26/1, 4/1',
+            price: '900 рублей',
+            registerUrl: 'https://chekhov-and-company.timepad.ru/',
+        },
 {
             id: 'b_alla_1', title: 'Люблю, мама', author: 'Илиана Ксандер',
             clubId: 'cl31', color: '#d8b98b', year: 2026,
@@ -550,7 +559,7 @@ const SEED = {
         { id: 'b287', title: 'На западном фронте без перемен', author: 'Эрих Мария Ремарк', clubId: 'cl1', color: '#556677', year: 2022 },
         // 2023 (янв–дек): книги 19–30
         { id: 'b288', title: 'Брать, давать и наслаждаться', author: 'Татьяна Мужицкая', clubId: 'cl1', color: '#cc5566', year: 2023 },
-        { id: 'b289', title: 'Трудно быть богом', author: 'А. и Б. Стругацкие', clubId: 'cl1', color: '#445566', year: 2023 },
+        { id: 'b289', title: 'Трудно быть богом', author: 'Аркадий и Борис Стругацкие', clubId: 'cl1', color: '#445566', year: 2023 },
         { id: 'b290', title: 'Не рычите на собаку', author: 'Карен Прайор', clubId: 'cl1', color: '#669933', year: 2023 },
         { id: 'b291', title: 'Шоколад', author: 'Джоанн Харрис', clubId: 'cl1', color: '#553311', year: 2023 , coverUrl: 'https://ir.ozone.ru/s3/multimedia-8/wc500/6732582344.jpg'},
         { id: 'b292', title: 'Искусство любить', author: 'Эрих Фромм', clubId: 'cl1', color: '#aa3355', year: 2023 },
@@ -1117,7 +1126,7 @@ const SEED = {
             registerUrl: 'https://career-university.ru/reading_club#popup:embedcode0308'
         },
         {
-            id: 'b262', title: 'Понедельник начинается в субботу', author: 'А. и Б. Стругацкие', clubId: 'cl13', color: '#2a5a8c', year: 2026,
+            id: 'b262', title: 'Понедельник начинается в субботу', author: 'Аркадий и Борис Стругацкие', clubId: 'cl13', color: '#2a5a8c', year: 2026,
             coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-n/wc1000/7303189847.jpg',
             meetingDate: '2026-05-24',
             meetingTime: '12:00',
@@ -1770,7 +1779,7 @@ const SEED = {
             clubId: 'cl17', color: '#aa33ff',
         },
         {
-            id: 'b859', title: 'Трудно быть богом', author: 'Стругацкие',
+            id: 'b859', title: 'Трудно быть богом', author: 'Аркадий и Борис Стругацкие',
             clubId: 'cl17', color: '#aa33ff',
         },
         {
@@ -1985,7 +1994,7 @@ const SEED = {
             coverUrl: 'https://cdn.litres.ru/pub/c/cover/172100.jpg',
         },
         {
-            id: 'b912', title: 'Понедельник начинается в субботу', author: 'Стругацкие',
+            id: 'b912', title: 'Понедельник начинается в субботу', author: 'Аркадий и Борис Стругацкие',
             clubId: 'cl17', color: '#aa33ff',
             coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-n/wc1000/7303189847.jpg',
         },
@@ -2140,7 +2149,7 @@ const SEED = {
             price: '1750 рублей',
         },
         {
-            id: 'b836', title: 'Пикник на обочине', author: 'Братья Стругацкие',
+            id: 'b836', title: 'Пикник на обочине', author: 'Аркадий и Борис Стругацкие',
             clubId: 'cl24', color: '#2a3a2a', year: 2026,
             meetingDate: '2026-08-25', meetingTime: '20:00',
             registerUrl: 'https://lamabookclub.ru/08-09',

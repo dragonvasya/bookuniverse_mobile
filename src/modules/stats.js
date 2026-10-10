@@ -74,11 +74,82 @@ function normalizeTitle(title) {
         .replace(/\s+/g, ' ').trim();
 }
 
+const AUTHOR_CANONICAL = {
+    'стругацкие': 'Аркадий и Борис Стругацкие',
+    'а. и б. стругацкие': 'Аркадий и Борис Стругацкие',
+    'братья стругацкие': 'Аркадий и Борис Стругацкие',
+    'аркадий и борис стругацкие': 'Аркадий и Борис Стругацкие',
+    'достоевский': 'Ф.М. Достоевский',
+    'фёдор достоевский': 'Ф.М. Достоевский',
+    'федор достоевский': 'Ф.М. Достоевский',
+    'ф.м. достоевский': 'Ф.М. Достоевский',
+    'булгаков': 'Михаил Булгаков',
+    'михаил булгаков': 'Михаил Булгаков',
+    'франкл': 'Виктор Франкл',
+    'виктор франкл': 'Виктор Франкл',
+    'ремарк': 'Эрих Мария Ремарк',
+    'эрих мария ремарк': 'Эрих Мария Ремарк',
+    'набоков': 'Владимир Набоков',
+    'в.в. набоков': 'Владимир Набоков',
+    'в. в. набоков': 'Владимир Набоков',
+    'владимир набоков': 'Владимир Набоков',
+    'драйзер': 'Теодор Драйзер',
+    'теодор драйзер': 'Теодор Драйзер',
+    'кундера': 'Милан Кундера',
+    'м. кундера': 'Милан Кундера',
+    'милан кундера': 'Милан Кундера',
+    'шекспир': 'Уильям Шекспир',
+    'у. шекспир': 'Уильям Шекспир',
+    'уильям шекспир': 'Уильям Шекспир',
+    'маркес': 'Габриэль Гарсиа Маркес',
+    'габриэль гарсиа маркес': 'Габриэль Гарсиа Маркес',
+    'гессе': 'Герман Гессе',
+    'г. гессе': 'Герман Гессе',
+    'герман гессе': 'Герман Гессе',
+    'довлатов': 'Сергей Довлатов',
+    'сергей довлатов': 'Сергей Довлатов',
+    'исигуро': 'Кадзуо Исигуро',
+    'кадзуо исигуро': 'Кадзуо Исигуро',
+    'поляринов': 'Алексей Поляринов',
+    'алексей поляринов': 'Алексей Поляринов',
+    'пастернак': 'Борис Пастернак',
+    'борис пастернак': 'Борис Пастернак',
+    'гончаров': 'Иван Гончаров',
+    'иван гончаров': 'Иван Гончаров',
+    'айтматов': 'Чингиз Айтматов',
+    'чингиз айтматов': 'Чингиз Айтматов',
+    'брэдбери': 'Рэй Брэдбери',
+    'рэй брэдбери': 'Рэй Брэдбери',
+    'соколов': 'Саша Соколов',
+    'саша соколов': 'Саша Соколов',
+    'чехов': 'А.П. Чехов',
+    'антон чехов': 'А.П. Чехов',
+    'а.п. чехов': 'А.П. Чехов',
+    'кафка': 'Франц Кафка',
+    'франц кафка': 'Франц Кафка',
+    'фолкнер': 'Уильям Фолкнер',
+    'уильям фолкнер': 'Уильям Фолкнер',
+    'фромм': 'Эрих Фромм',
+    'эрих фромм': 'Эрих Фромм',
+    'лермонтов': 'М.Ю. Лермонтов',
+    'м.ю. лермонтов': 'М.Ю. Лермонтов',
+    'толстой': 'Л.Н. Толстой',
+    'лев толстой': 'Л.Н. Толстой',
+    'л.н. толстой': 'Л.Н. Толстой',
+};
+
+function normalizeAuthorName(author) {
+    if (!author) return '';
+    const key = author.trim().toLowerCase();
+    return AUTHOR_CANONICAL[key] || author.trim();
+}
+
 function calculateOverlaps(db) {
     const authorMap = {};
     db.books.forEach(book => {
-        const author = book.author ? book.author.trim() : '';
-        if (!author) return;
+        const rawAuthor = book.author ? book.author.trim() : '';
+        if (!rawAuthor) return;
+        const author = normalizeAuthorName(rawAuthor);
         const club = db.clubs.find(c => c.id === book.clubId);
         if (!club) return;
         if (!authorMap[author]) authorMap[author] = { clubs: new Set(), books: new Set() };
@@ -90,11 +161,12 @@ function calculateOverlaps(db) {
     const result = [];
     for (const author in authorMap) {
         const { clubs, books } = authorMap[author];
-        if (clubs.size > 1) {
+        if (books.size > 1) {
             result.push({ author, totalClubs: clubs.size, totalBooks: books.size, clubs: Array.from(clubs) });
         }
     }
-    return result.sort((a, b) => b.totalClubs !== a.totalClubs ? b.totalClubs - a.totalClubs : b.totalBooks - a.totalBooks);
+    // Ranking is by number of discussed books (totalBooks), secondary by totalClubs!
+    return result.sort((a, b) => b.totalBooks !== a.totalBooks ? b.totalBooks - a.totalBooks : b.totalClubs - a.totalClubs);
 }
 
 function calculatePopularBooks(db) {
@@ -126,8 +198,9 @@ function calculatePopularBooks(db) {
 // ── Author Books Data & Modal ─────────────────────────────────────────
 
 function getAuthorBooksData(db, authorName) {
-    const authorNorm = authorName.trim().toLowerCase();
-    const matching = db.books.filter(b => (b.author || '').trim().toLowerCase() === authorNorm);
+    const canonicalName = normalizeAuthorName(authorName);
+    const authorNorm = canonicalName.trim().toLowerCase();
+    const matching = db.books.filter(b => normalizeAuthorName(b.author || '').trim().toLowerCase() === authorNorm);
 
     const titleMap = new Map();
 
@@ -388,8 +461,8 @@ function renderTopAuthors(db) {
     const sorted = calculateOverlaps(db);
     let cutoff = 10;
     if (sorted.length > 10) {
-        const thresholdClubs = sorted[9].totalClubs;
-        while (cutoff < sorted.length && sorted[cutoff].totalClubs === thresholdClubs) {
+        const thresholdBooks = sorted[9].totalBooks;
+        while (cutoff < sorted.length && sorted[cutoff].totalBooks === thresholdBooks) {
             cutoff++;
         }
     }
@@ -405,13 +478,13 @@ function renderTopAuthors(db) {
             <div class="m-stats-author-info">
                 <div class="m-stats-author-name">${escapeHtml(item.author)}</div>
                 <div class="m-stats-author-meta">
-                    <span class="m-stats-clubs-count">${item.totalClubs} ${clubWord}</span>
-                    <span class="m-stats-sep">·</span>
                     <button type="button" class="m-stats-books-link" data-author="${escapeHtml(item.author)}" title="Посмотреть книги автора">
                         <i class="ph ph-books"></i>
                         <span>${item.totalBooks} ${bookWord}</span>
                         <i class="ph ph-arrow-up-right"></i>
                     </button>
+                    <span class="m-stats-sep">·</span>
+                    <span class="m-stats-clubs-count">${item.totalClubs} ${clubWord}</span>
                 </div>
             </div>
         </li>`;
