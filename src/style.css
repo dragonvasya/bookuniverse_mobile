@@ -384,6 +384,7 @@ html, body {
 
 /* Event Card */
 .m-ev-card {
+  position: relative;
   display: flex;
   align-items: stretch;
   background: var(--surface);
@@ -2059,3 +2060,829 @@ html, body {
   text-decoration: none;
   margin-top: 2px;
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   Header Profile Button & Badge
+═══════════════════════════════════════════════════════════════ */
+.m-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.m-header-profile-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.m-header-profile-btn:hover,
+.m-header-profile-btn.active {
+  background: var(--surface2);
+  border-color: var(--accent);
+  color: var(--accent3);
+}
+
+.m-profile-pill-count {
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  background: var(--accent2);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 10px;
+  padding: 1px 5px;
+  min-width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--bg);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Bookmark / Mark Buttons on Cards
+═══════════════════════════════════════════════════════════════ */
+/* Event card bookmark button */
+.m-ev-bookmark-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border);
+  color: var(--text3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  z-index: 4;
+}
+
+.m-ev-bookmark-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  color: var(--text);
+}
+
+.m-ev-bookmark-btn.is-read {
+  background: rgba(52, 211, 153, 0.2);
+  border-color: rgba(52, 211, 153, 0.5);
+  color: var(--green);
+}
+
+.m-ev-bookmark-btn.is-want {
+  background: rgba(167, 139, 250, 0.2);
+  border-color: rgba(167, 139, 250, 0.5);
+  color: var(--accent);
+}
+
+/* Club book card mark button */
+.m-club-book-mark-btn {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  cursor: pointer;
+  z-index: 3;
+  transition: transform 0.15s, background 0.15s;
+}
+
+.m-club-book-mark-btn:active {
+  transform: scale(0.9);
+}
+
+.m-club-book-mark-btn.is-read {
+  background: rgba(52, 211, 153, 0.9);
+  color: #fff;
+}
+
+.m-club-book-mark-btn.is-want {
+  background: rgba(124, 58, 237, 0.9);
+  color: #fff;
+}
+
+/* Search card mark button */
+.m-search-mark-btn {
+  align-self: flex-start;
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text2);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+}
+
+.m-search-mark-btn.is-read {
+  background: rgba(52, 211, 153, 0.15);
+  border-color: rgba(52, 211, 153, 0.4);
+  color: var(--green);
+}
+
+.m-search-mark-btn.is-want {
+  background: rgba(167, 139, 250, 0.15);
+  border-color: rgba(167, 139, 250, 0.4);
+  color: var(--accent);
+}
+
+/* Author modal book mark button */
+.m-author-book-header-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.m-author-book-mark-btn {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.15s;
+}
+
+.m-author-book-mark-btn.is-read {
+  background: rgba(52, 211, 153, 0.2);
+  border-color: rgba(52, 211, 153, 0.5);
+  color: var(--green);
+}
+
+.m-author-book-mark-btn.is-want {
+  background: rgba(167, 139, 250, 0.2);
+  border-color: rgba(167, 139, 250, 0.5);
+  color: var(--accent);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Action Sheet (Quick Status Picker) & Toast
+═══════════════════════════════════════════════════════════════ */
+.m-action-sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 7, 18, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.m-action-sheet-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.m-action-sheet {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-bottom: none;
+  border-radius: 20px 20px 0 0;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.6);
+  transform: translateY(100%);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 10px 16px max(20px, env(safe-area-inset-bottom, 20px));
+}
+
+.m-action-sheet-backdrop.open .m-action-sheet {
+  transform: translateY(0);
+}
+
+.m-action-sheet-handle {
+  width: 36px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 0 auto 12px;
+}
+
+.m-action-sheet-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.m-action-sheet-cover {
+  width: 42px;
+  height: 60px;
+  border-radius: 4px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.m-action-sheet-cover-fallback {
+  width: 42px;
+  height: 60px;
+  border-radius: 4px;
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.m-action-sheet-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.m-action-sheet-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.25;
+}
+
+.m-action-sheet-author {
+  font-size: 12px;
+  color: var(--text2);
+  margin-top: 3px;
+}
+
+.m-action-sheet-close {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.m-action-sheet-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.m-action-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.15s ease;
+}
+
+.m-action-btn:hover {
+  background: var(--surface2);
+}
+
+.m-action-btn.active {
+  background: rgba(167, 139, 250, 0.12);
+  border-color: rgba(167, 139, 250, 0.4);
+}
+
+.m-action-btn i {
+  font-size: 22px;
+  color: var(--text3);
+}
+
+.m-action-btn.active i.ph-check-circle {
+  color: var(--green);
+}
+
+.m-action-btn.active i.ph-bookmark-simple {
+  color: var(--accent);
+}
+
+.m-action-btn-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.m-action-btn-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.m-action-btn-sub {
+  font-size: 11px;
+  color: var(--text3);
+  margin-top: 1px;
+}
+
+.m-action-btn-check {
+  font-size: 18px !important;
+  color: var(--accent) !important;
+}
+
+.m-action-btn.remove {
+  border-color: rgba(248, 113, 113, 0.2);
+  color: var(--coral);
+}
+
+.m-action-btn.remove i {
+  color: var(--coral);
+}
+
+.m-action-btn.remove .m-action-btn-title {
+  color: var(--coral);
+}
+
+/* Toast */
+.m-toast {
+  position: fixed;
+  bottom: calc(var(--nav-h) + 16px);
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.m-toast.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   Profile Page Styling
+═══════════════════════════════════════════════════════════════ */
+.m-profile-content {
+  padding: 16px 16px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.m-profile-hero {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.m-profile-avatar-wrap {
+  position: relative;
+}
+
+.m-profile-avatar {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(167, 139, 250, 0.2), rgba(124, 58, 237, 0.3));
+  border: 2px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.15s;
+}
+
+.m-profile-avatar:active {
+  transform: scale(0.95);
+}
+
+.m-avatar-edit-icon {
+  position: absolute;
+  bottom: -2px;
+  right: -2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--accent2);
+  color: #fff;
+  font-size: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--bg);
+}
+
+.m-profile-user-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.m-profile-name-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.m-profile-name {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.m-profile-edit-name-btn {
+  background: transparent;
+  border: none;
+  color: var(--text3);
+  font-size: 14px;
+  cursor: pointer;
+  padding: 2px;
+  transition: color 0.15s;
+}
+
+.m-profile-edit-name-btn:hover {
+  color: var(--accent);
+}
+
+.m-profile-bio {
+  font-size: 12px;
+  color: var(--text3);
+  margin-top: 4px;
+}
+
+/* Counters Row */
+.m-profile-stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.m-profile-stat-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.m-profile-stat-box.active {
+  background: rgba(167, 139, 250, 0.12);
+  border-color: var(--accent);
+}
+
+.m-profile-stat-val {
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--accent3);
+  line-height: 1.1;
+}
+
+.m-profile-stat-lbl {
+  font-size: 11px;
+  color: var(--text3);
+  margin-top: 3px;
+}
+
+/* Profile Tabs */
+.m-profile-tabs {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 2px;
+}
+
+.m-profile-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.m-profile-tab {
+  flex: 1;
+  min-width: 100px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text2);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.m-profile-tab.active {
+  background: var(--accent2);
+  border-color: var(--accent2);
+  color: #fff;
+}
+
+/* Shelf Grid */
+.m-shelf-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.m-shelf-item {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+
+.m-shelf-item:active {
+  transform: scale(0.97);
+}
+
+.m-shelf-cover-wrap {
+  position: relative;
+  aspect-ratio: 2/3;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+  background: var(--surface);
+}
+
+.m-shelf-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.m-shelf-cover-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  background: var(--surface2);
+}
+
+.m-shelf-status-btn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  border: none;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.m-shelf-status-btn.is-read {
+  background: var(--green);
+}
+
+.m-shelf-status-btn.is-want {
+  background: var(--accent2);
+}
+
+.m-shelf-info {
+  margin-top: 6px;
+}
+
+.m-shelf-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.25;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.m-shelf-author {
+  font-size: 10.5px;
+  color: var(--text3);
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Empty State */
+.m-profile-empty {
+  text-align: center;
+  padding: 36px 20px;
+  background: var(--surface);
+  border: 1px dashed var(--border2);
+  border-radius: var(--radius);
+}
+
+.m-profile-empty-icon {
+  font-size: 38px;
+  margin-bottom: 8px;
+}
+
+.m-profile-empty-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+
+.m-profile-empty-desc {
+  font-size: 12px;
+  color: var(--text3);
+  line-height: 1.4;
+  max-width: 280px;
+  margin: 0 auto;
+}
+
+/* Club Matches List */
+.m-club-matches-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.m-club-match-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.m-club-match-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.m-club-match-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.m-club-match-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.m-club-match-books {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.m-match-book-tag {
+  font-size: 11px;
+  padding: 2px 7px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text2);
+}
+
+/* Sync Teaser Card */
+.m-profile-sync-teaser {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px;
+  background: linear-gradient(135deg, rgba(167, 139, 250, 0.08), rgba(124, 58, 237, 0.12));
+  border: 1px solid rgba(167, 139, 250, 0.25);
+  border-radius: var(--radius);
+  margin-top: 8px;
+}
+
+.m-sync-icon {
+  font-size: 22px;
+  color: var(--accent);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.m-sync-text {
+  flex: 1;
+}
+
+.m-sync-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+
+.m-sync-desc {
+  font-size: 11.5px;
+  color: var(--text2);
+  line-height: 1.4;
+}
+
+/* Avatar Choices Grid */
+.m-avatar-choices-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.m-avatar-choice-btn {
+  aspect-ratio: 1;
+  border-radius: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-size: 26px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.m-avatar-choice-btn:hover {
+  background: var(--surface2);
+}
+
+.m-avatar-choice-btn.selected {
+  border-color: var(--accent);
+  background: rgba(167, 139, 250, 0.18);
+  box-shadow: 0 0 10px rgba(167, 139, 250, 0.3);
+}
+

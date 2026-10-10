@@ -10,6 +10,7 @@ import { initQuiz } from './modules/quiz.js';
 import { initSearch } from './modules/search.js';
 import { initStats } from './modules/stats.js';
 import { initMap } from './modules/map.js';
+import { initProfile, renderProfile } from './modules/profile.js';
 
 // ── Tab routing ───────────────────────────────────────────────────────
 
@@ -19,6 +20,15 @@ const navBtns = document.querySelectorAll('.m-nav-btn');
 function switchTab(targetPage) {
     pages.forEach(p => p.classList.toggle('active', p.dataset.page === targetPage));
     navBtns.forEach(b => b.classList.toggle('active', b.dataset.page === targetPage));
+
+    const profileHeaderBtn = document.getElementById('btn-profile-header');
+    if (profileHeaderBtn) {
+        profileHeaderBtn.classList.toggle('active', targetPage === 'profile');
+    }
+
+    if (targetPage === 'profile') {
+        renderProfile();
+    }
 
     // Scroll page to top on switch
     const activePage = document.getElementById(`page-${targetPage}`);
@@ -33,6 +43,13 @@ navBtns.forEach(btn => {
     });
 });
 
+const profileHeaderBtn = document.getElementById('btn-profile-header');
+if (profileHeaderBtn) {
+    profileHeaderBtn.addEventListener('click', () => {
+        switchTab('profile');
+    });
+}
+
 // Allow clubs tab back button to work
 document.getElementById('nav-clubs').addEventListener('click', () => {
     // If in detail view, stay on clubs (detail view handles its own back)
@@ -45,6 +62,7 @@ initClubs();
 initQuiz();
 initSearch();
 initStats();
+initProfile();
 
 // ── Start on Events tab ───────────────────────────────────────────────
 switchTab('events');

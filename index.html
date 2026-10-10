@@ -28,7 +28,13 @@
     <header class="m-header">
       <div class="m-header-inner">
         <h1 class="m-logo"><i class="ph ph-books"></i> Книжная Вселенная</h1>
-        <div id="header-badge" class="m-header-badge hidden"></div>
+        <div class="m-header-actions">
+          <div id="header-badge" class="m-header-badge hidden"></div>
+          <button id="btn-profile-header" class="m-header-profile-btn" data-page="profile" title="Мой профиль">
+            <i class="ph ph-user-circle"></i>
+            <span id="profile-badge-count" class="m-profile-pill-count hidden">0</span>
+          </button>
+        </div>
       </div>
     </header>
 
@@ -115,6 +121,14 @@
         </div>
       </div>
       <div id="map-container"></div>
+    </section>
+
+    <!-- ── Page: Profile ── -->
+    <section id="page-profile" class="m-page" data-page="profile">
+      <div class="m-page-header">
+        <h2 class="m-page-title"><i class="ph ph-user-circle"></i> Мой профиль</h2>
+      </div>
+      <div id="profile-content" class="m-profile-content"></div>
     </section>
 
   </div><!-- /#app -->

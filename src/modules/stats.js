@@ -4,6 +4,7 @@
  */
 
 import { getDB } from '@db';
+import { openBookStatusPicker, getBookStatus } from './profile.js';
 
 const MONTHS_RU = ['января','февраля','марта','апреля','мая','июня',
                    'июля','августа','сентября','октября','ноября','декабря'];
@@ -271,13 +272,22 @@ function openAuthorModal(db, authorName) {
             }).join('');
         }
 
+        const status = getBookStatus({ title: book.title, author: data.author });
+        const markIcon = status === 'read' ? 'ph-fill ph-check-circle' : (status === 'want' ? 'ph-fill ph-bookmark-simple' : 'ph ph-bookmark-simple');
+        const markTitle = status === 'read' ? 'Прочитано' : (status === 'want' ? 'В планах' : 'Отметить книгу');
+
         return `
         <div class="m-author-book-card ${hasUpcoming ? 'has-upcoming' : ''}">
             <div class="m-author-book-cover-wrap">
                 ${coverHtml}
             </div>
             <div class="m-author-book-info">
-                <div class="m-author-book-title">${escapeHtml(book.title)}</div>
+                <div class="m-author-book-header-row">
+                    <div class="m-author-book-title">${escapeHtml(book.title)}</div>
+                    <button type="button" class="m-author-book-mark-btn ${status ? 'is-' + status : ''}" data-title="${escapeHtml(book.title)}" data-author="${escapeHtml(data.author)}" title="${markTitle}">
+                        <i class="${markIcon}"></i>
+                    </button>
+                </div>
                 <div class="m-author-book-clubs-wrap">
                     <div class="m-author-book-clubs-label">Обсуждали в клубах:</div>
                     <div class="m-author-book-clubs-chips">${chipsHtml}</div>
@@ -312,6 +322,20 @@ function openAuthorModal(db, authorName) {
     backdrop.querySelector('.m-author-modal-close').addEventListener('click', closeModal);
     backdrop.addEventListener('click', (e) => {
         if (e.target === backdrop) closeModal();
+    });
+
+    backdrop.querySelectorAll('.m-author-book-mark-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const title = btn.dataset.title;
+            const author = btn.dataset.author;
+            const targetBook = data.books.find(b => b.title === title);
+            openBookStatusPicker({
+                title,
+                author,
+                coverUrl: targetBook?.coverUrl || null
+            });
+        });
     });
 
     // Animate in

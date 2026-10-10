@@ -5,6 +5,7 @@
  */
 
 import { getDB } from '@db';
+import { openBookStatusPicker, getBookStatus } from './profile.js';
 
 const TODAY = new Date();
 TODAY.setHours(0, 0, 0, 0);
@@ -119,6 +120,23 @@ function buildResultCard(result) {
     }
 
     head.appendChild(info);
+
+    // Quick status mark button
+    const markBtn = document.createElement('button');
+    markBtn.type = 'button';
+    const status = getBookStatus(result);
+    markBtn.className = `m-search-mark-btn ${status ? 'is-' + status : ''}`;
+    markBtn.title = status === 'read' ? 'Прочитано' : (status === 'want' ? 'В планах' : 'Отметить книгу');
+    markBtn.innerHTML = status === 'read'
+        ? '<i class="ph-fill ph-check-circle"></i>'
+        : (status === 'want' ? '<i class="ph-fill ph-bookmark-simple"></i>' : '<i class="ph ph-bookmark-simple"></i>');
+
+    markBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openBookStatusPicker(result);
+    });
+    head.appendChild(markBtn);
+
     card.appendChild(head);
 
     // Upcoming events for this book
@@ -198,6 +216,10 @@ export function initSearch() {
     // Clear on search cancel
     input.addEventListener('search', () => {
         if (!input.value) renderHint();
+    });
+
+    window.addEventListener('profileUpdated', () => {
+        if (input.value.trim()) renderResults(input.value.trim());
     });
 
     renderHint();

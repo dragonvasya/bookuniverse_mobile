@@ -5,6 +5,7 @@
  */
 
 import { getDB } from '@db';
+import { openBookStatusPicker, getBookStatus } from './profile.js';
 
 const TODAY = new Date();
 TODAY.setHours(0, 0, 0, 0);
@@ -351,9 +352,34 @@ function buildClubDetail(club, db) {
                 ribbon.textContent = book.genreRibbon;
                 item.appendChild(ribbon);
             }
+
+            // Quick status mark button
+            const markBtn = document.createElement('button');
+            markBtn.type = 'button';
+            const status = getBookStatus(book);
+            markBtn.className = `m-club-book-mark-btn ${status ? 'is-' + status : ''}`;
+            markBtn.title = status === 'read' ? 'Прочитано' : (status === 'want' ? 'В планах' : 'Отметить книгу');
+            markBtn.innerHTML = status === 'read'
+                ? '<i class="ph-fill ph-check-circle"></i>'
+                : (status === 'want' ? '<i class="ph-fill ph-bookmark-simple"></i>' : '<i class="ph ph-bookmark-simple"></i>');
+
+            markBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                openBookStatusPicker(book);
+            });
+            item.appendChild(markBtn);
+
+            item.addEventListener('click', () => {
+                openBookStatusPicker(book);
+            });
+
             booksGrid.appendChild(item);
         });
     }
+
+    window.addEventListener('profileUpdated', () => {
+        renderBooksGrid();
+    });
 
     renderBooksGrid();
 }

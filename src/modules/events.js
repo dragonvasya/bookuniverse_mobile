@@ -5,6 +5,7 @@
  */
 
 import { getDB } from '@db';
+import { openBookStatusPicker, getBookStatus } from './profile.js';
 
 const MONTHS_RU = ['января','февраля','марта','апреля','мая','июня',
                    'июля','августа','сентября','октября','ноября','декабря'];
@@ -207,6 +208,23 @@ function buildCard(book, club, city) {
     info.appendChild(meta);
     card.appendChild(info);
 
+    // ── Bookmark Action ──
+    const bookmarkBtn = document.createElement('button');
+    bookmarkBtn.type = 'button';
+    const status = getBookStatus(book);
+    bookmarkBtn.className = `m-ev-bookmark-btn ${status ? 'is-' + status : ''}`;
+    bookmarkBtn.title = status === 'read' ? 'Прочитано' : (status === 'want' ? 'В планах' : 'Отметить книгу');
+    bookmarkBtn.innerHTML = status === 'read'
+        ? '<i class="ph-fill ph-check-circle"></i>'
+        : (status === 'want' ? '<i class="ph-fill ph-bookmark-simple"></i>' : '<i class="ph ph-bookmark-simple"></i>');
+
+    bookmarkBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        openBookStatusPicker(book);
+    });
+    card.appendChild(bookmarkBtn);
+
     return card;
 }
 
@@ -385,6 +403,8 @@ export function initEvents() {
         render();
         if (fp) fp.redraw();
     });
+
+    window.addEventListener('profileUpdated', render);
 
     render();
 }
