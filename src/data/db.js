@@ -4,7 +4,7 @@
  * books can have optional coverUrl for a real image.
  */
 
-const STORAGE_KEY = 'book-club-universe-v106';
+const STORAGE_KEY = 'book-club-universe-v107';
 
 const SEED = {
     venues: [
@@ -2204,7 +2204,17 @@ const SEED = {
             coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-1/wc1000/7440918985.jpg',
             meetingDate: '2026-09-26',
             meetingTime: '12:00',
-            registerUrl: 'https://t.me/bukva_registration_bot',  },
+            registerUrl: 'https://t.me/bukva_registration_bot',
+        },
+        {
+            id: 'b1025', title: 'Школа для дураков', author: 'Саша Соколов',
+            clubId: 'cl25', color: '#7ec8a0', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-h/wc1000/7290166841.jpg',
+            meetingDate: '2026-10-10',
+            meetingTime: '12:00–14:00',
+            location: 'Кнегиње Зорке 8, Београд 11000, Сербия',
+            registerUrl: 'https://t.me/bukva_registration_bot',
+        },
         {
             id: 'b1018', title: 'Горький вкус соли', author: 'Елена Гранева', clubId: 'cl25', color: '#6b3a2a', year: 2026,
             coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-5/wc1000/11122831949.jpg',
