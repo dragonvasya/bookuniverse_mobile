@@ -182,6 +182,7 @@ const SEED = {
             clubId: 'cl31', color: '#d8b98b', year: 2026,
             coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-k/wc1000/14673390464.jpg',
             meetingDate: '2026-10-11',
+            location: 'Ереван, George’s, ул. Сарьяна, 19',
             registerUrl: 'https://t.me/alla_chitaet',
         },
         {

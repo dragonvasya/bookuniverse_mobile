@@ -111,6 +111,14 @@ const VENUES = [
         clubIds: ['cl28'],
     },
     {
+        id: 'georges',
+        name: 'George’s',
+        address: 'Ереван, ул. Сарьяна, 19',
+        lat: 40.1859,
+        lng: 44.5079,
+        clubIds: ['cl31'],
+    },
+    {
         id: 'noda',
         name: 'Noda Space',
         address: 'Kralja Milana 4, Beograd',
@@ -344,6 +352,7 @@ function initCityFilter(map, clubs) {
                 if (city === 'spb') return v.id === 'sok_spb' || v.id === 'seno';
                 if (city === 'ekb') return v.id === 'ekb';
                 if (city === 'bel') return v.id === 'noda';
+                if (city === 'evn') return v.id === 'georges';
                 return false;
             });
             if (target) {
