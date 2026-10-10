@@ -2819,40 +2819,136 @@ html, body {
   color: var(--text2);
 }
 
-/* Sync Teaser Card */
+/* Sync Teaser & Status Card */
 .m-profile-sync-teaser {
   display: flex;
   align-items: flex-start;
   gap: 12px;
-  padding: 14px;
+  padding: 16px;
   background: linear-gradient(135deg, rgba(167, 139, 250, 0.08), rgba(124, 58, 237, 0.12));
   border: 1px solid rgba(167, 139, 250, 0.25);
   border-radius: var(--radius);
   margin-top: 8px;
 }
 
+.m-profile-sync-teaser.is-connected {
+  background: linear-gradient(135deg, rgba(52, 211, 153, 0.08), rgba(16, 185, 129, 0.12));
+  border-color: rgba(52, 211, 153, 0.3);
+}
+
 .m-sync-icon {
-  font-size: 22px;
+  font-size: 24px;
   color: var(--accent);
   flex-shrink: 0;
   margin-top: 2px;
 }
 
+.m-sync-icon.success {
+  color: var(--green);
+}
+
 .m-sync-text {
   flex: 1;
+  min-width: 0;
+}
+
+.m-sync-title-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 3px;
 }
 
 .m-sync-title {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
   color: var(--text);
-  margin-bottom: 2px;
+}
+
+.m-sync-badge-live {
+  background: rgba(52, 211, 153, 0.2);
+  color: var(--green);
+  border: 1px solid rgba(52, 211, 153, 0.4);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 1px 6px;
+  border-radius: 10px;
+  letter-spacing: 0.5px;
 }
 
 .m-sync-desc {
-  font-size: 11.5px;
+  font-size: 12px;
   color: var(--text2);
   line-height: 1.4;
+}
+
+.m-sync-desc strong {
+  color: var(--text);
+  word-break: break-all;
+}
+
+.m-sync-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.m-sync-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: inherit;
+  border: 1px solid transparent;
+}
+
+.m-sync-btn.primary {
+  background: #229ED9; /* Telegram blue */
+  color: #fff;
+}
+
+.m-sync-btn.primary:hover {
+  background: #1e8ec3;
+}
+
+.m-sync-btn.secondary {
+  background: var(--surface2);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.m-sync-btn.secondary:hover {
+  background: var(--surface);
+  border-color: var(--accent);
+}
+
+.m-sync-btn.ghost {
+  background: transparent;
+  border-color: var(--border);
+  color: var(--text2);
+}
+
+.m-sync-btn.ghost:hover {
+  background: var(--surface);
+  color: var(--text);
+}
+
+.m-sync-btn.logout {
+  background: rgba(248, 113, 113, 0.1);
+  border-color: rgba(248, 113, 113, 0.3);
+  color: var(--coral);
+}
+
+.m-sync-btn.logout:hover {
+  background: rgba(248, 113, 113, 0.2);
 }
 
 /* Avatar Choices Grid */
@@ -2885,4 +2981,405 @@ html, body {
   background: rgba(167, 139, 250, 0.18);
   box-shadow: 0 0 10px rgba(167, 139, 250, 0.3);
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   Auth Modal & Form Styles (Supabase & Telegram)
+═══════════════════════════════════════════════════════════════ */
+.m-auth-sheet {
+  max-width: 440px;
+}
+
+.m-auth-sheet-title-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.m-auth-tabs {
+  display: flex;
+  gap: 6px;
+  margin-top: 14px;
+  background: var(--surface);
+  padding: 4px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+
+.m-auth-tab {
+  flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: transparent;
+  border: none;
+  color: var(--text2);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.m-auth-tab.active {
+  background: var(--surface2);
+  color: var(--text);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.m-auth-body {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Alerts */
+.m-auth-alert {
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  line-height: 1.4;
+}
+
+.m-auth-alert.error {
+  background: rgba(248, 113, 113, 0.15);
+  border: 1px solid rgba(248, 113, 113, 0.4);
+  color: #fca5a5;
+}
+
+.m-auth-alert.success {
+  background: rgba(52, 211, 153, 0.15);
+  border: 1px solid rgba(52, 211, 153, 0.4);
+  color: #6ee7b7;
+}
+
+/* Subtabs (Login / Register / Magic) */
+.m-auth-subtabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.m-auth-subtab {
+  padding: 5px 12px;
+  border-radius: 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text3);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: inherit;
+}
+
+.m-auth-subtab.active {
+  background: var(--accent2);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+/* Form inputs */
+.m-auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.m-auth-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.m-auth-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text2);
+}
+
+.m-auth-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.m-auth-input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  color: var(--text);
+  font-size: 13.5px;
+  font-family: inherit;
+  transition: border-color 0.15s;
+  box-sizing: border-box;
+}
+
+.m-auth-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: var(--surface2);
+}
+
+.m-auth-textarea {
+  resize: vertical;
+  min-height: 54px;
+  font-family: monospace;
+  font-size: 11.5px;
+}
+
+.m-auth-show-pass-btn {
+  position: absolute;
+  right: 8px;
+  background: transparent;
+  border: none;
+  color: var(--text3);
+  font-size: 17px;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.m-auth-btn-row {
+  margin-top: 4px;
+}
+
+.m-auth-submit-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  background: var(--accent2);
+  border: none;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  font-family: inherit;
+}
+
+.m-auth-submit-btn:hover {
+  opacity: 0.92;
+}
+
+.m-auth-submit-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.m-auth-secondary-btn {
+  width: 100%;
+  padding: 11px;
+  border-radius: 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: inherit;
+}
+
+.m-auth-secondary-btn:hover {
+  background: var(--surface2);
+  border-color: var(--border2);
+}
+
+.m-auth-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 6px 0;
+  color: var(--text3);
+  font-size: 11.5px;
+}
+
+.m-auth-divider::before,
+.m-auth-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid var(--border);
+}
+
+.m-auth-divider span {
+  padding: 0 10px;
+}
+
+/* Telegram Pane */
+.m-auth-tg-pane {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.m-tg-widget-intro {
+  font-size: 12.5px;
+  color: var(--text2);
+  line-height: 1.45;
+}
+
+.m-tg-widget-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 0;
+  min-height: 60px;
+}
+
+.m-tg-loading-spinner {
+  font-size: 13px;
+  color: var(--text3);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.m-tg-tma-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.m-tg-tma-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #229ED9;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+}
+
+.m-tg-tma-info {
+  flex: 1;
+}
+
+.m-tg-tma-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.m-tg-tma-sub {
+  font-size: 12px;
+  color: var(--accent);
+}
+
+.m-tg-login-btn {
+  width: 100%;
+  padding: 13px;
+  border-radius: 12px;
+  background: #229ED9;
+  border: none;
+  color: #fff;
+  font-size: 14.5px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  font-family: inherit;
+}
+
+.m-tg-login-btn:hover {
+  opacity: 0.9;
+}
+
+.m-tg-demo-box {
+  background: var(--surface);
+  border: 1px dashed var(--border2);
+  border-radius: 10px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.m-tg-demo-text {
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.45;
+}
+
+.m-tg-demo-text b {
+  color: var(--text);
+}
+
+.m-tg-demo-text code {
+  background: var(--surface2);
+  padding: 2px 5px;
+  border-radius: 4px;
+  color: var(--accent3);
+}
+
+/* Config & Unconfigured Panes */
+.m-auth-hint {
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.45;
+  margin-bottom: 12px;
+  background: var(--surface);
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+}
+
+.m-auth-unconfigured {
+  text-align: center;
+  padding: 24px 16px;
+  background: var(--surface);
+  border: 1px dashed var(--border2);
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.m-auth-unconfigured-icon {
+  font-size: 36px;
+  color: var(--coral);
+  margin-bottom: 4px;
+}
+
+.m-auth-unconfigured-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.m-auth-unconfigured-desc {
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.4;
+  max-width: 300px;
+}
+
+.m-auth-unconfigured-desc code {
+  background: var(--surface2);
+  padding: 1px 5px;
+  border-radius: 4px;
+  color: var(--accent3);
+}
+
 

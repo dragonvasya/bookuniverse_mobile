@@ -1,12 +1,28 @@
 /**
- * profile.js — Личный профиль читателя (Этап 1: Local-First).
- * Хранение отметок «Прочитано» и «В планах» в localStorage.
- * Расчёт совпадений вкусов с клубами, персональная полка, ДНК читателя.
+ * profile.js — Личный профиль читателя (Этап 1: Local-First + Supabase Cloud Sync).
+ * Хранение отметок «Прочитано» и «В планах» в localStorage и Supabase.
+ * Вход в 1 клик через Telegram и Email, расчёт совместимости с клубами.
  */
 
 import { getDB } from '@db';
+import {
+    getCurrentUser,
+    fetchCloudShelf,
+    fetchCloudProfile,
+    syncLocalShelfToCloud,
+    saveCloudBookStatus,
+    removeCloudBookStatus,
+    updateCloudProfile,
+    signOut as supabaseSignOut,
+    onAuthStateChange,
+    isSupabaseConfigured
+} from '../services/supabase.js';
+import { openAuthModal } from './authModal.js';
 
 const STORAGE_KEY = 'bookuniverse_local_profile_v1';
+
+let currentCloudUser = null;
+let isCloudSyncing = false;
 
 // ── Helpers ──────────────────────────────────────────────────────────
 
@@ -91,14 +107,21 @@ export function setBookStatus(book, status) {
 
     if (!status) {
         delete profile.books[key];
+        if (currentCloudUser) {
+            removeCloudBookStatus(key);
+        }
     } else {
-        profile.books[key] = {
+        const bookData = {
             status,
             title: (book.title || '').trim(),
             author: (book.author || '').trim(),
             coverUrl: book.coverUrl && !book.coverUrl.startsWith('data:image/svg') ? book.coverUrl : null,
             dateAdded: new Date().toISOString()
         };
+        profile.books[key] = bookData;
+        if (currentCloudUser) {
+            saveCloudBookStatus(key, bookData);
+        }
     }
 
     saveProfile(profile);
@@ -108,6 +131,52 @@ export function updateUserProfile(userData) {
     const profile = getProfile();
     profile.user = { ...profile.user, ...userData };
     saveProfile(profile);
+    if (currentCloudUser) {
+        updateCloudProfile(userData);
+    }
+}
+
+/** Двусторонняя синхронизация с облаком Supabase */
+export async function syncWithCloud(silent = false) {
+    if (!currentCloudUser) return;
+    if (isCloudSyncing) return;
+    isCloudSyncing = true;
+    try {
+        if (!silent) showToast('Синхронизация...', 'ph-arrows-clockwise');
+
+        // 1. Подгружаем метаданные профиля из облака
+        const cloudProfile = await fetchCloudProfile();
+        const localProfile = getProfile();
+
+        if (cloudProfile) {
+            if (cloudProfile.username) localProfile.user.name = cloudProfile.username;
+            if (cloudProfile.avatar) localProfile.user.avatar = cloudProfile.avatar;
+            if (cloudProfile.bio) localProfile.user.bio = cloudProfile.bio;
+        }
+
+        // 2. Подгружаем книги из облака
+        const cloudBooks = await fetchCloudShelf();
+        if (cloudBooks) {
+            // Объединяем локальные и облачные отметки
+            const mergedBooks = { ...localProfile.books, ...cloudBooks };
+            localProfile.books = mergedBooks;
+            saveProfile(localProfile);
+
+            // Отправляем в облако те локальные книги, которых там еще не было
+            await syncLocalShelfToCloud(mergedBooks);
+        } else {
+            // Если в облаке еще нет записей, выгружаем туда все локальные
+            await syncLocalShelfToCloud(localProfile.books);
+        }
+
+        if (!silent) showToast('Синхронизировано с облаком', 'ph-cloud-check');
+        renderProfile();
+    } catch (err) {
+        console.error('Ошибка синхронизации с Supabase:', err);
+        if (!silent) showToast('Ошибка синхронизации', 'ph-warning');
+    } finally {
+        isCloudSyncing = false;
+    }
 }
 
 // ── Club Matches Algorithm ───────────────────────────────────────────
@@ -426,19 +495,62 @@ export function renderProfile() {
         }
     }
 
-    // Cloud Sync Teaser (Stage 2 teaser)
-    const syncTeaserHtml = `
-    <div class="m-profile-sync-teaser">
-        <div class="m-sync-icon"><i class="ph ph-cloud-check"></i></div>
-        <div class="m-sync-text">
-            <div class="m-sync-title">Локальное сохранение активно</div>
-            <div class="m-sync-desc">
-                Все ваши отметки и полка хранятся на этом устройстве. В следующем релизе появится вход через Telegram для синхронизации между телефоном и компьютером.
-            </div>
-        </div>
-    </div>`;
+    // Cloud Sync Card (Supabase + Telegram)
+    let syncCardHtml = '';
+    const configured = isSupabaseConfigured();
 
-    container.innerHTML = heroHtml + tabContentHtml + syncTeaserHtml;
+    if (currentCloudUser) {
+        const meta = currentCloudUser.user_metadata || {};
+        const isTelegram = meta.telegram_id || currentCloudUser.email?.includes('@telegram.bookuniverse');
+        const userIdentifier = isTelegram 
+            ? (meta.telegram_username ? `@${escapeHtml(meta.telegram_username)}` : (meta.username || 'Telegram читатель'))
+            : escapeHtml(currentCloudUser.email || 'Пользователь');
+
+        syncCardHtml = `
+        <div class="m-profile-sync-teaser is-connected">
+            <div class="m-sync-icon success"><i class="ph-fill ph-cloud-check"></i></div>
+            <div class="m-sync-text">
+                <div class="m-sync-title-row">
+                    <div class="m-sync-title">Облачная синхронизация активна</div>
+                    <span class="m-sync-badge-live">Live</span>
+                </div>
+                <div class="m-sync-desc">
+                    ${isTelegram ? '<i class="ph-fill ph-telegram-logo"></i> ' : '<i class="ph ph-envelope-simple"></i> '}
+                    <strong>${userIdentifier}</strong>
+                </div>
+                <div class="m-sync-actions">
+                    <button type="button" class="m-sync-btn secondary" id="btn-cloud-sync-now" ${isCloudSyncing ? 'disabled' : ''}>
+                        <i class="ph ph-arrows-clockwise ${isCloudSyncing ? 'ph-spin' : ''}"></i> Синхронизировать
+                    </button>
+                    <button type="button" class="m-sync-btn logout" id="btn-cloud-logout">
+                        <i class="ph ph-sign-out"></i> Выйти
+                    </button>
+                </div>
+            </div>
+        </div>`;
+    } else {
+        syncCardHtml = `
+        <div class="m-profile-sync-teaser">
+            <div class="m-sync-icon"><i class="ph ph-cloud-arrow-up"></i></div>
+            <div class="m-sync-text">
+                <div class="m-sync-title">Облачная синхронизация</div>
+                <div class="m-sync-desc">
+                    Войдите в 1 клик через Telegram или Email, чтобы сохранить полку между устройствами.
+                </div>
+                <div class="m-sync-actions">
+                    <button type="button" class="m-sync-btn primary" id="btn-cloud-login">
+                        <i class="ph-fill ph-telegram-logo"></i> Войти или синхронизировать
+                    </button>
+                    ${!configured ? `
+                    <button type="button" class="m-sync-btn ghost" id="btn-cloud-setup">
+                        <i class="ph ph-gear"></i> Настроить Supabase
+                    </button>` : ''}
+                </div>
+            </div>
+        </div>`;
+    }
+
+    container.innerHTML = heroHtml + tabContentHtml + syncCardHtml;
 
     // Attach listeners
     // Tab switching
@@ -447,6 +559,30 @@ export function renderProfile() {
             activeProfileTab = btn.dataset.tab;
             renderProfile();
         });
+    });
+
+    // Cloud sync buttons
+    container.querySelector('#btn-cloud-login')?.addEventListener('click', () => {
+        openAuthModal(() => {
+            syncWithCloud(false);
+        });
+    });
+
+    container.querySelector('#btn-cloud-setup')?.addEventListener('click', () => {
+        openAuthModal();
+    });
+
+    container.querySelector('#btn-cloud-sync-now')?.addEventListener('click', () => {
+        syncWithCloud(false);
+    });
+
+    container.querySelector('#btn-cloud-logout')?.addEventListener('click', async () => {
+        if (confirm('Вы действительно хотите выйти из аккаунта на этом устройстве?')) {
+            await supabaseSignOut();
+            currentCloudUser = null;
+            showToast('Вы вышли из аккаунта', 'ph-sign-out');
+            renderProfile();
+        }
     });
 
     // Edit Name
@@ -555,9 +691,34 @@ export function updateHeaderProfileBadge() {
 
 // ── Init ──────────────────────────────────────────────────────────────
 
-export function initProfile() {
+export async function initProfile() {
     renderProfile();
     updateHeaderProfileBadge();
+
+    // Первичная проверка активной сессии Supabase
+    try {
+        currentCloudUser = await getCurrentUser();
+        if (currentCloudUser) {
+            await syncWithCloud(true);
+            renderProfile();
+        }
+    } catch (_) {}
+
+    // Подписка на изменения состояния авторизации (вход / выход)
+    onAuthStateChange(async (event, session) => {
+        const prevUser = currentCloudUser;
+        currentCloudUser = session?.user || null;
+
+        if (event === 'SIGNED_IN' && currentCloudUser) {
+            await syncWithCloud(false);
+            renderProfile();
+        } else if (event === 'SIGNED_OUT') {
+            currentCloudUser = null;
+            renderProfile();
+        } else if (prevUser?.id !== currentCloudUser?.id) {
+            renderProfile();
+        }
+    });
 
     window.addEventListener('profileUpdated', () => {
         updateHeaderProfileBadge();
