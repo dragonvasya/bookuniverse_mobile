@@ -1011,6 +1011,14 @@ const SEED = {
             registerUrl: 'https://my.sok.works/uu/#/booking/coworking-events'
         },
         {
+            id: 'b1023', title: 'Воспитание чувств', author: 'Гюстав Флобер',
+            clubId: 'cl1', color: '#bb44ff', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-j/wc2500/7290167167.jpg',
+            meetingDate: '2026-10-22', meetingTime: '19:00',
+            location: 'SOK Рыбаков Тауэр, 103 переговорная',
+            registerUrl: 'https://my.sok.works/uu/#/booking/coworking-events'
+        },
+        {
             id: 'b90', title: 'Креативные засранцы. Творческий майндсет...', author: 'Дмитрий Николаев', clubId: 'cl10', color: '#ffcc00', year: 2026,
             coverUrl: '',
             meetingDate: '2026-04-24',
