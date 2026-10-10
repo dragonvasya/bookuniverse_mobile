@@ -64,8 +64,18 @@ export function getSupabase() {
     return initSupabase();
 }
 
+function cleanSupabaseUrl(url) {
+    if (!url) return '';
+    return String(url)
+        .trim()
+        .replace(/\/rest\/v1\/?$/, '')
+        .replace(/\/+$/, '');
+}
+
 export function initSupabase() {
-    const { url, anonKey } = getSupabaseConfig();
+    let { url, anonKey } = getSupabaseConfig();
+    url = cleanSupabaseUrl(url);
+
     if (!url || !anonKey || !url.startsWith('http')) {
         supabaseClient = null;
         return null;
