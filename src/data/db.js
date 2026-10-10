@@ -2126,6 +2126,16 @@ const SEED = {
             registerUrl: 'https://t.me/bookclub_msu',
         },
         {
+            id: 'b1024', title: 'День рождения клуба (6 лет)', author: 'Книжный клуб МГУ',
+            clubId: 'cl17', color: '#aa33ff', year: 2026,
+            coverUrl: '/mgu-logo.jpg',
+            genreRibbon: 'Спецформат',
+            meetingDate: '2026-10-18', meetingTime: '15:30–20:00',
+            location: 'Grape Loft, Москва, ул. Малая Семёновская, д. 5, стр. 10 (м. Электрозаводская)',
+            registerUrl: 'https://t.me/bookclub_msu',
+            price: '1750 рублей',
+        },
+        {
             id: 'b836', title: 'Пикник на обочине', author: 'Братья Стругацкие',
             clubId: 'cl24', color: '#2a3a2a', year: 2026,
             meetingDate: '2026-08-25', meetingTime: '20:00',
