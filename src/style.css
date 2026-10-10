@@ -1364,6 +1364,12 @@ html, body {
   background: var(--surface);
   border-radius: var(--radius-sm);
   border: 1px solid var(--border);
+  transition: background 0.15s ease, border-color 0.15s ease;
+  cursor: pointer;
+}
+.m-stats-author-item:hover {
+  background: var(--surface2);
+  border-color: var(--border2);
 }
 .m-stats-author-item:first-child .m-stats-rank { background: linear-gradient(135deg,#f59e0b,#d97706); color:#fff; }
 .m-stats-author-item:nth-child(2) .m-stats-rank { background: linear-gradient(135deg,#9ca3af,#6b7280); color:#fff; }
@@ -1377,7 +1383,46 @@ html, body {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.m-stats-author-meta { font-size: 11px; color: var(--text3); margin-top: 2px; }
+.m-stats-author-meta {
+  font-size: 11px;
+  color: var(--text3);
+  margin-top: 3px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.m-stats-clubs-count {
+  color: var(--text3);
+}
+.m-stats-sep {
+  color: var(--text3);
+  opacity: 0.6;
+}
+.m-stats-books-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(167, 139, 250, 0.14);
+  color: var(--accent);
+  border: 1px solid rgba(167, 139, 250, 0.3);
+  border-radius: 6px;
+  padding: 1px 7px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s ease;
+}
+.m-stats-books-link:hover,
+.m-stats-books-link:active {
+  background: rgba(167, 139, 250, 0.25);
+  color: #fff;
+  border-color: rgba(167, 139, 250, 0.55);
+}
+.m-stats-books-link i {
+  font-size: 11px;
+}
 .m-stats-book-list {
   list-style: none;
   display: flex;
@@ -1420,6 +1465,285 @@ html, body {
 }
 .m-stats-book-author { font-size: 11px; color: var(--text2); margin-bottom: 2px; }
 .m-stats-book-clubs { font-size: 11px; color: var(--accent); font-weight: 600; }
+
+/* ── Author Books Modal ─────────────────────────────────────── */
+.m-author-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 7, 18, 0.72);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.m-author-modal-backdrop.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.m-author-modal-sheet {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  max-height: 88vh;
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-bottom: none;
+  border-radius: 20px 20px 0 0;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 -12px 48px rgba(0, 0, 0, 0.6);
+  transform: translateY(100%);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  padding-bottom: max(16px, env(safe-area-inset-bottom, 16px));
+}
+.m-author-modal-backdrop.open .m-author-modal-sheet {
+  transform: translateY(0);
+}
+
+.m-author-modal-handle {
+  width: 36px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 10px auto 4px;
+  flex-shrink: 0;
+}
+
+.m-author-modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 16px 12px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.m-author-modal-header-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.m-author-modal-sub {
+  font-size: 11px;
+  color: var(--accent);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 2px;
+}
+
+.m-author-modal-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.25;
+}
+
+.m-author-modal-meta {
+  font-size: 12px;
+  color: var(--text3);
+  margin-top: 4px;
+}
+
+.m-author-modal-close {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s, color 0.15s;
+}
+.m-author-modal-close:hover,
+.m-author-modal-close:active {
+  background: var(--surface2);
+  color: var(--text);
+}
+
+.m-author-modal-body {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Карточка книги в модалке */
+.m-author-book-card {
+  display: flex;
+  gap: 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px;
+  position: relative;
+  overflow: hidden;
+}
+.m-author-book-card.has-upcoming {
+  border-color: rgba(167, 139, 250, 0.35);
+  background: linear-gradient(180deg, rgba(167, 139, 250, 0.08) 0%, var(--surface) 100%);
+}
+
+.m-author-book-cover-wrap {
+  width: 58px;
+  height: 84px;
+  flex-shrink: 0;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+  background: var(--surface2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.m-author-book-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.m-author-book-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(167, 139, 250, 0.15), rgba(124, 58, 237, 0.25));
+  color: var(--accent3);
+  font-size: 24px;
+}
+
+.m-author-book-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.m-author-book-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1.3;
+}
+
+.m-author-book-clubs-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.m-author-book-clubs-label {
+  font-size: 11px;
+  color: var(--text3);
+}
+
+.m-author-book-clubs-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.m-author-club-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 7px;
+  border-radius: 12px;
+  font-size: 10.5px;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text2);
+  border: 1px solid var(--border);
+}
+
+.m-author-club-chip .chip-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* Блок предстоящего обсуждения */
+.m-author-upcoming-box {
+  margin-top: 4px;
+  padding: 8px 10px;
+  background: rgba(167, 139, 250, 0.12);
+  border: 1px solid rgba(167, 139, 250, 0.3);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.m-author-upcoming-header {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.m-author-upcoming-date {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.m-author-upcoming-meta {
+  font-size: 11.5px;
+  color: var(--text2);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.m-author-upcoming-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.m-author-upcoming-reg {
+  align-self: flex-start;
+  margin-top: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  background: var(--accent2);
+  color: #fff;
+  border-radius: 6px;
+  font-size: 11.5px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: opacity 0.15s;
+}
+.m-author-upcoming-reg:active {
+  opacity: 0.85;
+}
 
 /* ═══════════════════════════════════════════════════════════════
    Карта (Яндекс)

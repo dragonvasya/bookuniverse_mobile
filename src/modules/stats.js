@@ -5,6 +5,12 @@
 
 import { getDB } from '@db';
 
+const MONTHS_RU = ['января','февраля','марта','апреля','мая','июня',
+                   'июля','августа','сентября','октября','ноября','декабря'];
+
+const TODAY = new Date();
+TODAY.setHours(0, 0, 0, 0);
+
 // ── Helpers ──────────────────────────────────────────────────────────
 
 function pluralize(count, forms) {
@@ -14,6 +20,49 @@ function pluralize(count, forms) {
     if (n1 > 1 && n1 < 5) return forms[1];
     if (n1 === 1) return forms[0];
     return forms[2];
+}
+
+function parseDate(dateStr) {
+    if (!dateStr) return null;
+    const clean = dateStr.trim().split(' ')[0];
+    const parts = clean.split('-').map(Number);
+    if (parts.length < 2 || isNaN(parts[0])) return null;
+    return new Date(parts[0], parts[1] - 1, parts[2] || 1);
+}
+
+function isPast(dateStr) {
+    const d = parseDate(dateStr);
+    if (!d) return false;
+    const hasDay = dateStr.trim().split(' ')[0].split('-').length >= 3;
+    if (!hasDay) {
+        const lastDay = new Date(d.getFullYear(), d.getMonth() + 1, 0);
+        return lastDay < TODAY;
+    }
+    return d < TODAY;
+}
+
+function formatDateFull(dateStr, timeStr) {
+    const d = parseDate(dateStr);
+    if (!d) return dateStr || '';
+    const parts = dateStr.trim().split(' ')[0].split('-');
+    let s = '';
+    if (parts.length >= 3) s = `${d.getDate()} `;
+    s += MONTHS_RU[d.getMonth()];
+    if (d.getFullYear() !== TODAY.getFullYear()) {
+        s += ` ${d.getFullYear()}`;
+    }
+    if (timeStr) s += `, ${timeStr}`;
+    return s;
+}
+
+function escapeHtml(str) {
+    if (!str) return '';
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
 }
 
 function calculateOverlaps(db) {
@@ -64,6 +113,206 @@ function calculatePopularBooks(db) {
         .map(item => ({ ...item, year: [...item.years].sort().join('–') }))
         .sort((a, b) => b.clubs.length - a.clubs.length);
 }
+
+// ── Author Books Data & Modal ─────────────────────────────────────────
+
+function getAuthorBooksData(db, authorName) {
+    const authorNorm = authorName.trim().toLowerCase();
+    const matching = db.books.filter(b => (b.author || '').trim().toLowerCase() === authorNorm);
+
+    const titleMap = new Map();
+
+    matching.forEach(b => {
+        const club = db.clubs.find(c => c.id === b.clubId);
+        const city = club ? db.cities.find(c => c.id === club.cityId) : null;
+        const normTitle = (b.title || '').trim().toLowerCase()
+            .replace(/["""''«»\u2018\u2019\u201c\u201d\u00ab\u00bb]/g, '')
+            .replace(/\s+/g, ' ').trim();
+
+        if (!titleMap.has(normTitle)) {
+            titleMap.set(normTitle, {
+                title: (b.title || '').trim(),
+                coverUrl: b.coverUrl && !b.coverUrl.startsWith('data:image/svg') ? b.coverUrl : null,
+                discussions: []
+            });
+        }
+        const entry = titleMap.get(normTitle);
+        if (!entry.coverUrl && b.coverUrl && !b.coverUrl.startsWith('data:image/svg')) {
+            entry.coverUrl = b.coverUrl;
+        }
+        entry.discussions.push({
+            book: b,
+            club,
+            city,
+            isUpcoming: !!b.meetingDate && !isPast(b.meetingDate),
+            meetingDate: b.meetingDate,
+            meetingTime: b.meetingTime,
+            location: b.location,
+            registerUrl: b.registerUrl,
+            year: b.year
+        });
+    });
+
+    const books = Array.from(titleMap.values()).map(item => {
+        const upcoming = item.discussions
+            .filter(d => d.isUpcoming)
+            .sort((a, b) => (a.meetingDate > b.meetingDate ? 1 : -1));
+        return {
+            title: item.title,
+            coverUrl: item.coverUrl,
+            discussions: item.discussions,
+            upcomingDiscussions: upcoming
+        };
+    });
+
+    // Sort books: upcoming first, then by discussions count
+    books.sort((a, b) => {
+        if (a.upcomingDiscussions.length > 0 && b.upcomingDiscussions.length === 0) return -1;
+        if (a.upcomingDiscussions.length === 0 && b.upcomingDiscussions.length > 0) return 1;
+        return b.discussions.length - a.discussions.length;
+    });
+
+    const clubsSet = new Set();
+    matching.forEach(b => {
+        const club = db.clubs.find(c => c.id === b.clubId);
+        if (club) clubsSet.add(club);
+    });
+
+    return {
+        author: authorName,
+        books,
+        totalBooks: books.length,
+        totalClubs: clubsSet.size,
+        clubs: Array.from(clubsSet)
+    };
+}
+
+let currentModalEl = null;
+
+function closeModal() {
+    if (!currentModalEl) return;
+    currentModalEl.classList.remove('open');
+    setTimeout(() => {
+        if (currentModalEl && currentModalEl.parentNode) {
+            currentModalEl.parentNode.removeChild(currentModalEl);
+        }
+        currentModalEl = null;
+        document.body.style.overflow = '';
+    }, 280);
+}
+
+function openAuthorModal(db, authorName) {
+    closeModal();
+
+    const data = getAuthorBooksData(db, authorName);
+    const bookWord = pluralize(data.totalBooks, ['книга', 'книги', 'книг']);
+    const clubWord = pluralize(data.totalClubs, ['клуб', 'клуба', 'клубов']);
+
+    const backdrop = document.createElement('div');
+    backdrop.className = 'm-author-modal-backdrop';
+    currentModalEl = backdrop;
+
+    const cardsHtml = data.books.map(book => {
+        const hasUpcoming = book.upcomingDiscussions.length > 0;
+        const coverHtml = book.coverUrl
+            ? `<img src="${book.coverUrl}" alt="${escapeHtml(book.title)}" class="m-author-book-cover" referrerpolicy="no-referrer" onerror="this.parentElement.innerHTML='<div class=\\'m-author-book-fallback\\'>📖</div>'" />`
+            : `<div class="m-author-book-fallback">📖</div>`;
+
+        // Unique clubs for this book
+        const uniqueClubsMap = new Map();
+        book.discussions.forEach(d => {
+            if (d.club && !uniqueClubsMap.has(d.club.id)) {
+                uniqueClubsMap.set(d.club.id, { club: d.club, city: d.city });
+            }
+        });
+        const chipsHtml = Array.from(uniqueClubsMap.values()).map(({ club, city }) => {
+            const color = club.color || 'var(--accent)';
+            const cityText = city && city.name !== 'Онлайн' ? ` · ${escapeHtml(city.name)}` : '';
+            return `<span class="m-author-club-chip" style="border-color:${color}44; color:${color}">
+                <span class="chip-dot" style="background:${color}"></span>
+                ${escapeHtml(club.name)}${cityText}
+            </span>`;
+        }).join('');
+
+        // Upcoming discussions
+        let upcomingHtml = '';
+        if (hasUpcoming) {
+            upcomingHtml = book.upcomingDiscussions.map(u => {
+                const dateText = formatDateFull(u.meetingDate, u.meetingTime);
+                const clubName = u.club ? u.club.name : '';
+                const cityName = u.city ? u.city.name : '';
+                return `
+                <div class="m-author-upcoming-box">
+                    <div class="m-author-upcoming-header">
+                        <i class="ph ph-sparkle"></i> Ближайшее обсуждение
+                    </div>
+                    <div class="m-author-upcoming-date">
+                        <i class="ph ph-calendar-check"></i> ${escapeHtml(dateText)}
+                    </div>
+                    <div class="m-author-upcoming-meta">
+                        <div class="m-author-upcoming-meta-item">
+                            <i class="ph ph-planet"></i> ${escapeHtml(clubName)}${cityName ? ` (${escapeHtml(cityName)})` : ''}
+                        </div>
+                        ${u.location ? `<div class="m-author-upcoming-meta-item"><i class="ph ph-map-pin"></i> ${escapeHtml(u.location)}</div>` : ''}
+                    </div>
+                    ${u.registerUrl ? `<a href="${u.registerUrl}" target="_blank" rel="noopener noreferrer" class="m-author-upcoming-reg"><i class="ph ph-ticket"></i> Записаться на встречу</a>` : ''}
+                </div>`;
+            }).join('');
+        }
+
+        return `
+        <div class="m-author-book-card ${hasUpcoming ? 'has-upcoming' : ''}">
+            <div class="m-author-book-cover-wrap">
+                ${coverHtml}
+            </div>
+            <div class="m-author-book-info">
+                <div class="m-author-book-title">${escapeHtml(book.title)}</div>
+                <div class="m-author-book-clubs-wrap">
+                    <div class="m-author-book-clubs-label">Обсуждали в клубах:</div>
+                    <div class="m-author-book-clubs-chips">${chipsHtml}</div>
+                </div>
+                ${upcomingHtml}
+            </div>
+        </div>`;
+    }).join('');
+
+    backdrop.innerHTML = `
+    <div class="m-author-modal-sheet">
+        <div class="m-author-modal-handle"></div>
+        <div class="m-author-modal-header">
+            <div class="m-author-modal-header-info">
+                <div class="m-author-modal-sub">Книги автора</div>
+                <div class="m-author-modal-title">${escapeHtml(data.author)}</div>
+                <div class="m-author-modal-meta">${data.totalBooks} ${bookWord} · ${data.totalClubs} ${clubWord}</div>
+            </div>
+            <button type="button" class="m-author-modal-close" aria-label="Закрыть">
+                <i class="ph ph-x"></i>
+            </button>
+        </div>
+        <div class="m-author-modal-body">
+            ${cardsHtml || '<div style="text-align:center;color:var(--text3);padding:24px;">Нет данных о книгах</div>'}
+        </div>
+    </div>`;
+
+    document.body.appendChild(backdrop);
+    document.body.style.overflow = 'hidden';
+
+    // Event listeners
+    backdrop.querySelector('.m-author-modal-close').addEventListener('click', closeModal);
+    backdrop.addEventListener('click', (e) => {
+        if (e.target === backdrop) closeModal();
+    });
+
+    // Animate in
+    requestAnimationFrame(() => {
+        backdrop.classList.add('open');
+    });
+}
+
+// Global escape key listener
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+});
 
 // ── Counters ─────────────────────────────────────────────────────────
 
@@ -117,11 +366,19 @@ function renderTopAuthors(db) {
         const clubWord = pluralize(item.totalClubs, ['клуб', 'клуба', 'клубов']);
         const bookWord = pluralize(item.totalBooks, ['книга', 'книги', 'книг']);
         return `
-        <li class="m-stats-author-item">
+        <li class="m-stats-author-item" data-author="${escapeHtml(item.author)}">
             <span class="m-stats-rank">${i + 1}</span>
             <div class="m-stats-author-info">
-                <div class="m-stats-author-name">${item.author}</div>
-                <div class="m-stats-author-meta">${item.totalClubs} ${clubWord} · ${item.totalBooks} ${bookWord}</div>
+                <div class="m-stats-author-name">${escapeHtml(item.author)}</div>
+                <div class="m-stats-author-meta">
+                    <span class="m-stats-clubs-count">${item.totalClubs} ${clubWord}</span>
+                    <span class="m-stats-sep">·</span>
+                    <button type="button" class="m-stats-books-link" data-author="${escapeHtml(item.author)}" title="Посмотреть книги автора">
+                        <i class="ph ph-books"></i>
+                        <span>${item.totalBooks} ${bookWord}</span>
+                        <i class="ph ph-arrow-up-right"></i>
+                    </button>
+                </div>
             </div>
         </li>`;
     }).join('');
@@ -141,7 +398,7 @@ function renderTopBooks(db) {
         const clubWord = pluralize(item.clubs.length, ['клуб', 'клуба', 'клубов']);
         const isSvg = item.coverUrl && item.coverUrl.startsWith('data:image/svg');
         const coverHtml = item.coverUrl && !isSvg
-            ? `<img src="${item.coverUrl}" alt="${item.title}" class="m-stats-book-cover" referrerpolicy="no-referrer" onerror="this.style.display='none'" />`
+            ? `<img src="${item.coverUrl}" alt="${escapeHtml(item.title)}" class="m-stats-book-cover" referrerpolicy="no-referrer" onerror="this.style.display='none'" />`
             : `<div class="m-stats-book-cover-placeholder"></div>`;
 
         return `
@@ -150,9 +407,9 @@ function renderTopBooks(db) {
             <div class="m-stats-book-info">
                 <div class="m-stats-book-header">
                     <span class="m-stats-rank">${i + 1}</span>
-                    <span class="m-stats-book-title">${item.title}</span>
+                    <span class="m-stats-book-title">${escapeHtml(item.title)}</span>
                 </div>
-                ${item.author ? `<div class="m-stats-book-author">${item.author}</div>` : ''}
+                ${item.author ? `<div class="m-stats-book-author">${escapeHtml(item.author)}</div>` : ''}
                 <div class="m-stats-book-clubs">${item.clubs.length} ${clubWord}</div>
             </div>
         </li>`;
@@ -177,4 +434,17 @@ export function initStats() {
         renderCounters(db) +
         renderTopAuthors(db) +
         renderTopBooks(db);
+
+    // Event delegation for author clicks
+    const authorList = container.querySelector('.m-stats-author-list');
+    if (authorList) {
+        authorList.addEventListener('click', (e) => {
+            const btn = e.target.closest('.m-stats-books-link') || e.target.closest('.m-stats-author-item');
+            if (!btn) return;
+            const author = btn.dataset.author;
+            if (author) {
+                openAuthorModal(db, author);
+            }
+        });
+    }
 }
