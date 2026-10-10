@@ -4,7 +4,7 @@
  * books can have optional coverUrl for a real image.
  */
 
-const STORAGE_KEY = 'book-club-universe-v105';
+const STORAGE_KEY = 'book-club-universe-v106';
 
 const SEED = {
     venues: [
@@ -2102,10 +2102,6 @@ const SEED = {
             clubId: 'cl17', color: '#aa33ff',
         },
         {
-            id: 'b942', title: 'Задача трех тел', author: 'Лю Цысинь',
-            clubId: 'cl17', color: '#aa33ff',
-        },
-        {
             id: 'b943', title: 'Три сестры', author: 'Антон Чехов',
             clubId: 'cl17', color: '#aa33ff',
         },
@@ -2352,7 +2348,7 @@ const SEED = {
             clubId: 'cl27', color: '#d4a853', year: 2026,
         },
         {
-            id: 'b907', title: 'Павел Чжан и прочие лесные твари', author: 'Вера Богданова',
+            id: 'b907_cl27', title: 'Павел Чжан и прочие речные твари', author: 'Вера Богданова',
             clubId: 'cl27', color: '#d4a853', year: 2026,
         },
         {

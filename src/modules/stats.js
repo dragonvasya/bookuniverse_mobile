@@ -65,6 +65,14 @@ function escapeHtml(str) {
         .replace(/'/g, '&#039;');
 }
 
+function normalizeTitle(title) {
+    if (!title) return '';
+    return title.trim().toLowerCase()
+        .replace(/ё/g, 'е')
+        .replace(/["""''«»\u2018\u2019\u201c\u201d\u00ab\u00bb]/g, '')
+        .replace(/\s+/g, ' ').trim();
+}
+
 function calculateOverlaps(db) {
     const authorMap = {};
     db.books.forEach(book => {
@@ -74,7 +82,8 @@ function calculateOverlaps(db) {
         if (!club) return;
         if (!authorMap[author]) authorMap[author] = { clubs: new Set(), books: new Set() };
         authorMap[author].clubs.add(club);
-        authorMap[author].books.add(book.title.trim());
+        const norm = normalizeTitle(book.title);
+        if (norm) authorMap[author].books.add(norm);
     });
 
     const result = [];
@@ -93,9 +102,8 @@ function calculatePopularBooks(db) {
         if (!book.title) return;
         const club = db.clubs.find(c => c.id === book.clubId);
         if (!club) return;
-        const norm = book.title.trim().toLowerCase()
-            .replace(/["""''«»\u2018\u2019\u201c\u201d\u00ab\u00bb]/g, '')
-            .replace(/\s+/g, ' ').trim();
+        const norm = normalizeTitle(book.title);
+        if (!norm) return;
         if (!titleMap[norm]) {
             titleMap[norm] = { title: book.title.trim(), years: new Set(), clubs: [], coverUrl: book.coverUrl || '', author: book.author || '' };
         } else if (!titleMap[norm].coverUrl && book.coverUrl) {
@@ -125,9 +133,8 @@ function getAuthorBooksData(db, authorName) {
     matching.forEach(b => {
         const club = db.clubs.find(c => c.id === b.clubId);
         const city = club ? db.cities.find(c => c.id === club.cityId) : null;
-        const normTitle = (b.title || '').trim().toLowerCase()
-            .replace(/["""''«»\u2018\u2019\u201c\u201d\u00ab\u00bb]/g, '')
-            .replace(/\s+/g, ' ').trim();
+        const normTitle = normalizeTitle(b.title);
+        if (!normTitle) return;
 
         if (!titleMap.has(normTitle)) {
             titleMap.set(normTitle, {
@@ -137,6 +144,10 @@ function getAuthorBooksData(db, authorName) {
             });
         }
         const entry = titleMap.get(normTitle);
+        // Prefer coverUrl and title containing 'ё' if present
+        if (b.title && b.title.includes('ё') && !entry.title.includes('ё')) {
+            entry.title = b.title.trim();
+        }
         if (!entry.coverUrl && b.coverUrl && !b.coverUrl.startsWith('data:image/svg')) {
             entry.coverUrl = b.coverUrl;
         }
