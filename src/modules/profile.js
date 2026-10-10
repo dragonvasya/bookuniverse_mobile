@@ -541,10 +541,6 @@ export function renderProfile() {
                     <button type="button" class="m-sync-btn primary" id="btn-cloud-login">
                         <i class="ph-fill ph-telegram-logo"></i> Войти или синхронизировать
                     </button>
-                    ${!configured ? `
-                    <button type="button" class="m-sync-btn ghost" id="btn-cloud-setup">
-                        <i class="ph ph-gear"></i> Настроить Supabase
-                    </button>` : ''}
                 </div>
             </div>
         </div>`;

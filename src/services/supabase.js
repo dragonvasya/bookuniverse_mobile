@@ -9,6 +9,9 @@ import { createClient } from '@supabase/supabase-js';
 const STORAGE_CONFIG_KEY = 'bookuniverse_custom_supabase_config';
 const TELEGRAM_AUTH_DUMMY_SECRET = 'tg_app_bku_secret_salt_2026';
 
+const DEFAULT_SUPABASE_URL = 'https://gnltkipbfsaecfmavpwp.supabase.co';
+const DEFAULT_SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdubHRraXBiZnNhZWNmbWF2cHdwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE2MzIzMzQsImV4cCI6MjEwNzIwODMzNH0.5dRi2v2Ko_cTTcTwGezISO2Upl1lD1xiFSHUxSOK8cU';
+
 let supabaseClient = null;
 
 // ── Получение и сохранение конфигурации ─────────────────────────────────────
@@ -25,9 +28,9 @@ export function getSupabaseConfig() {
     const envBot = import.meta.env.VITE_TELEGRAM_BOT_NAME || '';
 
     return {
-        url: custom?.url || envUrl,
-        anonKey: custom?.anonKey || envKey,
-        botName: custom?.botName || envBot,
+        url: custom?.url || envUrl || DEFAULT_SUPABASE_URL,
+        anonKey: custom?.anonKey || envKey || DEFAULT_SUPABASE_ANON_KEY,
+        botName: custom?.botName || envBot || '',
         isCustom: !!(custom?.url && custom?.anonKey)
     };
 }

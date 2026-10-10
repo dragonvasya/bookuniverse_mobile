@@ -3,14 +3,11 @@
  * Включает:
  *  - Вход через Telegram в 1 клик (официальный виджет и Telegram WebApp);
  *  - Вход / Регистрацию по Email и паролю;
- *  - Вход по ссылке (Magic Link);
- *  - Настройку подключения Supabase (URL / Anon Key / Bot Username).
+ *  - Вход по ссылке (Magic Link).
  */
 
 import {
-    isSupabaseConfigured,
     getSupabaseConfig,
-    saveSupabaseConfig,
     signInWithEmail,
     signUpWithEmail,
     signInWithOtp,
@@ -23,17 +20,14 @@ export function openAuthModal(onSuccessCallback = null) {
     if (authModalEl) authModalEl.remove();
 
     const config = getSupabaseConfig();
-    const isConfigured = isSupabaseConfigured();
-
-    // Проверка, запущено ли приложение внутри Telegram WebApp
     const tmaUser = window.Telegram?.WebApp?.initDataUnsafe?.user || null;
 
     const modal = document.createElement('div');
     modal.id = 'm-auth-modal';
     modal.className = 'm-action-sheet-backdrop';
 
-    let activeTab = 'telegram'; // 'telegram' | 'email' | 'config'
-    if (!isConfigured) activeTab = 'config';
+    // По умолчанию открываем Telegram если доступен TMA или указан бот, иначе Email
+    let activeTab = (tmaUser || config.botName) ? 'telegram' : 'email';
 
     function renderModalContent() {
         modal.innerHTML = `
@@ -43,21 +37,18 @@ export function openAuthModal(onSuccessCallback = null) {
             <div class="m-action-sheet-header">
                 <div class="m-auth-sheet-title-group">
                     <div class="m-action-sheet-title">Синхронизация и аккаунт</div>
-                    <div class="m-action-sheet-author">Сохраняйте полку между телефоном и компьютером</div>
+                    <div class="m-action-sheet-author">Сохраняйте личную полку между устройствами</div>
                 </div>
                 <button type="button" class="m-action-sheet-close"><i class="ph ph-x"></i></button>
             </div>
 
-            <!-- Верхние вкладки -->
+            <!-- Верхние вкладки: Telegram и Email -->
             <div class="m-auth-tabs">
-                <button type="button" class="m-auth-tab ${activeTab === 'telegram' ? 'active' : ''}" data-tab="telegram">
-                    <i class="ph-fill ph-telegram-logo"></i> Telegram
-                </button>
                 <button type="button" class="m-auth-tab ${activeTab === 'email' ? 'active' : ''}" data-tab="email">
                     <i class="ph ph-envelope-simple"></i> Email
                 </button>
-                <button type="button" class="m-auth-tab ${activeTab === 'config' ? 'active' : ''}" data-tab="config" title="Настройки подключения Supabase">
-                    <i class="ph ph-gear"></i> Настройки
+                <button type="button" class="m-auth-tab ${activeTab === 'telegram' ? 'active' : ''}" data-tab="telegram">
+                    <i class="ph-fill ph-telegram-logo"></i> Telegram
                 </button>
             </div>
 
@@ -73,53 +64,11 @@ export function openAuthModal(onSuccessCallback = null) {
     }
 
     function renderTabBody() {
-        if (activeTab === 'config') {
-            return `
-            <div class="m-auth-config-pane">
-                <div class="m-auth-hint">
-                    Укажите параметры вашего проекта <b>Supabase</b> (из раздела <i>Project Settings &rarr; API</i>) и имя бота Telegram для виджета.
-                </div>
-                <form id="m-auth-config-form" class="m-auth-form">
-                    <div class="m-auth-field">
-                        <label class="m-auth-label">Supabase Project URL</label>
-                        <input type="url" id="m-cfg-url" class="m-auth-input" placeholder="https://xyzcompany.supabase.co" value="${escapeAttr(config.url)}" required />
-                    </div>
-                    <div class="m-auth-field">
-                        <label class="m-auth-label">Supabase Anon Key</label>
-                        <textarea id="m-cfg-key" class="m-auth-input m-auth-textarea" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." required rows="2">${escapeAttr(config.anonKey)}</textarea>
-                    </div>
-                    <div class="m-auth-field">
-                        <label class="m-auth-label">Telegram Bot Username (без @, опционально)</label>
-                        <input type="text" id="m-cfg-bot" class="m-auth-input" placeholder="my_book_universe_bot" value="${escapeAttr(config.botName)}" />
-                    </div>
-                    <div class="m-auth-btn-row">
-                        <button type="submit" class="m-auth-submit-btn">
-                            <i class="ph ph-floppy-disk"></i> Сохранить настройки
-                        </button>
-                    </div>
-                </form>
-            </div>`;
-        }
-
-        if (!isConfigured) {
-            return `
-            <div class="m-auth-unconfigured">
-                <div class="m-auth-unconfigured-icon"><i class="ph ph-cloud-slash"></i></div>
-                <div class="m-auth-unconfigured-title">Supabase пока не подключен</div>
-                <div class="m-auth-unconfigured-desc">
-                    Чтобы включить облачную синхронизацию и авторизацию, укажите URL и Anon Key в настройках или добавьте их в <code>.env</code>.
-                </div>
-                <button type="button" class="m-auth-submit-btn" id="m-btn-goto-config">
-                    <i class="ph ph-gear"></i> Настроить Supabase
-                </button>
-            </div>`;
-        }
-
         if (activeTab === 'telegram') {
             let tgContentHtml = '';
 
             if (tmaUser) {
-                // Запущено внутри Telegram WebApp
+                // Запущено внутри Telegram WebApp (Mini App)
                 const fullName = [tmaUser.first_name, tmaUser.last_name].filter(Boolean).join(' ');
                 tgContentHtml = `
                 <div class="m-tg-tma-card">
@@ -133,26 +82,26 @@ export function openAuthModal(onSuccessCallback = null) {
                     <i class="ph-fill ph-telegram-logo"></i> Войти как ${escapeHtml(tmaUser.first_name)}
                 </button>`;
             } else if (config.botName) {
-                // Виджет Telegram
+                // Официальный виджет Telegram
                 tgContentHtml = `
                 <div class="m-tg-widget-intro">
-                    Нажмите кнопку ниже, чтобы авторизоваться через Telegram в 1 клик. Мы сохраним вашу полку и покажем совпадения с клубами.
+                    Нажмите кнопку ниже, чтобы авторизоваться через Telegram в 1 клик. Ваша полка сохранится в аккаунте.
                 </div>
                 <div class="m-tg-widget-container" id="m-tg-widget-box">
                     <div class="m-tg-loading-spinner"><i class="ph ph-spinner-gap ph-spin"></i> Загрузка виджета Telegram...</div>
                 </div>`;
             } else {
-                // Бот не указан
+                // Бот ещё не привязан для веб-виджета
                 tgContentHtml = `
                 <div class="m-tg-widget-intro">
-                    Вход через Telegram в 1 клик позволяет мгновенно синхронизировать ваши книги без ввода паролей.
+                    Вход через Telegram доступен при открытии Book Universe внутри Telegram-бота или через вкладку <b>Email</b>.
                 </div>
                 <div class="m-tg-demo-box">
                     <div class="m-tg-demo-text">
-                        Укажите <b>имя Telegram-бота</b> во вкладке <b>«Настройки»</b> (зарегистрированного через @BotFather с командой <code>/setdomain</code>), чтобы активировать официальный виджет.
+                        Чтобы войти прямо сейчас без пароля, воспользуйтесь вкладкой <b>Email</b> &rarr; <i>«Без пароля (Magic Link)»</i>.
                     </div>
-                    <button type="button" class="m-auth-secondary-btn" id="m-btn-tg-setup-bot">
-                        <i class="ph ph-gear"></i> Указать бота Telegram
+                    <button type="button" class="m-auth-submit-btn" id="m-btn-switch-email">
+                        <i class="ph ph-envelope-simple"></i> Перейти ко входу по почте
                     </button>
                 </div>`;
             }
@@ -160,14 +109,10 @@ export function openAuthModal(onSuccessCallback = null) {
             return `
             <div class="m-auth-tg-pane">
                 ${tgContentHtml}
-                <div class="m-auth-divider"><span>или через Email</span></div>
-                <button type="button" class="m-auth-secondary-btn" id="m-btn-switch-email">
-                    <i class="ph ph-envelope-simple"></i> Войти с помощью почты
-                </button>
             </div>`;
         }
 
-        // Email вкладка
+        // Email вкладка (Вход / Регистрация / Без пароля)
         return `
         <div class="m-auth-email-pane">
             <div class="m-auth-subtabs">
@@ -176,7 +121,7 @@ export function openAuthModal(onSuccessCallback = null) {
                 <button type="button" class="m-auth-subtab" data-subtab="magic">Без пароля</button>
             </div>
 
-            <!-- Форма входа -->
+            <!-- Форма входа / регистрации -->
             <form id="m-auth-email-form" class="m-auth-form">
                 <div class="m-auth-field" id="m-field-username" style="display:none;">
                     <label class="m-auth-label">Ваше имя читателя</label>
@@ -234,22 +179,12 @@ export function openAuthModal(onSuccessCallback = null) {
             if (e.target === modal) close();
         });
 
-        // Табы
+        // Переключение между Telegram и Email
         modal.querySelectorAll('.m-auth-tab').forEach(tab => {
             tab.addEventListener('click', () => {
                 activeTab = tab.dataset.tab;
                 renderModalContent();
             });
-        });
-
-        modal.querySelector('#m-btn-goto-config')?.addEventListener('click', () => {
-            activeTab = 'config';
-            renderModalContent();
-        });
-
-        modal.querySelector('#m-btn-tg-setup-bot')?.addEventListener('click', () => {
-            activeTab = 'config';
-            renderModalContent();
         });
 
         modal.querySelector('#m-btn-switch-email')?.addEventListener('click', () => {
@@ -356,7 +291,7 @@ export function openAuthModal(onSuccessCallback = null) {
                 } else if (emailMode === 'register') {
                     if (!pass || pass.length < 6) throw new Error('Пароль должен содержать от 6 символов');
                     await signUpWithEmail(email, pass, username);
-                    showAlert('Регистрация прошла успешно! Проверьте почту для подтверждения или обновите статус.', false);
+                    showAlert('Регистрация прошла успешно!', false);
                 } else if (emailMode === 'magic') {
                     await signInWithOtp(email);
                     showAlert('Ссылка для входа отправлена на ' + email, false);
@@ -373,32 +308,12 @@ export function openAuthModal(onSuccessCallback = null) {
                 submitBtn.innerHTML = origHtml;
             }
         });
-
-        // Сохранение конфигурации Supabase
-        modal.querySelector('#m-auth-config-form')?.addEventListener('submit', e => {
-            e.preventDefault();
-            const url = modal.querySelector('#m-cfg-url')?.value.trim();
-            const anonKey = modal.querySelector('#m-cfg-key')?.value.trim();
-            const botName = modal.querySelector('#m-cfg-bot')?.value.trim().replace(/^@/, '');
-
-            const ok = saveSupabaseConfig(url, anonKey, botName);
-            if (ok) {
-                showAlert('Настройки сохранены! Переключаем...', false);
-                setTimeout(() => {
-                    activeTab = botName ? 'telegram' : 'email';
-                    renderModalContent();
-                }, 600);
-            } else {
-                showAlert('Ошибка при сохранении настроек');
-            }
-        });
     }
 
     function mountTelegramWidget() {
         const box = modal.querySelector('#m-tg-widget-box');
         if (!box) return;
 
-        // Глобальный коллбек для виджета
         window.onTelegramAuth = async function (user) {
             clearAlert();
             box.innerHTML = '<div class="m-tg-loading-spinner"><i class="ph ph-spinner-gap ph-spin"></i> Входим через Telegram...</div>';
@@ -411,7 +326,7 @@ export function openAuthModal(onSuccessCallback = null) {
                 }, 800);
             } catch (err) {
                 showAlert('Ошибка авторизации через Telegram: ' + (err.message || 'Попробуйте снова'));
-                mountTelegramWidget(); // пересоздать кнопку
+                mountTelegramWidget();
             }
         };
 
@@ -451,9 +366,4 @@ function escapeHtml(str) {
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#039;');
-}
-
-function escapeAttr(str) {
-    if (!str) return '';
-    return String(str).replace(/"/g, '&quot;');
 }
