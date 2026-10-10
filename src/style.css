@@ -2646,11 +2646,12 @@ html, body {
   color: #fff;
 }
 
-/* Shelf Grid */
+/* Shelf Grid — компактная мини-полка (обложки в ~8 раз меньше) */
 .m-shelf-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+  grid-template-columns: repeat(auto-fill, minmax(44px, 52px));
+  gap: 12px 10px;
+  justify-content: flex-start;
 }
 
 .m-shelf-item {
@@ -2661,16 +2662,17 @@ html, body {
 }
 
 .m-shelf-item:active {
-  transform: scale(0.97);
+  transform: scale(0.95);
 }
 
 .m-shelf-cover-wrap {
   position: relative;
   aspect-ratio: 2/3;
-  border-radius: 8px;
+  border-radius: 5px;
   overflow: hidden;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
   background: var(--surface);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .m-shelf-cover {
@@ -2686,25 +2688,25 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 26px;
+  font-size: 16px;
   background: var(--surface2);
 }
 
 .m-shelf-status-btn {
   position: absolute;
-  top: 6px;
-  right: 6px;
-  width: 22px;
-  height: 22px;
+  top: 3px;
+  right: 3px;
+  width: 15px;
+  height: 15px;
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(4px);
   border: none;
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12px;
+  font-size: 9px;
   cursor: pointer;
 }
 
@@ -2717,27 +2719,24 @@ html, body {
 }
 
 .m-shelf-info {
-  margin-top: 6px;
+  margin-top: 4px;
 }
 
 .m-shelf-title {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--text);
-  line-height: 1.25;
+  font-size: 9.5px;
+  font-weight: 500;
+  color: var(--text2);
+  line-height: 1.15;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  text-align: center;
+  word-break: break-word;
 }
 
 .m-shelf-author {
-  font-size: 10.5px;
-  color: var(--text3);
-  margin-top: 2px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  display: none;
 }
 
 /* Empty State */
