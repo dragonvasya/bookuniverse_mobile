@@ -333,7 +333,10 @@ function buildClubDetail(club, db) {
             const item = document.createElement('div');
             item.className = 'm-book-item';
             item.title = `${book.title}${book.author ? ' — ' + book.author : ''}`;
-            item.style.background = book.color || 'var(--surface2)';
+
+            const coverWrap = document.createElement('div');
+            coverWrap.className = 'm-book-cover-wrap';
+            coverWrap.style.background = book.color || 'var(--surface2)';
 
             if (book.coverUrl && !book.coverUrl.startsWith('data:image/svg')) {
                 const img = document.createElement('img');
@@ -342,15 +345,15 @@ function buildClubDetail(club, db) {
                 img.loading = 'lazy';
                 img.referrerPolicy = 'no-referrer';
                 img.onerror = () => { img.replaceWith(buildFallback(book)); };
-                item.appendChild(img);
+                coverWrap.appendChild(img);
             } else {
-                item.appendChild(buildFallback(book));
+                coverWrap.appendChild(buildFallback(book));
             }
             if (book.genreRibbon) {
                 const ribbon = document.createElement('div');
                 ribbon.className = 'm-book-ribbon';
                 ribbon.textContent = book.genreRibbon;
-                item.appendChild(ribbon);
+                coverWrap.appendChild(ribbon);
             }
 
             // Quick status mark button
@@ -367,7 +370,13 @@ function buildClubDetail(club, db) {
                 e.stopPropagation();
                 openBookStatusPicker(book);
             });
-            item.appendChild(markBtn);
+            coverWrap.appendChild(markBtn);
+            item.appendChild(coverWrap);
+
+            const titleEl = document.createElement('div');
+            titleEl.className = 'm-book-title';
+            titleEl.textContent = book.title;
+            item.appendChild(titleEl);
 
             item.addEventListener('click', () => {
                 openBookStatusPicker(book);
