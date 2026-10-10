@@ -9,7 +9,6 @@ import { initClubs } from './modules/clubs.js';
 import { initQuiz } from './modules/quiz.js';
 import { initSearch } from './modules/search.js';
 import { initStats } from './modules/stats.js';
-import { initMap } from './modules/map.js';
 import { initProfile, renderProfile } from './modules/profile.js';
 
 // ── Tab routing ───────────────────────────────────────────────────────
@@ -38,8 +37,6 @@ function switchTab(targetPage) {
 navBtns.forEach(btn => {
     btn.addEventListener('click', () => {
         switchTab(btn.dataset.page);
-        // Ленивая инициализация карты при первом открытии
-        if (btn.dataset.page === 'map') initMap();
     });
 });
 
