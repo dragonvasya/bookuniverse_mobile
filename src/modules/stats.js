@@ -68,10 +68,15 @@ function escapeHtml(str) {
 
 function normalizeTitle(title) {
     if (!title) return '';
-    return title.trim().toLowerCase()
+    let norm = title.trim().toLowerCase()
         .replace(/ё/g, 'е')
         .replace(/["""''«»\u2018\u2019\u201c\u201d\u00ab\u00bb]/g, '')
+        .replace(/\s+\./g, '.')
         .replace(/\s+/g, ' ').trim();
+    if (norm === 'скажи жизни да' || norm === 'скажи жизни да!' || norm === 'сказать жизни да' || norm === 'сказать жизни да!') {
+        norm = 'сказать жизни да!';
+    }
+    return norm;
 }
 
 const AUTHOR_CANONICAL = {

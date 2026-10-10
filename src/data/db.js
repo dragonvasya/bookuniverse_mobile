@@ -371,7 +371,7 @@ const SEED = {
         { id: 'b458', title: 'Хамнет', author: "Мэгги О'Фаррелл", clubId: 'cl23', color: '#2a2a4a', year: 2026 },
         { id: 'b459', title: 'Королек-птичка певчая', author: 'Решат Нури Гюнтекин', clubId: 'cl23', color: '#4a1a1a', year: 2026 },
         { id: 'b460', title: 'Последняя обитель', author: 'Антон Мамон', clubId: 'cl23', color: '#1a3a1a', year: 2026 },
-        { id: 'b461', title: 'Сказать жизни да!', author: 'Виктор Франкл', clubId: 'cl23', color: '#3a1a4a', year: 2026 },
+        { id: 'b461', title: 'Сказать жизни «ДА!»', author: 'Виктор Франкл', clubId: 'cl23', color: '#3a1a4a', year: 2026 },
         { id: 'b462', title: 'Глаза Моны', author: 'Том Шлессер', clubId: 'cl23', color: '#1a1a4a', year: 2026 },
         { id: 'b463', title: 'Токсичные люди', author: 'Шахида Араби', clubId: 'cl23', color: '#334466', year: 2026 },
         { id: 'b464', title: 'Книга извечных ценностей', author: 'Анчал Малхотра', clubId: 'cl23', color: '#8B0000', year: 2026 },
@@ -527,7 +527,7 @@ const SEED = {
             coverUrl: '/cover-faust.jpg',
         },
         {
-            id: 'b22', title: 'Скажи жизни ДА!', author: 'Франкл', clubId: 'cl1', color: '#1a1a4a', year: 2025,
+            id: 'b22', title: 'Сказать жизни «ДА!»', author: 'Виктор Франкл', clubId: 'cl1', color: '#1a1a4a', year: 2025,
             coverUrl: 'https://avatars.mds.yandex.net/get-mpic/16497166/2a0000019a4690e3013cfe177d5286f45c61/orig',
         },
         {
@@ -1535,7 +1535,7 @@ const SEED = {
             rating: 8.0,
         },
         {
-            id: 'b320', title: 'Скажи жизни ДА!', author: 'Виктор Франкл',
+            id: 'b320', title: 'Сказать жизни «ДА!»', author: 'Виктор Франкл',
             clubId: 'cl22', color: '#2266aa', year: 2026,
             coverUrl: 'https://avatars.mds.yandex.net/get-mpic/16497166/2a0000019a4690e3013cfe177d5286f45c61/orig',
             meetingDate: '2026-05-05', meetingTime: '19:30',
@@ -1989,7 +1989,7 @@ const SEED = {
             clubId: 'cl17', color: '#aa33ff',
         },
         {
-            id: 'b911', title: 'Анна Каренина', author: 'Толстой',
+            id: 'b911', title: 'Анна Каренина', author: 'Л.Н. Толстой',
             clubId: 'cl17', color: '#aa33ff',
             coverUrl: 'https://cdn.litres.ru/pub/c/cover/172100.jpg',
         },
@@ -2063,7 +2063,7 @@ const SEED = {
             clubId: 'cl17', color: '#aa33ff',
         },
         {
-            id: 'b929', title: 'Сказать жизни «Да!', author: 'Виктор Франкл',
+            id: 'b929', title: 'Сказать жизни «ДА!»', author: 'Виктор Франкл',
             clubId: 'cl17', color: '#aa33ff',
         },
         {
@@ -2315,7 +2315,7 @@ const SEED = {
             registerUrl: 'http://bookzclub.ru/',
         },
         {
-            id: 'b811', title: 'Детство. Отрочество. Юность', author: 'Лев Толстой',
+            id: 'b811', title: 'Детство. Отрочество. Юность', author: 'Л.Н. Толстой',
             clubId: 'cl26', color: '#4a6741', year: 2026,
             coverUrl: 'https://ir.ozone.ru/s3/multimedia-t/wc1000/7000413164.jpg',
             meetingDate: '2026-10-03',
