@@ -135,10 +135,13 @@ export async function signUpWithEmail(email, password, username = '') {
     if (!sb) throw new Error('Supabase не настроен');
 
     const cleanEmail = (email || '').trim().toLowerCase();
+    const redirectUrl = window.location.origin + window.location.pathname;
+
     const { data, error } = await sb.auth.signUp({
         email: cleanEmail,
         password,
         options: {
+            emailRedirectTo: redirectUrl,
             data: {
                 username: username.trim() || cleanEmail.split('@')[0],
                 avatar: '📚'
@@ -171,10 +174,12 @@ export async function signInWithOtp(email) {
     if (!sb) throw new Error('Supabase не настроен');
 
     const cleanEmail = (email || '').trim().toLowerCase();
+    const redirectUrl = window.location.origin + window.location.pathname;
+
     const { data, error } = await sb.auth.signInWithOtp({
         email: cleanEmail,
         options: {
-            emailRedirectTo: window.location.origin
+            emailRedirectTo: redirectUrl
         }
     });
 
