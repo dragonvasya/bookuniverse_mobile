@@ -1631,7 +1631,20 @@ html, body {
   background: var(--surface);
   border-radius: var(--radius-sm);
   border: 1px solid var(--border);
+  transition: background 0.15s ease, border-color 0.15s ease;
+  cursor: pointer;
 }
+.m-stats-book-item:hover {
+  background: var(--surface2);
+  border-color: var(--border2);
+}
+.m-stats-book-item.has-upcoming {
+  border-color: rgba(167, 139, 250, 0.45);
+  background: linear-gradient(180deg, rgba(167, 139, 250, 0.08) 0%, var(--surface) 100%);
+}
+.m-stats-book-item:first-child .m-stats-rank { background: linear-gradient(135deg,#f59e0b,#d97706); color:#fff; }
+.m-stats-book-item:nth-child(2) .m-stats-rank { background: linear-gradient(135deg,#9ca3af,#6b7280); color:#fff; }
+.m-stats-book-item:nth-child(3) .m-stats-rank { background: linear-gradient(135deg,#cd7c3a,#a85d2a); color:#fff; }
 .m-stats-book-cover {
   width: 36px;
   height: 54px;
@@ -1657,8 +1670,104 @@ html, body {
   white-space: nowrap;
   flex: 1;
 }
+.m-stats-book-upcoming-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #a78bfa;
+  box-shadow: 0 0 8px rgba(167, 139, 250, 0.9);
+  flex-shrink: 0;
+}
 .m-stats-book-author { font-size: 11px; color: var(--text2); margin-bottom: 2px; }
 .m-stats-book-clubs { font-size: 11px; color: var(--accent); font-weight: 600; }
+.m-stats-book-event-callout {
+  margin-top: 5px;
+  padding: 4px 7px;
+  background: rgba(167, 139, 250, 0.14);
+  border: 1px solid rgba(167, 139, 250, 0.3);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+  font-size: 11px;
+}
+.m-stats-book-event-tag {
+  color: var(--accent);
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+.m-stats-book-event-date {
+  color: #fff;
+  font-weight: 600;
+}
+.m-stats-book-event-club {
+  color: var(--text2);
+}
+.m-stats-book-event-reg-btn {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 1px 6px;
+  background: var(--accent2);
+  color: #fff;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 600;
+  text-decoration: none;
+}
+.m-stats-book-arrow {
+  color: var(--text3);
+  font-size: 14px;
+  flex-shrink: 0;
+  opacity: 0.6;
+}
+.m-book-modal-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+.m-book-modal-cal-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 6px;
+  font-size: 11.5px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.15s, border-color 0.15s;
+}
+.m-book-modal-cal-btn:hover,
+.m-book-modal-cal-btn:active {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #fff;
+}
+.m-book-modal-no-upcoming {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  color: var(--text3);
+  font-size: 12px;
+  margin-top: 4px;
+}
+.m-book-modal-no-upcoming i {
+  font-size: 16px;
+  flex-shrink: 0;
+}
 
 /* ── Author Books Modal ─────────────────────────────────────── */
 .m-author-modal-backdrop {

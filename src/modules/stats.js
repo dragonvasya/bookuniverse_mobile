@@ -5,6 +5,7 @@
 
 import { getDB } from '@db';
 import { openBookStatusPicker, getBookStatus } from './profile.js';
+import { makeGoogleCalendarUrl } from './events.js';
 
 const MONTHS_RU = ['января','февраля','марта','апреля','мая','июня',
                    'июля','августа','сентября','октября','ноября','декабря'];
@@ -183,20 +184,56 @@ function calculatePopularBooks(db) {
         const norm = normalizeTitle(book.title);
         if (!norm) return;
         if (!titleMap[norm]) {
-            titleMap[norm] = { title: book.title.trim(), years: new Set(), clubs: [], coverUrl: book.coverUrl || '', author: book.author || '' };
-        } else if (!titleMap[norm].coverUrl && book.coverUrl) {
-            titleMap[norm].coverUrl = book.coverUrl;
+            titleMap[norm] = {
+                title: book.title.trim(),
+                years: new Set(),
+                clubs: [],
+                discussions: [],
+                coverUrl: book.coverUrl && !book.coverUrl.startsWith('data:image/svg') ? book.coverUrl : '',
+                author: book.author || '',
+                normKey: norm
+            };
+        } else {
+            if (!titleMap[norm].coverUrl && book.coverUrl && !book.coverUrl.startsWith('data:image/svg')) {
+                titleMap[norm].coverUrl = book.coverUrl;
+            }
+            if (book.title && book.title.includes('ё') && !titleMap[norm].title.includes('ё')) {
+                titleMap[norm].title = book.title.trim();
+            }
+            if (!titleMap[norm].author && book.author) {
+                titleMap[norm].author = book.author;
+            }
         }
         if (book.year) titleMap[norm].years.add(book.year);
         const city = db.cities.find(c => c.id === club.cityId);
         if (!titleMap[norm].clubs.find(e => e.club.id === club.id)) {
             titleMap[norm].clubs.push({ club, city });
         }
+        titleMap[norm].discussions.push({
+            book,
+            club,
+            city,
+            isUpcoming: !!book.meetingDate && !isPast(book.meetingDate),
+            meetingDate: book.meetingDate,
+            meetingTime: book.meetingTime,
+            location: book.location,
+            registerUrl: book.registerUrl,
+            year: book.year
+        });
     });
 
     return Object.values(titleMap)
         .filter(item => item.clubs.length >= 2)
-        .map(item => ({ ...item, year: [...item.years].sort().join('–') }))
+        .map(item => {
+            const upcoming = item.discussions
+                .filter(d => d.isUpcoming)
+                .sort((a, b) => (a.meetingDate > b.meetingDate ? 1 : -1));
+            return {
+                ...item,
+                year: [...item.years].sort().join('–'),
+                upcoming
+            };
+        })
         .sort((a, b) => b.clubs.length - a.clubs.length);
 }
 
@@ -502,6 +539,134 @@ function renderTopAuthors(db) {
     </section>`;
 }
 
+function openBookModal(db, item) {
+    closeModal();
+
+    const bookWord = pluralize(item.discussions.length, ['обсуждение', 'обсуждения', 'обсуждений']);
+    const clubWord = pluralize(item.clubs.length, ['клуб', 'клуба', 'клубов']);
+    const hasUpcoming = item.upcoming && item.upcoming.length > 0;
+
+    const coverHtml = item.coverUrl
+        ? `<img src="${item.coverUrl}" alt="${escapeHtml(item.title)}" class="m-author-book-cover" referrerpolicy="no-referrer" onerror="this.parentElement.innerHTML='<div class=\\'m-author-book-fallback\\'>📖</div>'" />`
+        : `<div class="m-author-book-fallback">📖</div>`;
+
+    // Chips for clubs that read this book
+    const chipsHtml = item.clubs.map(({ club, city }) => {
+        const color = club.color || 'var(--accent)';
+        const cityText = city && city.name !== 'Онлайн' ? ` · ${escapeHtml(city.name)}` : '';
+        return `<span class="m-author-club-chip" style="border-color:${color}44; color:${color}">
+            <span class="chip-dot" style="background:${color}"></span>
+            ${escapeHtml(club.name)}${cityText}
+        </span>`;
+    }).join('');
+
+    // Upcoming discussions HTML
+    let upcomingHtml = '';
+    if (hasUpcoming) {
+        upcomingHtml = item.upcoming.map(u => {
+            const dateText = formatDateFull(u.meetingDate, u.meetingTime);
+            const clubName = u.club ? u.club.name : '';
+            const cityName = u.city ? u.city.name : '';
+            const calUrl = makeGoogleCalendarUrl(
+                { title: item.title, author: item.author, meetingDate: u.meetingDate, meetingTime: u.meetingTime, location: u.location, registerUrl: u.registerUrl },
+                u.club || { name: clubName },
+                u.city || { name: cityName }
+            );
+
+            return `
+            <div class="m-author-upcoming-box">
+                <div class="m-author-upcoming-header">
+                    <i class="ph ph-sparkle"></i> Ближайшее обсуждение
+                </div>
+                <div class="m-author-upcoming-date">
+                    <i class="ph ph-calendar-check"></i> ${escapeHtml(dateText)}
+                </div>
+                <div class="m-author-upcoming-meta">
+                    <div class="m-author-upcoming-meta-item">
+                        <i class="ph ph-planet"></i> ${escapeHtml(clubName)}${cityName ? ` (${escapeHtml(cityName)})` : ''}
+                    </div>
+                    ${u.location ? `<div class="m-author-upcoming-meta-item"><i class="ph ph-map-pin"></i> ${escapeHtml(u.location)}</div>` : ''}
+                </div>
+                <div class="m-book-modal-actions-row">
+                    ${u.registerUrl ? `<a href="${u.registerUrl}" target="_blank" rel="noopener noreferrer" class="m-author-upcoming-reg"><i class="ph ph-ticket"></i> Записаться на встречу</a>` : ''}
+                    <a href="${calUrl}" target="_blank" rel="noopener noreferrer" class="m-book-modal-cal-btn" title="Добавить в Google Календарь"><i class="ph ph-calendar-plus"></i> В календарь</a>
+                </div>
+            </div>`;
+        }).join('');
+    } else {
+        upcomingHtml = `
+        <div class="m-book-modal-no-upcoming">
+            <i class="ph ph-calendar-x"></i>
+            <span>Ближайших анонсированных встреч по этой книге сейчас нет</span>
+        </div>`;
+    }
+
+    const status = getBookStatus({ title: item.title, author: item.author });
+    const markIcon = status === 'read' ? 'ph-fill ph-check-circle' : (status === 'want' ? 'ph-fill ph-bookmark-simple' : 'ph ph-bookmark-simple');
+    const markTitle = status === 'read' ? 'Прочитано' : (status === 'want' ? 'В планах' : 'Отметить книгу');
+
+    const backdrop = document.createElement('div');
+    backdrop.className = 'm-author-modal-backdrop';
+    currentModalEl = backdrop;
+
+    backdrop.innerHTML = `
+    <div class="m-author-modal-sheet">
+        <div class="m-author-modal-handle"></div>
+        <div class="m-author-modal-header">
+            <div class="m-author-modal-header-info">
+                <div class="m-author-modal-sub">Книга из топа</div>
+                <div class="m-author-modal-title">${escapeHtml(item.title)}</div>
+                <div class="m-author-modal-meta">${item.author ? `${escapeHtml(item.author)} · ` : ''}${item.clubs.length} ${clubWord} (${item.discussions.length} ${bookWord})</div>
+            </div>
+            <button type="button" class="m-author-modal-close" aria-label="Закрыть">
+                <i class="ph ph-x"></i>
+            </button>
+        </div>
+        <div class="m-author-modal-body">
+            <div class="m-author-book-card has-upcoming">
+                <div class="m-author-book-cover-wrap">
+                    ${coverHtml}
+                </div>
+                <div class="m-author-book-info">
+                    <div class="m-author-book-header-row">
+                        <div class="m-author-book-title">${escapeHtml(item.title)}</div>
+                        <button type="button" class="m-author-book-mark-btn ${status ? 'is-' + status : ''}" data-title="${escapeHtml(item.title)}" data-author="${escapeHtml(item.author)}" title="${markTitle}">
+                            <i class="${markIcon}"></i>
+                        </button>
+                    </div>
+                    ${item.author ? `<div class="m-stats-book-author" style="font-size:12px;">${escapeHtml(item.author)}</div>` : ''}
+                    <div class="m-author-book-clubs-wrap" style="margin-top:4px;">
+                        <div class="m-author-book-clubs-label">Обсуждали в клубах:</div>
+                        <div class="m-author-book-clubs-chips">${chipsHtml}</div>
+                    </div>
+                    ${upcomingHtml}
+                </div>
+            </div>
+        </div>
+    </div>`;
+
+    document.body.appendChild(backdrop);
+    document.body.style.overflow = 'hidden';
+
+    backdrop.querySelector('.m-author-modal-close').addEventListener('click', closeModal);
+    backdrop.addEventListener('click', (e) => {
+        if (e.target === backdrop) closeModal();
+    });
+
+    backdrop.querySelector('.m-author-book-mark-btn')?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openBookStatusPicker({
+            title: item.title,
+            author: item.author,
+            coverUrl: item.coverUrl || null
+        });
+    });
+
+    requestAnimationFrame(() => {
+        backdrop.classList.add('open');
+    });
+}
+
 function renderTopBooks(db) {
     const sorted = calculatePopularBooks(db);
     let cutoff = 10;
@@ -521,17 +686,35 @@ function renderTopBooks(db) {
             ? `<img src="${item.coverUrl}" alt="${escapeHtml(item.title)}" class="m-stats-book-cover" referrerpolicy="no-referrer" onerror="this.style.display='none'" />`
             : `<div class="m-stats-book-cover-placeholder"></div>`;
 
+        const hasUpcoming = item.upcoming && item.upcoming.length > 0;
+        let eventCalloutHtml = '';
+        if (hasUpcoming) {
+            const nextEvent = item.upcoming[0];
+            const dateText = formatDateFull(nextEvent.meetingDate, nextEvent.meetingTime);
+            const clubName = nextEvent.club ? nextEvent.club.name : '';
+            eventCalloutHtml = `
+            <div class="m-stats-book-event-callout">
+                <span class="m-stats-book-event-tag"><i class="ph ph-sparkle"></i> Встреча:</span>
+                <span class="m-stats-book-event-date">${escapeHtml(dateText)}</span>
+                <span class="m-stats-book-event-club">${escapeHtml(clubName)}</span>
+                ${nextEvent.registerUrl ? `<a href="${nextEvent.registerUrl}" target="_blank" rel="noopener noreferrer" class="m-stats-book-event-reg-btn" onclick="event.stopPropagation();">Запись <i class="ph ph-arrow-up-right"></i></a>` : ''}
+            </div>`;
+        }
+
         return `
-        <li class="m-stats-book-item">
+        <li class="m-stats-book-item ${hasUpcoming ? 'has-upcoming' : ''}" data-norm="${escapeHtml(item.normKey)}">
             ${coverHtml}
             <div class="m-stats-book-info">
                 <div class="m-stats-book-header">
                     <span class="m-stats-rank">${i + 1}</span>
                     <span class="m-stats-book-title">${escapeHtml(item.title)}</span>
+                    ${hasUpcoming ? `<span class="m-stats-book-upcoming-dot" title="Есть запланированная встреча"></span>` : ''}
                 </div>
                 ${item.author ? `<div class="m-stats-book-author">${escapeHtml(item.author)}</div>` : ''}
                 <div class="m-stats-book-clubs">${item.clubs.length} ${clubWord}</div>
+                ${eventCalloutHtml}
             </div>
+            <i class="ph ph-caret-right m-stats-book-arrow"></i>
         </li>`;
     }).join('');
 
@@ -564,6 +747,22 @@ export function initStats() {
             const author = btn.dataset.author;
             if (author) {
                 openAuthorModal(db, author);
+            }
+        });
+    }
+
+    // Event delegation for book clicks
+    const bookList = container.querySelector('.m-stats-book-list');
+    if (bookList) {
+        const topBooks = calculatePopularBooks(db);
+        bookList.addEventListener('click', (e) => {
+            if (e.target.closest('a')) return; // Allow registration links to open directly
+            const itemEl = e.target.closest('.m-stats-book-item');
+            if (!itemEl) return;
+            const normKey = itemEl.dataset.norm;
+            const bookItem = topBooks.find(b => b.normKey === normKey);
+            if (bookItem) {
+                openBookModal(db, bookItem);
             }
         });
     }
