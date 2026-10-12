@@ -357,51 +357,58 @@ function canChangeClub(savedClub) {
 
 function buildClubSelectorHtml(db) {
     const myClub = getSelectedClub();
-    const cities = (db.cities || []).filter(c => (db.clubs || []).some(cl => cl.cityId === c.id));
+
+    // Build city list; clubs with isOnline/online flag go under virtual "Онлайн" city
+    const ONLINE_ID = '__online__';
+    const realCities = (db.cities || []).filter(c => (db.clubs || []).some(cl => cl.cityId === c.id));
+    const onlineClubs = (db.clubs || []).filter(c => c.isOnline || c.online || c.cityId === 'online');
+    const cities = [...realCities];
+    if (onlineClubs.length > 0) cities.push({ id: ONLINE_ID, name: 'Онлайн', color: '#a78bfa' });
 
     if (myClub && myClub.clubId && !canChangeClub(myClub)) {
-        // Show chip with selected club
         const club = (db.clubs || []).find(c => c.id === myClub.clubId);
         if (club) {
-            const city = (db.cities || []).find(c => c.id === club.cityId);
+            const isOnlineClub = club.isOnline || club.online || club.cityId === 'online';
+            const city = isOnlineClub ? { name: 'Онлайн' } : (db.cities || []).find(c => c.id === club.cityId);
             const changeDate = new Date(myClub.savedAt + CLUB_COOLDOWN_DAYS * 24 * 60 * 60 * 1000);
             const changeDateStr = changeDate.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' });
             return `
     <div class="m-profile-club-section">
-        <div class="m-profile-club-chip" style="--club-color: ${escapeHtml(club.color || '#aa33ff')}">
+        <div class="m-profile-club-chip" style="--club-color: ${escapeHtml(club.color || '#a78bfa')}">
             <span class="m-profile-club-chip-dot"></span>
             <span class="m-profile-club-chip-name">${escapeHtml(club.name)}</span>
             ${city ? `<span class="m-profile-club-chip-city">${escapeHtml(city.name)}</span>` : ''}
         </div>
-        <div class="m-profile-club-change-note">РЎРјРµРЅРёС‚СЊ РєР»СѓР± РјРѕР¶РЅРѕ ${changeDateStr}</div>
+        <div class="m-profile-club-change-note">Сменить клуб можно ${changeDateStr}</div>
     </div>`;
         }
     }
 
     // Show picker
-    const cityOptions = (cities || []).map(c =>
+    const cityOptions = cities.map(c =>
         `<option value="${escapeHtml(c.id)}">${escapeHtml(c.name)}</option>`
     ).join('');
 
     return `
     <div class="m-profile-club-section" id="m-club-picker-section">
-        <div class="m-profile-club-label"><i class="ph-fill ph-users-three"></i> РњРѕР№ РєРЅРёР¶РЅС‹Р№ РєР»СѓР±</div>
+        <div class="m-profile-club-label"><i class="ph-fill ph-users-three"></i> Мой книжный клуб</div>
         <div class="m-profile-club-selects">
             <select class="m-profile-club-select" id="m-club-city-select">
-                <option value="">вЂ” РІС‹Р±РµСЂРёС‚Рµ РіРѕСЂРѕРґ вЂ”</option>
+                <option value="">— выберите город —</option>
                 ${cityOptions}
             </select>
             <select class="m-profile-club-select" id="m-club-club-select" disabled>
-                <option value="">вЂ” СЃРЅР°С‡Р°Р»Р° РІС‹Р±РµСЂРёС‚Рµ РіРѕСЂРѕРґ вЂ”</option>
+                <option value="">— сначала выберите город —</option>
             </select>
         </div>
         <button type="button" class="m-profile-club-save-btn" id="m-club-save-btn" disabled>
-            <i class="ph ph-floppy-disk"></i> РЎРѕС…СЂР°РЅРёС‚СЊ
+            <i class="ph ph-floppy-disk"></i> Сохранить
         </button>
     </div>`;
 }
 
 function attachClubSelectorListeners(container, db) {
+    const ONLINE_ID = '__online__';
     const citySelect = container.querySelector('#m-club-city-select');
     const clubSelect = container.querySelector('#m-club-club-select');
     const saveBtn = container.querySelector('#m-club-save-btn');
@@ -411,13 +418,18 @@ function attachClubSelectorListeners(container, db) {
         const cityId = citySelect.value;
         clubSelect.innerHTML = '';
         if (!cityId) {
-            clubSelect.innerHTML = '<option value="">вЂ” СЃРЅР°С‡Р°Р»Р° РІС‹Р±РµСЂРёС‚Рµ РіРѕСЂРѕРґ вЂ”</option>';
+            clubSelect.innerHTML = '<option value="">— сначала выберите город —</option>';
             clubSelect.disabled = true;
             saveBtn.disabled = true;
             return;
         }
-        const clubs = (db.clubs || []).filter(c => c.cityId === cityId);
-        clubSelect.innerHTML = '<option value="">вЂ” РІС‹Р±РµСЂРёС‚Рµ РєР»СѓР± вЂ”</option>' +
+        let clubs;
+        if (cityId === ONLINE_ID) {
+            clubs = (db.clubs || []).filter(c => c.isOnline || c.online || c.cityId === 'online');
+        } else {
+            clubs = (db.clubs || []).filter(c => c.cityId === cityId);
+        }
+        clubSelect.innerHTML = '<option value="">— выберите клуб —</option>' +
             clubs.map(c => `<option value="${escapeHtml(c.id)}">${escapeHtml(c.name)}</option>`).join('');
         clubSelect.disabled = false;
         saveBtn.disabled = true;
@@ -427,11 +439,12 @@ function attachClubSelectorListeners(container, db) {
         saveBtn.disabled = !clubSelect.value;
     });
 
-    saveBtn.addEventListener('click', () => {
+    saveBtn.addEventListener('click', async () => {
         const clubId = clubSelect.value;
         if (!clubId) return;
-        saveSelectedClubData(clubId);
-        showToast('РљР»СѓР± СЃРѕС…СЂР°РЅС‘РЅ!', 'ph-users-three');
+        const data = saveSelectedClubData(clubId);
+        syncClubToCloud(clubId, data.savedAt).catch(() => {});
+        showToast('Клуб сохранён!', 'ph-users-three');
         renderProfile();
     });
 }
