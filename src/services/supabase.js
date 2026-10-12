@@ -1,4 +1,4 @@
-﻿/**
+/**
  * supabase.js — Сервис интеграции с Supabase и авторизации.
  * Поддерживает переменные окружения (.env), ручную настройку через UI,
  * авторизацию по Email/Паролю, Magic Link, и Telegram Auth (Widget & WebApp).
@@ -447,20 +447,24 @@ export async function updateCloudProfile(profileData) {
 }
 
 /** Синхронизация выбранного клуба с Supabase */
-export async function syncClubToCloud(clubId, savedAt) {
+export async function syncClubToCloud(clubData) {
     const sb = getSupabase();
-    if (!sb) return false;
+    if (!sb || !clubData) return false;
 
     const user = await getCurrentUser();
     if (!user) return false;
+
+    const serializedClubId = clubData.isCustom
+        ? `custom::${clubData.customName || ''}::${clubData.customContact || ''}::${clubData.status || 'pending'}`
+        : clubData.clubId;
 
     try {
         const { error } = await sb
             .from('profiles')
             .upsert({
                 id: user.id,
-                my_club_id: clubId,
-                my_club_saved_at: new Date(savedAt).toISOString(),
+                my_club_id: serializedClubId,
+                my_club_saved_at: new Date(clubData.savedAt || Date.now()).toISOString(),
                 updated_at: new Date().toISOString()
             }, { onConflict: 'id' });
 

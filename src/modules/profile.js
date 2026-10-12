@@ -328,20 +328,48 @@ export function openBookStatusPicker(book) {
 const AVAILABLE_AVATARS = ['📚', '☕', '🦉', '🪐', '📖', '✨', '🦊', '🐉', '🎨', '🦁', '🌿', '🧭'];
 
 let activeProfileTab = 'read'; // 'read' | 'want' | 'clubs'
-// в•ђв•ђв•ђ Club Selector в•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђ
+// ── Club Selector ────────────────────────────────────────────────────────────
 
 const CLUB_COOLDOWN_DAYS = 7;
+
+function parseCloudClubId(rawClubId, savedAt) {
+    if (!rawClubId) return null;
+    if (String(rawClubId).startsWith('custom::')) {
+        const parts = String(rawClubId).split('::');
+        return {
+            clubId: rawClubId,
+            isCustom: true,
+            customName: parts[1] || 'Мой клуб',
+            customContact: parts[2] || '',
+            status: parts[3] || 'pending',
+            savedAt: savedAt || Date.now()
+        };
+    }
+    return {
+        clubId: rawClubId,
+        isCustom: false,
+        savedAt: savedAt || Date.now()
+    };
+}
 
 function getSelectedClub() {
     try {
         const raw = localStorage.getItem('bookuniverse_my_club_v1');
-        if (raw) return JSON.parse(raw);
+        if (raw) {
+            const parsed = JSON.parse(raw);
+            if (parsed && parsed.clubId && String(parsed.clubId).startsWith('custom::') && !parsed.isCustom) {
+                return parseCloudClubId(parsed.clubId, parsed.savedAt);
+            }
+            return parsed;
+        }
     } catch (_) {}
     return null;
 }
 
-function saveSelectedClubData(clubId) {
-    const data = { clubId, savedAt: Date.now() };
+function saveSelectedClubData(payload) {
+    const data = typeof payload === 'string'
+        ? { clubId: payload, isCustom: false, savedAt: Date.now() }
+        : { ...payload, savedAt: Date.now() };
     try {
         localStorage.setItem('bookuniverse_my_club_v1', JSON.stringify(data));
     } catch (_) {}
@@ -355,63 +383,178 @@ function canChangeClub(savedClub) {
     return diffDays >= CLUB_COOLDOWN_DAYS;
 }
 
-function buildClubSelectorHtml(db) {
+function isOnlineCityObj(city) {
+    if (!city || !city.name) return false;
+    return city.name.trim().toLowerCase() === 'онлайн';
+}
+
+function getOnlineCityIds(db) {
+    return (db.cities || [])
+        .filter(c => isOnlineCityObj(c))
+        .map(c => c.id);
+}
+
+function buildClubHeroBadgeHtml(db) {
     const myClub = getSelectedClub();
-
-    // Build city list; clubs with isOnline/online flag go under virtual "Онлайн" city
-    const ONLINE_ID = '__online__';
-    const realCities = (db.cities || []).filter(c => (db.clubs || []).some(cl => cl.cityId === c.id));
-    const onlineClubs = (db.clubs || []).filter(c => c.isOnline || c.online || c.cityId === 'online');
-    const cities = [...realCities];
-    if (onlineClubs.length > 0) cities.push({ id: ONLINE_ID, name: 'Онлайн', color: '#a78bfa' });
-
-    if (myClub && myClub.clubId && !canChangeClub(myClub)) {
-        const club = (db.clubs || []).find(c => c.id === myClub.clubId);
-        if (club) {
-            const isOnlineClub = club.isOnline || club.online || club.cityId === 'online';
-            const city = isOnlineClub ? { name: 'Онлайн' } : (db.cities || []).find(c => c.id === club.cityId);
-            const changeDate = new Date(myClub.savedAt + CLUB_COOLDOWN_DAYS * 24 * 60 * 60 * 1000);
-            const changeDateStr = changeDate.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' });
-            return `
-    <div class="m-profile-club-section">
-        <div class="m-profile-club-chip" style="--club-color: ${escapeHtml(club.color || '#a78bfa')}">
-            <span class="m-profile-club-chip-dot"></span>
-            <span class="m-profile-club-chip-name">${escapeHtml(club.name)}</span>
-            ${city ? `<span class="m-profile-club-chip-city">${escapeHtml(city.name)}</span>` : ''}
-        </div>
-        <div class="m-profile-club-change-note">Сменить клуб можно ${changeDateStr}</div>
-    </div>`;
-        }
+    if (!myClub || (!myClub.clubId && !myClub.customName) || canChangeClub(myClub)) {
+        return '';
     }
 
-    // Show picker
+    const changeDate = new Date(myClub.savedAt + CLUB_COOLDOWN_DAYS * 24 * 60 * 60 * 1000);
+    const changeDateStr = changeDate.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' });
+
+    if (myClub.isCustom) {
+        const statusLabel = myClub.status === 'verified' ? 'Подтверждён' : 'На проверке';
+        const statusClass = myClub.status === 'verified' ? 'is-verified' : 'is-pending';
+        return `
+        <div class="m-profile-club-hero-badge">
+            <div class="m-profile-club-chip ${statusClass}" style="--club-color: #fbbf24">
+                <i class="ph-fill ph-clock-countdown m-profile-club-chip-icon"></i>
+                <span class="m-profile-club-chip-name">${escapeHtml(myClub.customName)}</span>
+                <span class="m-profile-club-status-pill">${statusLabel}</span>
+            </div>
+            <div class="m-profile-club-cooldown-hint">Сменить клуб можно ${changeDateStr}</div>
+        </div>`;
+    }
+
+    const club = (db.clubs || []).find(c => c.id === myClub.clubId);
+    if (!club) return '';
+
+    const onlineCityIds = getOnlineCityIds(db);
+    const isOnline = club.isOnline || club.online || club.cityId === 'online' || onlineCityIds.includes(club.cityId);
+    const cityObj = isOnline ? { name: 'Онлайн' } : (db.cities || []).find(c => c.id === club.cityId);
+
+    return `
+    <div class="m-profile-club-hero-badge">
+        <div class="m-profile-club-chip" style="--club-color: ${escapeHtml(club.color || '#a78bfa')}">
+            <i class="ph-fill ph-users-three m-profile-club-chip-icon"></i>
+            <span class="m-profile-club-chip-name">${escapeHtml(club.name)}</span>
+            ${cityObj ? `<span class="m-profile-club-chip-city">· ${escapeHtml(cityObj.name)}</span>` : ''}
+        </div>
+        <div class="m-profile-club-cooldown-hint">Сменить клуб можно ${changeDateStr}</div>
+    </div>`;
+}
+
+function buildClubSelectorHtml(db) {
+    const myClub = getSelectedClub();
+    if (myClub && (myClub.clubId || myClub.customName) && !canChangeClub(myClub)) {
+        // Filters disappear completely once saved
+        return '';
+    }
+
+    const ONLINE_ID = '__online__';
+    const onlineCityIds = getOnlineCityIds(db);
+
+    // Offline cities (with clubs) deduplicated from "Онлайн"
+    const offlineCities = (db.cities || []).filter(c =>
+        !isOnlineCityObj(c) && (db.clubs || []).some(cl => cl.cityId === c.id)
+    );
+
+    const hasOnlineClubs = (db.clubs || []).some(cl =>
+        cl.isOnline || cl.online || cl.cityId === 'online' || onlineCityIds.includes(cl.cityId)
+    );
+
+    const cities = [...offlineCities];
+    if (hasOnlineClubs) {
+        cities.push({ id: ONLINE_ID, name: 'Онлайн' });
+    }
+
     const cityOptions = cities.map(c =>
         `<option value="${escapeHtml(c.id)}">${escapeHtml(c.name)}</option>`
     ).join('');
 
     return `
     <div class="m-profile-club-section" id="m-club-picker-section">
-        <div class="m-profile-club-label"><i class="ph-fill ph-users-three"></i> Мой книжный клуб</div>
-        <div class="m-profile-club-selects">
-            <select class="m-profile-club-select" id="m-club-city-select">
-                <option value="">— выберите город —</option>
-                ${cityOptions}
-            </select>
-            <select class="m-profile-club-select" id="m-club-club-select" disabled>
-                <option value="">— сначала выберите город —</option>
-            </select>
+        <div class="m-profile-club-header-row">
+            <div class="m-profile-club-label"><i class="ph-fill ph-users-three"></i> Мой книжный клуб</div>
+            <button type="button" class="m-profile-club-toggle-custom" id="m-btn-toggle-custom-club">
+                Нет моего клуба? Добавить
+            </button>
         </div>
-        <button type="button" class="m-profile-club-save-btn" id="m-club-save-btn" disabled>
-            <i class="ph ph-floppy-disk"></i> Сохранить
-        </button>
+
+        <!-- Режим 1: Выбор из списка -->
+        <div id="m-club-list-mode">
+            <div class="m-profile-club-selects">
+                <select class="m-profile-club-select" id="m-club-city-select">
+                    <option value="">— выберите город —</option>
+                    ${cityOptions}
+                </select>
+                <select class="m-profile-club-select" id="m-club-club-select" disabled>
+                    <option value="">— сначала выберите город —</option>
+                </select>
+            </div>
+            <button type="button" class="m-profile-club-save-btn" id="m-club-save-btn" disabled>
+                <i class="ph ph-floppy-disk"></i> Сохранить
+            </button>
+        </div>
+
+        <!-- Режим 2: Ручное добавление клуба (на проверку) -->
+        <div id="m-club-custom-mode" style="display: none;">
+            <div class="m-profile-club-custom-fields">
+                <input type="text" class="m-profile-club-input" id="m-custom-club-name"
+                    placeholder="Название клуба или ссылка на Telegram" maxlength="80" />
+                <input type="text" class="m-profile-club-input" id="m-custom-club-contact"
+                    placeholder="Город, сайт или соцсеть (если без Telegram)" maxlength="120" />
+                <div class="m-profile-club-custom-note">
+                    <i class="ph ph-info"></i> Заявка получит статус «На проверке» — мы проверим клуб вручную.
+                </div>
+            </div>
+            <button type="button" class="m-profile-club-save-btn" id="m-custom-club-save-btn" disabled>
+                <i class="ph ph-paper-plane-tilt"></i> Сохранить
+            </button>
+        </div>
     </div>`;
 }
 
 function attachClubSelectorListeners(container, db) {
     const ONLINE_ID = '__online__';
+    const onlineCityIds = getOnlineCityIds(db);
+
     const citySelect = container.querySelector('#m-club-city-select');
     const clubSelect = container.querySelector('#m-club-club-select');
     const saveBtn = container.querySelector('#m-club-save-btn');
+
+    const toggleBtn = container.querySelector('#m-btn-toggle-custom-club');
+    const listMode = container.querySelector('#m-club-list-mode');
+    const customMode = container.querySelector('#m-club-custom-mode');
+    const customNameInput = container.querySelector('#m-custom-club-name');
+    const customContactInput = container.querySelector('#m-custom-club-contact');
+    const customSaveBtn = container.querySelector('#m-custom-club-save-btn');
+
+    if (toggleBtn && listMode && customMode) {
+        let isCustomOpen = false;
+        toggleBtn.addEventListener('click', () => {
+            isCustomOpen = !isCustomOpen;
+            listMode.style.display = isCustomOpen ? 'none' : 'block';
+            customMode.style.display = isCustomOpen ? 'block' : 'none';
+            toggleBtn.textContent = isCustomOpen ? '← Выбрать из списка' : 'Нет моего клуба? Добавить';
+        });
+    }
+
+    if (customNameInput && customSaveBtn) {
+        customNameInput.addEventListener('input', () => {
+            customSaveBtn.disabled = !customNameInput.value.trim();
+        });
+
+        customSaveBtn.addEventListener('click', async () => {
+            const customName = customNameInput.value.trim();
+            if (!customName) return;
+            const customContact = (customContactInput?.value || '').trim();
+            const serializedId = `custom::${customName}::${customContact}::pending`;
+
+            const data = saveSelectedClubData({
+                clubId: serializedId,
+                isCustom: true,
+                customName,
+                customContact,
+                status: 'pending'
+            });
+            syncClubToCloud(data).catch(() => {});
+            showToast('Клуб отправлен на проверку!', 'ph-clock-countdown');
+            renderProfile();
+        });
+    }
+
     if (!citySelect || !clubSelect || !saveBtn) return;
 
     citySelect.addEventListener('change', () => {
@@ -425,7 +568,9 @@ function attachClubSelectorListeners(container, db) {
         }
         let clubs;
         if (cityId === ONLINE_ID) {
-            clubs = (db.clubs || []).filter(c => c.isOnline || c.online || c.cityId === 'online');
+            clubs = (db.clubs || []).filter(c =>
+                c.isOnline || c.online || c.cityId === 'online' || onlineCityIds.includes(c.cityId)
+            );
         } else {
             clubs = (db.clubs || []).filter(c => c.cityId === cityId);
         }
@@ -443,12 +588,11 @@ function attachClubSelectorListeners(container, db) {
         const clubId = clubSelect.value;
         if (!clubId) return;
         const data = saveSelectedClubData(clubId);
-        syncClubToCloud(clubId, data.savedAt).catch(() => {});
+        syncClubToCloud(data).catch(() => {});
         showToast('Клуб сохранён!', 'ph-users-three');
         renderProfile();
     });
 }
-
 
 export async function checkAndSyncSession() {
     try {
@@ -461,17 +605,19 @@ export async function checkAndSyncSession() {
                     const cloudProfile = await fetchCloudProfile();
                     if (cloudProfile && cloudProfile.my_club_id) {
                         const existing = getSelectedClub();
-                        // Use cloud data if local is missing or cloud is newer
                         const cloudSavedAt = cloudProfile.my_club_saved_at
                             ? new Date(cloudProfile.my_club_saved_at).getTime()
                             : 0;
                         if (!existing || cloudSavedAt > (existing.savedAt || 0)) {
-                            try {
-                                localStorage.setItem('bookuniverse_my_club_v1', JSON.stringify({
-                                    clubId: cloudProfile.my_club_id,
-                                    savedAt: cloudSavedAt || Date.now()
-                                }));
-                            } catch (_) {}
+                            const parsedCloudClub = parseCloudClubId(
+                                cloudProfile.my_club_id,
+                                cloudSavedAt || Date.now()
+                            );
+                            if (parsedCloudClub) {
+                                try {
+                                    localStorage.setItem('bookuniverse_my_club_v1', JSON.stringify(parsedCloudClub));
+                                } catch (_) {}
+                            }
                         }
                     }
                 } catch (_) {}
@@ -491,7 +637,7 @@ export function renderProfile() {
     const wantBooks = Object.values(profile.books).filter(b => b.status === 'want');
     const clubMatches = calculateClubMatches(db);
 
-    // Club selector section
+    const clubHeroBadgeHtml = buildClubHeroBadgeHtml(db);
     const clubSelectorHtml = buildClubSelectorHtml(db);
 
     const totalRead = readBooks.length;
@@ -526,8 +672,11 @@ export function renderProfile() {
                 </button>
             </div>
             <div class="m-profile-bio">${escapeHtml(userSub)}</div>
+            ${clubHeroBadgeHtml}
         </div>
     </div>
+
+    ${clubSelectorHtml}
 
     <!-- Counters -->
     <div class="m-profile-stats-row">
@@ -669,7 +818,7 @@ export function renderProfile() {
         </div>`;
     }
 
-    container.innerHTML = heroHtml + clubSelectorHtml + tabContentHtml + syncCardHtml;
+    container.innerHTML = heroHtml + tabContentHtml + syncCardHtml;
 
     // Attach listeners
     // Tab switching

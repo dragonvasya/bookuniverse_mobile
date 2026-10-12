@@ -2701,37 +2701,66 @@ html, body {
 }
 /* ═══ Club Selector ══════════════════════════════════════════════════════ */
 .m-profile-club-section {
-  margin: 8px 16px 4px;
+  margin: 0 16px 14px;
+  padding: 14px;
+  border-radius: 16px;
+  background: rgba(30, 34, 64, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.m-profile-club-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
 }
 
 .m-profile-club-label {
   font-size: 12px;
   font-weight: 600;
-  color: var(--text3);
+  color: var(--text2);
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  margin-bottom: 8px;
   display: flex;
   align-items: center;
   gap: 5px;
 }
 
-.m-profile-club-selects {
+.m-profile-club-toggle-custom {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 2px 4px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.m-profile-club-selects,
+.m-profile-club-custom-fields {
   display: flex;
   flex-direction: column;
   gap: 8px;
   margin-bottom: 10px;
 }
 
-.m-profile-club-select {
+.m-profile-club-select,
+.m-profile-club-input {
   width: 100%;
   padding: 11px 14px;
   border-radius: 12px;
   border: 1.5px solid rgba(255,255,255,0.14);
-  background: #1e2240;
+  background-color: #1e2240;
   color: #e8eaf6;
-  font-size: 15px;
+  font-size: 14px;
   font-family: var(--font);
+  -webkit-text-fill-color: #e8eaf6;
+}
+
+.m-profile-club-select {
   appearance: none;
   -webkit-appearance: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
@@ -2739,23 +2768,45 @@ html, body {
   background-position: right 12px center;
   padding-right: 36px;
   cursor: pointer;
-  -webkit-text-fill-color: #e8eaf6;
 }
 
 .m-profile-club-select option {
-  background: #1e2240;
+  background-color: #1e2240;
   color: #e8eaf6;
 }
 
+.m-profile-club-input::placeholder {
+  color: var(--text3);
+  -webkit-text-fill-color: var(--text3);
+}
+
 .m-profile-club-select:disabled {
-  opacity: 0.35;
+  opacity: 0.4;
   cursor: not-allowed;
 }
 
-.m-profile-club-select:focus {
+.m-profile-club-select:focus,
+.m-profile-club-input:focus {
   outline: none;
   border-color: #a78bfa;
   box-shadow: 0 0 0 3px rgba(167,139,250,0.15);
+}
+
+.m-profile-club-custom-note {
+  font-size: 12px;
+  color: var(--text2);
+  line-height: 1.4;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  padding: 4px 2px 0;
+}
+
+.m-profile-club-custom-note i {
+  color: var(--amber);
+  font-size: 14px;
+  margin-top: 1px;
+  flex-shrink: 0;
 }
 
 .m-profile-club-save-btn {
@@ -2767,16 +2818,16 @@ html, body {
   padding: 11px 16px;
   border-radius: 12px;
   border: none;
-  background: var(--accent, #aa33ff);
-  color: #fff;
-  font-size: 15px;
-  font-weight: 600;
+  background: var(--accent, #a78bfa);
+  color: #0a0c1e;
+  font-size: 14px;
+  font-weight: 700;
   cursor: pointer;
   transition: opacity 0.18s, transform 0.12s;
 }
 
 .m-profile-club-save-btn:disabled {
-  opacity: 0.4;
+  opacity: 0.35;
   cursor: not-allowed;
 }
 
@@ -2784,30 +2835,36 @@ html, body {
   transform: scale(0.97);
 }
 
-/* Saved club chip */
+/* Saved club badge under user name */
+.m-profile-club-hero-badge {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+}
+
 .m-profile-club-chip {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  background: color-mix(in srgb, var(--club-color, #aa33ff) 18%, transparent);
-  border: 1.5px solid color-mix(in srgb, var(--club-color, #aa33ff) 45%, transparent);
+  gap: 6px;
+  background: color-mix(in srgb, var(--club-color, #a78bfa) 16%, #181b35);
+  border: 1px solid color-mix(in srgb, var(--club-color, #a78bfa) 45%, transparent);
   border-radius: 20px;
-  padding: 6px 14px 6px 10px;
+  padding: 4px 11px 4px 9px;
   max-width: 100%;
 }
 
-.m-profile-club-chip-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--club-color, #aa33ff);
+.m-profile-club-chip-icon {
+  color: var(--club-color, #a78bfa);
+  font-size: 14px;
   flex-shrink: 0;
 }
 
 .m-profile-club-chip-name {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
-  color: var(--text1);
+  color: var(--text);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -2815,15 +2872,26 @@ html, body {
 
 .m-profile-club-chip-city {
   font-size: 12px;
-  color: var(--text3);
+  color: var(--text2);
   white-space: nowrap;
 }
 
-.m-profile-club-change-note {
-  font-size: 12px;
+.m-profile-club-status-pill {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 2px 6px;
+  border-radius: 10px;
+  background: rgba(251, 191, 36, 0.2);
+  color: var(--amber);
+  white-space: nowrap;
+}
+
+.m-profile-club-cooldown-hint {
+  font-size: 11px;
   color: var(--text3);
-  margin-top: 6px;
-  text-align: center;
+  padding-left: 2px;
 }
 
 .m-profile-edit-name-btn {
