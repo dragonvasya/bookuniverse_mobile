@@ -63,5 +63,15 @@ initSearch();
 initStats();
 initProfile();
 
+// ── Telegram WebApp (Mini App) initialization ────────────────────────
+if (window.Telegram?.WebApp) {
+    try {
+        const tg = window.Telegram.WebApp;
+        tg.ready();
+        tg.expand();
+    } catch (_) {}
+}
+
 // ── Start on Events tab ───────────────────────────────────────────────
 switchTab('events');
+

@@ -25,12 +25,12 @@ export function getSupabaseConfig() {
 
     const envUrl = import.meta.env.VITE_SUPABASE_URL || '';
     const envKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
-    const envBot = import.meta.env.VITE_TELEGRAM_BOT_NAME || '';
+    const envBot = import.meta.env.VITE_TELEGRAM_BOT_NAME || 'bookuniverse_club_bot';
 
     return {
         url: custom?.url || envUrl || DEFAULT_SUPABASE_URL,
         anonKey: custom?.anonKey || envKey || DEFAULT_SUPABASE_ANON_KEY,
-        botName: custom?.botName || envBot || '',
+        botName: custom?.botName || envBot || 'bookuniverse_club_bot',
         isCustom: !!(custom?.url && custom?.anonKey)
     };
 }
