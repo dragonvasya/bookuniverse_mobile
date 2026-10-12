@@ -82,11 +82,22 @@ export function openAuthModal(onSuccessCallback = null) {
                     <i class="ph-fill ph-telegram-logo"></i> Войти как ${escapeHtml(tmaUser.first_name)}
                 </button>`;
             } else if (config.botName) {
-                // Официальный виджет Telegram
+                const botLoginUrl = `https://t.me/${config.botName}?start=app`;
                 tgContentHtml = `
                 <div class="m-tg-widget-intro">
-                    Нажмите кнопку ниже, чтобы авторизоваться через Telegram в 1 клик. Ваша полка сохранится в аккаунте.
+                    Откройте приложение прямо в Telegram — полка и прочитанные книги привяжутся к вашему Telegram-аккаунту:
                 </div>
+                
+                <a href="${botLoginUrl}" target="_blank" rel="noopener noreferrer" class="m-tg-open-bot-btn">
+                    <i class="ph-fill ph-telegram-logo"></i> Открыть в @${escapeHtml(config.botName)}
+                </a>
+
+                <div class="m-auth-divider"><span>или через браузерный виджет</span></div>
+
+                <div class="m-tg-widget-subnote">
+                    Если виджет ниже запрашивает телефон, введите номер и подтвердите запрос в сервисном чате <b>Telegram</b>:
+                </div>
+
                 <div class="m-tg-widget-container" id="m-tg-widget-box">
                     <div class="m-tg-loading-spinner"><i class="ph ph-spinner-gap ph-spin"></i> Загрузка виджета Telegram...</div>
                 </div>`;

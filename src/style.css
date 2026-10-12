@@ -3424,6 +3424,35 @@ html, body {
   color: var(--accent);
 }
 
+.m-tg-open-bot-btn {
+  width: 100%;
+  padding: 13px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #229ED9 0%, #0088cc 100%);
+  color: #fff;
+  font-size: 14.5px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(34, 158, 217, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  box-sizing: border-box;
+}
+
+.m-tg-open-bot-btn:active {
+  transform: scale(0.98);
+}
+
+.m-tg-widget-subnote {
+  font-size: 11.5px;
+  color: var(--text3);
+  line-height: 1.4;
+  text-align: center;
+}
+
 .m-tg-login-btn {
   width: 100%;
   padding: 13px;
