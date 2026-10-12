@@ -10,6 +10,7 @@ import {
     fetchCloudShelf,
     fetchCloudProfile,
     syncLocalShelfToCloud,
+    syncClubToCloud,
     saveCloudBookStatus,
     removeCloudBookStatus,
     updateCloudProfile,
@@ -442,6 +443,25 @@ export async function checkAndSyncSession() {
             currentCloudUser = await getCurrentUser();
             if (currentCloudUser) {
                 await syncWithCloud(true);
+                // Pull club selection from cloud
+                try {
+                    const cloudProfile = await fetchCloudProfile();
+                    if (cloudProfile && cloudProfile.my_club_id) {
+                        const existing = getSelectedClub();
+                        // Use cloud data if local is missing or cloud is newer
+                        const cloudSavedAt = cloudProfile.my_club_saved_at
+                            ? new Date(cloudProfile.my_club_saved_at).getTime()
+                            : 0;
+                        if (!existing || cloudSavedAt > (existing.savedAt || 0)) {
+                            try {
+                                localStorage.setItem('bookuniverse_my_club_v1', JSON.stringify({
+                                    clubId: cloudProfile.my_club_id,
+                                    savedAt: cloudSavedAt || Date.now()
+                                }));
+                            } catch (_) {}
+                        }
+                    }
+                } catch (_) {}
             }
         }
     } catch (_) {}
@@ -817,4 +837,5 @@ export async function initProfile() {
         }
     });
 }
+
 
