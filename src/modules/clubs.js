@@ -203,6 +203,12 @@ function buildClubDetail(club, db) {
         t.textContent = `с ${club.founded}`;
         tags.appendChild(t);
     }
+    if (club.birthday) {
+        const t = document.createElement('span');
+        t.className = 'm-tag';
+        t.textContent = `🎂 ДР: ${club.birthday}`;
+        tags.appendChild(t);
+    }
     if (club.organizer) {
         const t = document.createElement('span');
         t.className = 'm-tag';
