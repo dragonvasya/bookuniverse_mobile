@@ -126,6 +126,39 @@ const VENUES = [
         lng: 20.4644,
         clubIds: ['cl25'],
     },
+    {
+        id: 'sarenok',
+        type: 'reading_spot',
+        name: '«Сарёнок»',
+        address: 'ул. Малая Никитская, 20с1',
+        metro: '«Баррикадная»',
+        hours: 'Ежедневно с 10:00 до 21:00',
+        lat: 55.7595,
+        lng: 37.5906,
+        logo: '/reading-place-logo.jpg',
+        color: '#f5a2b3',
+        badge: 'Уютные места для чтения · выбор клуба Book Events',
+        description: '«Сарёнок» — атмосферное пространство, где проходят лекции, творческие вечера, спектакли и тематические мероприятия, не только литературные.<br><br>Попадаешь внутрь — и хочется задержаться, рассмотреть все детали, сделать стильные фотографии.<br><br>Здесь также можно купить книги: ассортимент небольшой, но разнообразный и интересный. А еще можно взять кофе в местной кофейне «Кафёнок» и просто посидеть за столиком, почитать книгу, поработать или пообщаться с друзьями.',
+        clubIds: ['cl23'],
+    },
+    {
+        id: 'ozero',
+        type: 'reading_spot',
+        name: 'Книжный магазин «Озеро»',
+        subtitle: 'Книги и карты',
+        address: 'Подколокольный пер., 11/11/1',
+        metro: '«Китай-город»',
+        hours: 'Ежедневно с 11:00 до 22:00',
+        lat: 55.7528,
+        lng: 37.6433,
+        logo: '/reading-place-logo.jpg',
+        color: '#f5a2b3',
+        badge: 'Уютные места для чтения · выбор клуба Book Events',
+        telegramUrl: 'https://t.me/ozerobooks',
+        eventsUrl: 'https://ozerobooks.ru/osenvozere/',
+        description: '📚 Новая точка притяжения книголюбов, появившаяся на картах этим летом.<br>Магазин находится в самом старом жилом доме Москвы, на Хитровке. Внутри — стеллажи и столы с внимательно отобранными книгами, графический кабинет с книгами по теме графики и иллюстрации, а также кафе.<br><br>Здесь встретишь современную интеллектуальную литературу, книги независимых издательств и книги на иностранных языках. Художественная литература соседствует с нон-фикшном. Пока ходишь по магазину, ловишь приятную атмосферу нишевого книжного, где на полках не бестселлеры, пестрящие обложками в сетевых или у блогеров, а избранная литература. Есть где задержаться и что поизучать.<br><br>А еще в «Озере» проходят интересные мероприятия.',
+        clubIds: ['cl23'],
+    },
 ];
 
 const MONTHS_SHORT = ['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
@@ -186,6 +219,41 @@ function loadYmaps() {
 // ── Popup builder ─────────────────────────────────────────────────────
 
 function buildPopup(venue, clubs, db) {
+    if (venue.type === 'reading_spot') {
+        const titleHtml = venue.telegramUrl
+            ? `<a href="${venue.telegramUrl}" target="_blank" rel="noopener" class="m-map-popup-venue-link">${venue.name} ↗</a>`
+            : venue.name;
+        const subtitleHtml = venue.subtitle
+            ? `<div class="m-map-popup-subtitle">${venue.subtitle}</div>`
+            : '';
+        const metaLines = [
+            `<div>📍 Адрес: ${venue.address}</div>`,
+            venue.metro ? `<div>Ⓜ️ ${venue.metro}</div>` : '',
+            venue.hours ? `<div>🕘 ${venue.hours}</div>` : ''
+        ].filter(Boolean).join('');
+
+        const actions = [
+            venue.telegramUrl
+                ? `<a class="m-map-popup-btn" href="${venue.telegramUrl}" target="_blank" rel="noopener">Telegram-канал →</a>`
+                : '',
+            venue.eventsUrl
+                ? `<a class="m-map-popup-btn" href="${venue.eventsUrl}" target="_blank" rel="noopener">Афиша ближайших на их сайте →</a>`
+                : ''
+        ].filter(Boolean).join(' ');
+
+        return `<div class="m-map-popup m-map-popup-reading">
+            <div class="m-map-popup-curated">
+                <img src="/book-events-logo.jpg" alt="Book Events" class="m-map-popup-curated-logo" />
+                <span>${venue.badge || 'Уютные места для чтения · выбор клуба Book Events'}</span>
+            </div>
+            <div class="m-map-popup-venue">${titleHtml}</div>
+            ${subtitleHtml}
+            <div class="m-map-popup-desc">${venue.description || ''}</div>
+            <div class="m-map-popup-spot-meta">${metaLines}</div>
+            ${actions ? `<div class="m-map-popup-actions">${actions}</div>` : ''}
+          </div>`;
+    }
+
     const venueClubs = venue.clubIds
         .map(id => clubs.find(c => c.id === id))
         .filter(Boolean);
@@ -255,13 +323,16 @@ function getLogoSrc(club) {
 
 // ── Custom placemark layout ───────────────────────────────────────────
 
-function buildPlacemarkHtml(club) {
-    const logoUrl = getLogoSrc(club);
+function buildPlacemarkHtml(club, venue) {
+    const logoUrl = venue?.logo || getLogoSrc(club);
+    const pinColor = venue?.color || club?.color || '#f5a2b3';
+    const altText = venue?.name || club?.name || '';
     const content = logoUrl
-        ? `<img class="m-map-pin-logo" src="${logoUrl}" alt="${club.name}" />`
+        ? `<img class="m-map-pin-logo" src="${logoUrl}" alt="${altText}" />`
         : `<i class="ph ph-book-open"></i>`;
+    const extraClass = venue?.type === 'reading_spot' ? ' is-reading-spot' : '';
 
-    return `<div class="m-map-pin" style="background:${club.color};border-color:${club.color};box-shadow:0 3px 10px rgba(0,0,0,0.45)">
+    return `<div class="m-map-pin${extraClass}" style="background:${pinColor};border-color:${pinColor};box-shadow:0 3px 10px rgba(0,0,0,0.45)">
                ${content}
              </div>`;
 }
@@ -306,7 +377,7 @@ export async function initMap() {
 
         // Кастомный layout
         const PinLayout = ymaps.templateLayoutFactory.createClass(
-            buildPlacemarkHtml(primaryClub)
+            buildPlacemarkHtml(primaryClub, venue)
         );
 
         const placemark = new ymaps.Placemark(
@@ -346,9 +417,14 @@ function initCityFilter(map, clubs) {
                 return;
             }
 
+            if (city === 'reading') {
+                map.setCenter([55.7562, 37.6170], 13, { duration: 400 });
+                return;
+            }
+
             // Найти первый venue в нужном городе и центрировать
             const target = VENUES.find(v => {
-                if (city === 'msk') return v.id === 'sok_msk' || v.id === 'tower_a' || v.id === 'lib172' || v.id === 'lib16' || v.id === 'skolkovo' || v.id === 'lama' || v.id === 'investoro' || v.id === 'chekhov' || v.id === 'gromko';
+                if (city === 'msk') return v.id === 'sok_msk' || v.id === 'tower_a' || v.id === 'lib172' || v.id === 'lib16' || v.id === 'skolkovo' || v.id === 'lama' || v.id === 'investoro' || v.id === 'chekhov' || v.id === 'gromko' || v.id === 'sarenok' || v.id === 'ozero';
                 if (city === 'spb') return v.id === 'sok_spb' || v.id === 'seno';
                 if (city === 'ekb') return v.id === 'ekb';
                 if (city === 'bel') return v.id === 'noda';
