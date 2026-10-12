@@ -1,4 +1,4 @@
-/**
+﻿/**
  * profile.js — Личный профиль читателя (Этап 1: Local-First + Supabase Cloud Sync).
  * Хранение отметок «Прочитано» и «В планах» в localStorage и Supabase.
  * Вход в 1 клик через Telegram и Email, расчёт совместимости с клубами.
@@ -327,6 +327,114 @@ export function openBookStatusPicker(book) {
 const AVAILABLE_AVATARS = ['📚', '☕', '🦉', '🪐', '📖', '✨', '🦊', '🐉', '🎨', '🦁', '🌿', '🧭'];
 
 let activeProfileTab = 'read'; // 'read' | 'want' | 'clubs'
+// в•ђв•ђв•ђ Club Selector в•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђв•ђ
+
+const CLUB_COOLDOWN_DAYS = 7;
+
+function getSelectedClub() {
+    try {
+        const raw = localStorage.getItem('bookuniverse_my_club_v1');
+        if (raw) return JSON.parse(raw);
+    } catch (_) {}
+    return null;
+}
+
+function saveSelectedClubData(clubId) {
+    const data = { clubId, savedAt: Date.now() };
+    try {
+        localStorage.setItem('bookuniverse_my_club_v1', JSON.stringify(data));
+    } catch (_) {}
+    return data;
+}
+
+function canChangeClub(savedClub) {
+    if (!savedClub || !savedClub.savedAt) return true;
+    const diffMs = Date.now() - savedClub.savedAt;
+    const diffDays = diffMs / (1000 * 60 * 60 * 24);
+    return diffDays >= CLUB_COOLDOWN_DAYS;
+}
+
+function buildClubSelectorHtml(db) {
+    const myClub = getSelectedClub();
+    const cities = (db.cities || []).filter(c => (db.clubs || []).some(cl => cl.cityId === c.id));
+
+    if (myClub && myClub.clubId && !canChangeClub(myClub)) {
+        // Show chip with selected club
+        const club = (db.clubs || []).find(c => c.id === myClub.clubId);
+        if (club) {
+            const city = (db.cities || []).find(c => c.id === club.cityId);
+            const changeDate = new Date(myClub.savedAt + CLUB_COOLDOWN_DAYS * 24 * 60 * 60 * 1000);
+            const changeDateStr = changeDate.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' });
+            return `
+    <div class="m-profile-club-section">
+        <div class="m-profile-club-chip" style="--club-color: ${escapeHtml(club.color || '#aa33ff')}">
+            <span class="m-profile-club-chip-dot"></span>
+            <span class="m-profile-club-chip-name">${escapeHtml(club.name)}</span>
+            ${city ? `<span class="m-profile-club-chip-city">${escapeHtml(city.name)}</span>` : ''}
+        </div>
+        <div class="m-profile-club-change-note">РЎРјРµРЅРёС‚СЊ РєР»СѓР± РјРѕР¶РЅРѕ ${changeDateStr}</div>
+    </div>`;
+        }
+    }
+
+    // Show picker
+    const cityOptions = (cities || []).map(c =>
+        `<option value="${escapeHtml(c.id)}">${escapeHtml(c.name)}</option>`
+    ).join('');
+
+    return `
+    <div class="m-profile-club-section" id="m-club-picker-section">
+        <div class="m-profile-club-label"><i class="ph-fill ph-users-three"></i> РњРѕР№ РєРЅРёР¶РЅС‹Р№ РєР»СѓР±</div>
+        <div class="m-profile-club-selects">
+            <select class="m-profile-club-select" id="m-club-city-select">
+                <option value="">вЂ” РІС‹Р±РµСЂРёС‚Рµ РіРѕСЂРѕРґ вЂ”</option>
+                ${cityOptions}
+            </select>
+            <select class="m-profile-club-select" id="m-club-club-select" disabled>
+                <option value="">вЂ” СЃРЅР°С‡Р°Р»Р° РІС‹Р±РµСЂРёС‚Рµ РіРѕСЂРѕРґ вЂ”</option>
+            </select>
+        </div>
+        <button type="button" class="m-profile-club-save-btn" id="m-club-save-btn" disabled>
+            <i class="ph ph-floppy-disk"></i> РЎРѕС…СЂР°РЅРёС‚СЊ
+        </button>
+    </div>`;
+}
+
+function attachClubSelectorListeners(container, db) {
+    const citySelect = container.querySelector('#m-club-city-select');
+    const clubSelect = container.querySelector('#m-club-club-select');
+    const saveBtn = container.querySelector('#m-club-save-btn');
+    if (!citySelect || !clubSelect || !saveBtn) return;
+
+    citySelect.addEventListener('change', () => {
+        const cityId = citySelect.value;
+        clubSelect.innerHTML = '';
+        if (!cityId) {
+            clubSelect.innerHTML = '<option value="">вЂ” СЃРЅР°С‡Р°Р»Р° РІС‹Р±РµСЂРёС‚Рµ РіРѕСЂРѕРґ вЂ”</option>';
+            clubSelect.disabled = true;
+            saveBtn.disabled = true;
+            return;
+        }
+        const clubs = (db.clubs || []).filter(c => c.cityId === cityId);
+        clubSelect.innerHTML = '<option value="">вЂ” РІС‹Р±РµСЂРёС‚Рµ РєР»СѓР± вЂ”</option>' +
+            clubs.map(c => `<option value="${escapeHtml(c.id)}">${escapeHtml(c.name)}</option>`).join('');
+        clubSelect.disabled = false;
+        saveBtn.disabled = true;
+    });
+
+    clubSelect.addEventListener('change', () => {
+        saveBtn.disabled = !clubSelect.value;
+    });
+
+    saveBtn.addEventListener('click', () => {
+        const clubId = clubSelect.value;
+        if (!clubId) return;
+        saveSelectedClubData(clubId);
+        showToast('РљР»СѓР± СЃРѕС…СЂР°РЅС‘РЅ!', 'ph-users-three');
+        renderProfile();
+    });
+}
+
 
 export async function checkAndSyncSession() {
     try {
@@ -349,6 +457,9 @@ export function renderProfile() {
     const readBooks = Object.values(profile.books).filter(b => b.status === 'read');
     const wantBooks = Object.values(profile.books).filter(b => b.status === 'want');
     const clubMatches = calculateClubMatches(db);
+
+    // Club selector section
+    const clubSelectorHtml = buildClubSelectorHtml(db);
 
     const totalRead = readBooks.length;
     const totalWant = wantBooks.length;
@@ -525,7 +636,7 @@ export function renderProfile() {
         </div>`;
     }
 
-    container.innerHTML = heroHtml + tabContentHtml + syncCardHtml;
+    container.innerHTML = heroHtml + clubSelectorHtml + tabContentHtml + syncCardHtml;
 
     // Attach listeners
     // Tab switching
@@ -593,6 +704,9 @@ export function renderProfile() {
             }
         });
     });
+
+    // Club selector listeners
+    attachClubSelectorListeners(container, db);
 }
 
 // ── Avatar Picker Modal ───────────────────────────────────────────────
@@ -703,3 +817,4 @@ export async function initProfile() {
         }
     });
 }
+
