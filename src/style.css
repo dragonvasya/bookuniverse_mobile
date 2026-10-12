@@ -2691,6 +2691,15 @@ html, body {
   line-height: 1.2;
 }
 
+.m-profile-badge-auth {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--green);
+  font-size: 16px;
+  margin-left: -2px;
+}
+
 .m-profile-edit-name-btn {
   background: transparent;
   border: none;

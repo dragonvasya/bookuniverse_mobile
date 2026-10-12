@@ -10,14 +10,14 @@ import { initQuiz } from './modules/quiz.js';
 import { initSearch } from './modules/search.js';
 import { initStats } from './modules/stats.js';
 import { initMap } from './modules/map.js';
-import { initProfile, renderProfile } from './modules/profile.js';
+import { initProfile, renderProfile, checkAndSyncSession } from './modules/profile.js';
 
 // ── Tab routing ───────────────────────────────────────────────────────
 
 const pages = document.querySelectorAll('.m-page');
 const navBtns = document.querySelectorAll('.m-nav-btn');
 
-function switchTab(targetPage) {
+async function switchTab(targetPage) {
     pages.forEach(p => p.classList.toggle('active', p.dataset.page === targetPage));
     navBtns.forEach(b => b.classList.toggle('active', b.dataset.page === targetPage));
 
@@ -27,6 +27,7 @@ function switchTab(targetPage) {
     }
 
     if (targetPage === 'profile') {
+        await checkAndSyncSession();
         renderProfile();
     }
 

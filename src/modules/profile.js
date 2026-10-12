@@ -328,6 +328,17 @@ const AVAILABLE_AVATARS = ['📚', '☕', '🦉', '🪐', '📖', '✨', '🦊',
 
 let activeProfileTab = 'read'; // 'read' | 'want' | 'clubs'
 
+export async function checkAndSyncSession() {
+    try {
+        if (!currentCloudUser) {
+            currentCloudUser = await getCurrentUser();
+            if (currentCloudUser) {
+                await syncWithCloud(true);
+            }
+        }
+    } catch (_) {}
+}
+
 export function renderProfile() {
     const container = document.getElementById('profile-content');
     if (!container) return;
@@ -342,6 +353,17 @@ export function renderProfile() {
     const totalRead = readBooks.length;
     const totalWant = wantBooks.length;
 
+    // Cloud session check & user display
+    let displayName = profile.user.name;
+    let userSub = profile.user.bio;
+    if (currentCloudUser) {
+        const meta = currentCloudUser.user_metadata || {};
+        if (meta.username) displayName = meta.username;
+        if (meta.telegram_username) userSub = '@' + meta.telegram_username + ' · Авторизован через Telegram';
+        else if (currentCloudUser.email && !currentCloudUser.email.includes('@telegram.bookuniverse')) userSub = currentCloudUser.email + ' · Облачный профиль';
+        else if (meta.telegram_id) userSub = 'Telegram ID: ' + meta.telegram_id + ' · Синхронизировано';
+    }
+
     // Header & User Info
     const heroHtml = `
     <div class="m-profile-hero">
@@ -353,12 +375,13 @@ export function renderProfile() {
         </div>
         <div class="m-profile-user-info">
             <div class="m-profile-name-row">
-                <span class="m-profile-name" id="profile-name-display">${escapeHtml(profile.user.name)}</span>
+                <span class="m-profile-name" id="profile-name-display">${escapeHtml(displayName)}</span>
+                ${currentCloudUser ? '<span class="m-profile-badge-auth" title="Авторизован"><i class="ph-fill ph-check-circle"></i></span>' : ''}
                 <button type="button" class="m-profile-edit-name-btn" id="btn-edit-name" title="Изменить имя">
                     <i class="ph ph-pencil-simple"></i>
                 </button>
             </div>
-            <div class="m-profile-bio">${escapeHtml(profile.user.bio)}</div>
+            <div class="m-profile-bio">${escapeHtml(userSub)}</div>
         </div>
     </div>
 
