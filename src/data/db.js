@@ -265,6 +265,13 @@ const SEED = {
             location: '2 этаж, 201 переговорная',
             registerUrl: 'https://t.me/bookclubsok_spb',
         },
+        {
+            id: 'b_gogol_leo', title: 'Герой со станции Фридрихштрассе', author: 'Максим Лео',
+            clubId: 'cl29', color: '#e63946', year: 2026,
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-y/wc1000/6955225126.jpg',
+            meetingDate: '2026-10-25',
+            registerUrl: 'https://vk.ru/gogolmogol_book_club',
+        },
 {
             id: 'b_gogol1', title: 'Снег', author: 'Джон Бэнвилл',
             clubId: 'cl29', color: '#e63946', year: 2026,
@@ -2661,6 +2668,11 @@ function applyMigrations(db) {
         });
     }
     // Ensure cl28 (Громко сказано) exists & sync birthday
+        // Ensure cl29 (Гоголь Моголь) exists
+    if (!db.clubs.find(c => c.id === 'cl29')) {
+        const seedCl29 = SEED.clubs.find(c => c.id === 'cl29');
+        if (seedCl29) db.clubs.push(JSON.parse(JSON.stringify(seedCl29)));
+    }
     const cl28cached = db.clubs.find(c => c.id === 'cl28');
     if (!cl28cached) {
         const seedCl28 = SEED.clubs.find(c => c.id === 'cl28');
