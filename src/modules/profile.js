@@ -155,6 +155,29 @@ export async function syncWithCloud(silent = false) {
             if (cloudProfile.bio) localProfile.user.bio = cloudProfile.bio;
         }
 
+        // 1b. Синхронизация выбранного клуба (из profiles или user_metadata)
+        try {
+            const localClub = getSelectedClub();
+            const metaClub = currentCloudUser?.user_metadata?.my_club;
+            let cloudClub = null;
+            if (cloudProfile && cloudProfile.my_club_id) {
+                const cloudSavedAt = cloudProfile.my_club_saved_at
+                    ? new Date(cloudProfile.my_club_saved_at).getTime()
+                    : Date.now();
+                cloudClub = parseCloudClubId(cloudProfile.my_club_id, cloudSavedAt);
+            } else if (metaClub && (metaClub.clubId || metaClub.customName)) {
+                cloudClub = metaClub.clubId && String(metaClub.clubId).startsWith('custom::') && !metaClub.isCustom
+                    ? parseCloudClubId(metaClub.clubId, metaClub.savedAt)
+                    : metaClub;
+            }
+
+            if (cloudClub && (!localClub || (cloudClub.savedAt || 0) > (localClub.savedAt || 0))) {
+                localStorage.setItem('bookuniverse_my_club_v1', JSON.stringify(cloudClub));
+            } else if (localClub && !cloudClub) {
+                syncClubToCloud(localClub).catch(() => {});
+            }
+        } catch (_) {}
+
         // 2. Подгружаем книги из облака
         const cloudBooks = await fetchCloudShelf();
         if (cloudBooks) {
@@ -360,9 +383,26 @@ function getSelectedClub() {
             if (parsed && parsed.clubId && String(parsed.clubId).startsWith('custom::') && !parsed.isCustom) {
                 return parseCloudClubId(parsed.clubId, parsed.savedAt);
             }
-            return parsed;
+            if (parsed && (parsed.clubId || parsed.customName)) {
+                return parsed;
+            }
         }
     } catch (_) {}
+
+    // Fallback to Supabase user_metadata if available
+    try {
+        const metaClub = currentCloudUser?.user_metadata?.my_club;
+        if (metaClub && (metaClub.clubId || metaClub.customName)) {
+            const normalized = metaClub.clubId && String(metaClub.clubId).startsWith('custom::') && !metaClub.isCustom
+                ? parseCloudClubId(metaClub.clubId, metaClub.savedAt)
+                : metaClub;
+            if (normalized) {
+                localStorage.setItem('bookuniverse_my_club_v1', JSON.stringify(normalized));
+                return normalized;
+            }
+        }
+    } catch (_) {}
+
     return null;
 }
 
@@ -396,49 +436,58 @@ function getOnlineCityIds(db) {
 
 function buildClubHeroBadgeHtml(db) {
     const myClub = getSelectedClub();
-    if (!myClub || (!myClub.clubId && !myClub.customName) || canChangeClub(myClub)) {
+    if (!myClub || (!myClub.clubId && !myClub.customName)) {
         return '';
     }
 
-    const changeDate = new Date(myClub.savedAt + CLUB_COOLDOWN_DAYS * 24 * 60 * 60 * 1000);
+    const changeDate = new Date((myClub.savedAt || Date.now()) + CLUB_COOLDOWN_DAYS * 24 * 60 * 60 * 1000);
     const changeDateStr = changeDate.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' });
+    const cooldownLocked = !canChangeClub(myClub);
 
-    if (myClub.isCustom) {
+    if (myClub.isCustom || String(myClub.clubId || '').startsWith('custom::')) {
+        const customName = myClub.customName || String(myClub.clubId).split('::')[1] || 'Мой клуб';
         const statusLabel = myClub.status === 'verified' ? 'Подтверждён' : 'На проверке';
         const statusClass = myClub.status === 'verified' ? 'is-verified' : 'is-pending';
         return `
         <div class="m-profile-club-hero-badge">
             <div class="m-profile-club-chip ${statusClass}" style="--club-color: #fbbf24">
                 <i class="ph-fill ph-clock-countdown m-profile-club-chip-icon"></i>
-                <span class="m-profile-club-chip-name">${escapeHtml(myClub.customName)}</span>
+                <span class="m-profile-club-chip-name">${escapeHtml(customName)}</span>
                 <span class="m-profile-club-status-pill">${statusLabel}</span>
             </div>
-            <div class="m-profile-club-cooldown-hint">Сменить клуб можно ${changeDateStr}</div>
+            ${cooldownLocked ? `<div class="m-profile-club-cooldown-hint">Сменить клуб можно ${changeDateStr}</div>` : ''}
         </div>`;
     }
 
     const club = (db.clubs || []).find(c => c.id === myClub.clubId);
-    if (!club) return '';
+    const clubName = club?.name || myClub.clubName;
+    if (!clubName) return '';
 
+    const clubColor = club?.color || myClub.clubColor || '#a78bfa';
     const onlineCityIds = getOnlineCityIds(db);
-    const isOnline = club.isOnline || club.online || club.cityId === 'online' || onlineCityIds.includes(club.cityId);
-    const cityObj = isOnline ? { name: 'Онлайн' } : (db.cities || []).find(c => c.id === club.cityId);
+    let cityName = myClub.cityName || '';
+    if (club) {
+        const isOnline = club.isOnline || club.online || club.cityId === 'online' || onlineCityIds.includes(club.cityId);
+        const cityObj = isOnline ? { name: 'Онлайн' } : (db.cities || []).find(c => c.id === club.cityId);
+        if (cityObj?.name) cityName = cityObj.name;
+    }
 
     return `
     <div class="m-profile-club-hero-badge">
-        <div class="m-profile-club-chip" style="--club-color: ${escapeHtml(club.color || '#a78bfa')}">
+        <div class="m-profile-club-chip" style="--club-color: ${escapeHtml(clubColor)}">
             <i class="ph-fill ph-users-three m-profile-club-chip-icon"></i>
-            <span class="m-profile-club-chip-name">${escapeHtml(club.name)}</span>
-            ${cityObj ? `<span class="m-profile-club-chip-city">· ${escapeHtml(cityObj.name)}</span>` : ''}
+            <span class="m-profile-club-chip-name">${escapeHtml(clubName)}</span>
+            ${cityName ? `<span class="m-profile-club-chip-city">· ${escapeHtml(cityName)}</span>` : ''}
         </div>
-        <div class="m-profile-club-cooldown-hint">Сменить клуб можно ${changeDateStr}</div>
+        ${cooldownLocked ? `<div class="m-profile-club-cooldown-hint">Сменить клуб можно ${changeDateStr}</div>` : ''}
     </div>`;
 }
 
 function buildClubSelectorHtml(db) {
     const myClub = getSelectedClub();
-    if (myClub && (myClub.clubId || myClub.customName) && !canChangeClub(myClub)) {
-        // Filters disappear completely once saved
+    const badgeHtml = buildClubHeroBadgeHtml(db);
+    if (myClub && badgeHtml && !canChangeClub(myClub)) {
+        // Filters disappear completely once saved and badge is active
         return '';
     }
 
@@ -532,12 +581,19 @@ function attachClubSelectorListeners(container, db) {
     }
 
     if (customNameInput && customSaveBtn) {
-        customNameInput.addEventListener('input', () => {
-            customSaveBtn.disabled = !customNameInput.value.trim();
-        });
+        const updateCustomBtnState = () => {
+            const hasVal = Boolean(customNameInput.value.trim() || (customContactInput && customContactInput.value.trim()));
+            customSaveBtn.disabled = !hasVal;
+        };
+        customNameInput.addEventListener('input', updateCustomBtnState);
+        customNameInput.addEventListener('change', updateCustomBtnState);
+        if (customContactInput) {
+            customContactInput.addEventListener('input', updateCustomBtnState);
+            customContactInput.addEventListener('change', updateCustomBtnState);
+        }
 
         customSaveBtn.addEventListener('click', async () => {
-            const customName = customNameInput.value.trim();
+            const customName = customNameInput.value.trim() || (customContactInput?.value || '').trim();
             if (!customName) return;
             const customContact = (customContactInput?.value || '').trim();
             const serializedId = `custom::${customName}::${customContact}::pending`;
@@ -587,7 +643,17 @@ function attachClubSelectorListeners(container, db) {
     saveBtn.addEventListener('click', async () => {
         const clubId = clubSelect.value;
         if (!clubId) return;
-        const data = saveSelectedClubData(clubId);
+        const clubObj = (db.clubs || []).find(c => c.id === clubId);
+        const isOnline = clubObj && (clubObj.isOnline || clubObj.online || clubObj.cityId === 'online' || onlineCityIds.includes(clubObj.cityId));
+        const cityObj = clubObj ? (isOnline ? { name: 'Онлайн' } : (db.cities || []).find(c => c.id === clubObj.cityId)) : null;
+
+        const data = saveSelectedClubData({
+            clubId,
+            clubName: clubObj?.name || '',
+            clubColor: clubObj?.color || '#a78bfa',
+            cityName: cityObj?.name || '',
+            isCustom: false
+        });
         syncClubToCloud(data).catch(() => {});
         showToast('Клуб сохранён!', 'ph-users-three');
         renderProfile();
@@ -596,32 +662,10 @@ function attachClubSelectorListeners(container, db) {
 
 export async function checkAndSyncSession() {
     try {
-        if (!currentCloudUser) {
-            currentCloudUser = await getCurrentUser();
-            if (currentCloudUser) {
-                await syncWithCloud(true);
-                // Pull club selection from cloud
-                try {
-                    const cloudProfile = await fetchCloudProfile();
-                    if (cloudProfile && cloudProfile.my_club_id) {
-                        const existing = getSelectedClub();
-                        const cloudSavedAt = cloudProfile.my_club_saved_at
-                            ? new Date(cloudProfile.my_club_saved_at).getTime()
-                            : 0;
-                        if (!existing || cloudSavedAt > (existing.savedAt || 0)) {
-                            const parsedCloudClub = parseCloudClubId(
-                                cloudProfile.my_club_id,
-                                cloudSavedAt || Date.now()
-                            );
-                            if (parsedCloudClub) {
-                                try {
-                                    localStorage.setItem('bookuniverse_my_club_v1', JSON.stringify(parsedCloudClub));
-                                } catch (_) {}
-                            }
-                        }
-                    }
-                } catch (_) {}
-            }
+        const user = await getCurrentUser();
+        if (user) {
+            currentCloudUser = user;
+            await syncWithCloud(true);
         }
     } catch (_) {}
 }

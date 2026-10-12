@@ -458,20 +458,38 @@ export async function syncClubToCloud(clubData) {
         ? `custom::${clubData.customName || ''}::${clubData.customContact || ''}::${clubData.status || 'pending'}`
         : clubData.clubId;
 
+    const savedAtIso = new Date(clubData.savedAt || Date.now()).toISOString();
+
+    // 1. Save in user_metadata (always works without extra SQL columns or RLS issues)
+    try {
+        await sb.auth.updateUser({
+            data: {
+                my_club: {
+                    ...clubData,
+                    clubId: serializedClubId,
+                    savedAt: clubData.savedAt || Date.now()
+                }
+            }
+        });
+    } catch (e) {
+        console.warn('Не удалось обновить user_metadata.my_club:', e);
+    }
+
+    // 2. Save in profiles table
     try {
         const { error } = await sb
             .from('profiles')
             .upsert({
                 id: user.id,
                 my_club_id: serializedClubId,
-                my_club_saved_at: new Date(clubData.savedAt || Date.now()).toISOString(),
+                my_club_saved_at: savedAtIso,
                 updated_at: new Date().toISOString()
             }, { onConflict: 'id' });
 
         if (error) throw error;
         return true;
     } catch (err) {
-        console.warn('Не удалось сохранить клуб в Supabase:', err);
+        console.warn('Не удалось сохранить клуб в таблицу profiles:', err);
         return false;
     }
 }

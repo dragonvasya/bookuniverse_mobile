@@ -2848,10 +2848,12 @@ html, body {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: color-mix(in srgb, var(--club-color, #a78bfa) 16%, #181b35);
-  border: 1px solid color-mix(in srgb, var(--club-color, #a78bfa) 45%, transparent);
+  background: rgba(167, 139, 250, 0.16);
+  background: color-mix(in srgb, var(--club-color, #a78bfa) 18%, #181b35);
+  border: 1px solid rgba(167, 139, 250, 0.45);
+  border: 1px solid color-mix(in srgb, var(--club-color, #a78bfa) 50%, transparent);
   border-radius: 20px;
-  padding: 4px 11px 4px 9px;
+  padding: 5px 12px 5px 10px;
   max-width: 100%;
 }
 
