@@ -153,7 +153,7 @@ const SEED = {
         {
             id: 'b_career_3', title: 'Невыносимая легкость бытия', author: 'Милан Кундера',
             clubId: 'cl13', color: '#aa4466', year: 2026,
-            coverUrl: '/cover-kundera.jpg',
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-v/wc1000/14083120795.jpg',
             meetingDate: '2026-10-25', meetingTime: '12:00',
             price: '700 рублей',
             registerUrl: 'https://career-university.ru/reading_club#accord',
@@ -692,7 +692,7 @@ const SEED = {
         },
         {
             id: 'b44', title: 'Невыносимая лёгкость бытия', author: 'М. Кундера', clubId: 'cl9', color: '#cc5599', year: 2026,
-            coverUrl: '/cover-kundera.jpg',
+            coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-v/wc1000/14083120795.jpg',
         },
         {
             id: 'b45', title: 'Степной волк', author: 'Г. Гессе', clubId: 'cl9', color: '#886633', year: 2026,
@@ -781,7 +781,7 @@ const SEED = {
         {
             id: 'b1017', title: 'Легко не будет', author: 'Бен Хоровиц', clubId: 'cl14', color: '#3a5f8a', year: 2026,
             coverUrl: 'https://ir.ozone.ru/s3/multimedia-1-w/wc1000/7423035368.jpg',
-            meetingDate: '2026-10-22',
+            meetingDate: '2026-10-29',
             meetingTime: '17:00',
             location: 'БЦ «Tower A», аудитория 807',
             registerUrl: 'mailto:kudryavtceva_n@magnit.ru',
@@ -2895,7 +2895,17 @@ function applyMigrations(db) {
     } else {
         cl28cached.birthday = '24 октября';
     }
-        // Ensure cl34 (Переделкино) exists
+            // Fix Kundera cover and update Horowitz date
+    db?.books?.forEach((b) => {
+        if (b.title && (b.title.includes('легкость бытия') || b.title.includes('лёгкость бытия'))) {
+            b.coverUrl = 'https://ir.ozone.ru/s3/multimedia-1-v/wc1000/14083120795.jpg';
+        }
+    });
+    const b1017 = db?.books?.find((b) => b.id === 'b1017');
+    if (b1017) {
+        b1017.meetingDate = '2026-10-29';
+    }
+    // Ensure cl34 (Переделкино) exists
     if (!db.clubs.find(c => c.id === 'cl34')) {
         const seedCl34 = SEED.clubs.find(c => c.id === 'cl34');
         if (seedCl34) db.clubs.push(JSON.parse(JSON.stringify(seedCl34)));
