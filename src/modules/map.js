@@ -159,6 +159,14 @@ const VENUES = [
         description: '📚 Новая точка притяжения книголюбов, появившаяся на картах этим летом.<br>Магазин находится в самом старом жилом доме Москвы, на Хитровке. Внутри — стеллажи и столы с внимательно отобранными книгами, графический кабинет с книгами по теме графики и иллюстрации, а также кафе.<br><br>Здесь встретишь современную интеллектуальную литературу, книги независимых издательств и книги на иностранных языках. Художественная литература соседствует с нон-фикшном. Пока ходишь по магазину, ловишь приятную атмосферу нишевого книжного, где на полках не бестселлеры, пестрящие обложками в сетевых или у блогеров, а избранная литература. Есть где задержаться и что поизучать.<br><br>А еще в «Озере» проходят интересные мероприятия.',
         clubIds: ['cl23'],
     },
+    {
+        id: 'peredelkino',
+        name: 'Дом творчества Переделкино',
+        address: 'Москва, посёлок ДСК «Мичуринец», ул. Погодина, 4',
+        lat: 55.6615,
+        lng: 37.3325,
+        clubIds: ['cl34'],
+    },
 ];
 
 const MONTHS_SHORT = ['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'];
@@ -317,6 +325,7 @@ function getLogoSrc(club) {
         cl31: '/alla-logo.jpg',
         cl32: '/chekhov-logo.jpg',
         cl33: '/almaty-logo.jpg',
+        cl34: '/peredelkino-logo.png',
     };
     return logoMap[club.id] || null;
 }
@@ -424,7 +433,7 @@ function initCityFilter(map, clubs) {
 
             // Найти первый venue в нужном городе и центрировать
             const target = VENUES.find(v => {
-                if (city === 'msk') return v.id === 'sok_msk' || v.id === 'tower_a' || v.id === 'lib172' || v.id === 'lib16' || v.id === 'skolkovo' || v.id === 'lama' || v.id === 'investoro' || v.id === 'chekhov' || v.id === 'gromko' || v.id === 'sarenok' || v.id === 'ozero';
+                if (city === 'msk') return v.id === 'sok_msk' || v.id === 'tower_a' || v.id === 'lib172' || v.id === 'lib16' || v.id === 'skolkovo' || v.id === 'lama' || v.id === 'investoro' || v.id === 'chekhov' || v.id === 'gromko' || v.id === 'sarenok' || v.id === 'ozero' || v.id === 'peredelkino';
                 if (city === 'spb') return v.id === 'sok_spb' || v.id === 'seno';
                 if (city === 'ekb') return v.id === 'ekb';
                 if (city === 'bel') return v.id === 'noda';

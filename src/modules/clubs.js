@@ -69,7 +69,8 @@ function getLogoSrc(club) {
         cl30: '/shrift-logo.jpg',    // Шрифт, Казань
         cl31: '/alla-logo.jpg',      // Алла читает, Ереван
         cl32: '/chekhov-logo.jpg',   // Чехов и компания, Москва
-        cl33: '/almaty-logo.jpg',    // Book club Алматы
+        cl33: '/almaty-logo.jpg',
+        cl34: '/peredelkino-logo.png',    // Book club Алматы
     };
     return logoMap[club.id] || null;
 }
